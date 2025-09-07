@@ -1,0 +1,171 @@
+{
+  "projects": [
+    {
+      "id": "proj_1",
+      "title": "E-Commerce Platform",
+      "description": "Full-stack e-commerce solution with React, Node.js, and MongoDB",
+      "image": "/project1.jpg",
+      "technologies": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Stripe"
+      ],
+      "githubUrl": "https://github.com/example/ecommerce",
+      "liveUrl": "https://ecommerce.example.com",
+      "isActive": true,
+      "createdAt": "2025-09-06T20:07:32.179Z",
+      "updatedAt": "2025-09-06T20:07:32.179Z"
+    },
+    {
+      "id": "proj_1757189305653",
+      "title": "Updated Test Project",
+      "description": "Updated description for testing",
+      "image": "/test.jpg",
+      "technologies": [
+        "React",
+        "Node.js"
+      ],
+      "isActive": true,
+      "createdAt": "2025-09-06T20:08:25.653Z",
+      "updatedAt": "2025-09-06T20:08:40.793Z"
+    },
+    {
+      "id": "proj_1757197869914",
+      "title": "Test Project",
+      "description": "Test project description",
+      "technologies": [
+        "React",
+        "Node.js"
+      ],
+      "imageUrl": "https://example.com/image.jpg",
+      "liveUrl": "https://example.com",
+      "githubUrl": "https://github.com/example",
+      "category": "Web Development",
+      "featured": true,
+      "active": true,
+      "createdAt": "2025-09-06T22:31:09.914Z",
+      "updatedAt": "2025-09-06T22:31:09.914Z"
+    },
+    {
+      "id": "proj_1757197873586",
+      "createdAt": "2025-09-06T22:31:13.586Z",
+      "updatedAt": "2025-09-06T22:31:13.586Z"
+    },
+    {
+      "id": "proj_1757197923818",
+      "title": "Test Project",
+      "description": "Test project description",
+      "technologies": [
+        "React",
+        "Node.js"
+      ],
+      "imageUrl": "https://example.com/image.jpg",
+      "liveUrl": "https://example.com",
+      "githubUrl": "https://github.com/example",
+      "category": "Web Development",
+      "featured": true,
+      "active": true,
+      "createdAt": "2025-09-06T22:32:03.818Z",
+      "updatedAt": "2025-09-06T22:32:03.818Z"
+    },
+    {
+      "id": "proj_1757197927597",
+      "createdAt": "2025-09-06T22:32:07.597Z",
+      "updatedAt": "2025-09-06T22:32:07.597Z"
+    }
+  ],
+  "clientRequests": [
+    {
+      "id": "req_1757193159966",
+      "name": "Sam test",
+      "email": "shubhambhaskr123@gmail.com",
+      "phone": "064289918",
+      "projectType": "New Website Build",
+      "requirements": "Heyo this is test......................................",
+      "budget": "Under €300",
+      "timeline": "1 Month",
+      "referenceLinks": [
+        "https://altroway.netlify.app/"
+      ],
+      "files": [
+        "zoro skull green.jpg"
+      ],
+      "acceptedTerms": true,
+      "paymentTerms": "35-40% upfront payment required",
+      "createdAt": "2025-09-06T21:12:39.966Z",
+      "updatedAt": "2025-09-06T21:12:39.966Z"
+    },
+    {
+      "id": "req_1757193776319",
+      "name": "Kate",
+      "email": "shubhambhaskr123@gmail.com",
+      "phone": "064289918",
+      "projectType": "New Website Build",
+      "requirements": "this is the test detals.....................................",
+      "budget": "Under €300",
+      "timeline": "ASAP (Rush Job)",
+      "referenceLinks": [
+        "https://www.crunchyroll.com/"
+      ],
+      "files": [
+        "onigiri.jpg"
+      ],
+      "acceptedTerms": true,
+      "paymentTerms": "35-40% upfront payment required",
+      "createdAt": "2025-09-06T21:22:56.319Z",
+      "updatedAt": "2025-09-06T21:22:56.319Z"
+    },
+    {
+      "id": "req_1757197924276",
+      "name": "Test Client",
+      "email": "test@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "budget": "$5000 - $10000",
+      "timeline": "1-3 months",
+      "requirements": "Test requirements",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "status": "pending",
+      "acceptedTerms": true,
+      "paymentTerms": "25% upfront payment required",
+      "createdAt": "2025-09-06T22:32:04.276Z",
+      "updatedAt": "2025-09-06T22:32:04.276Z"
+    }
+  ],
+  "adminUsers": [
+    {
+      "id": "admin_1",
+      "username": "admin",
+      "email": "admin@example.com",
+      "passwordHash": "$2b$10$KejEiH4M5c.57QlPzrV96OBnwTcdhdf2StwoihjKjd5LCvLAZcyHa",
+      "createdAt": "2025-09-06T20:07:32.261Z"
+    }
+  ],
+  "websiteSettings": [
+    {
+      "id": "settings_1",
+      "profile": {
+        "name": "Sam",
+        "title": "Cybersecurity Expert & Full-Stack Developer",
+        "bio": "Passionate cybersecurity professional with expertise in vulnerability assessment, penetration testing, and secure web development.",
+        "location": "Kaunas, Lithuania",
+        "email": "shubham@example.com",
+        "phone": "+370-612-34567",
+        "profileImage": "/hero-img.jpeg",
+        "coverImage": "/hero-img.jpeg"
+      },
+      "experience": [],
+      "skills": [],
+      "socialLinks": [],
+      "personalInterests": [],
+      "musicTracks": [],
+      "contactInfo": [],
+      "updatedAt": "2025-09-06T20:07:32.261Z"
+    }
+  ],
+  "themes": [],
+  "chatSessions": []
+}

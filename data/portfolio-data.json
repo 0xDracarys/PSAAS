@@ -1,0 +1,675 @@
+{
+  "projects": [
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1757189300085",
+      "createdAt": "2025-09-06T20:08:20.085Z",
+      "updatedAt": "2025-09-06T20:08:20.085Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1757188727488",
+      "createdAt": "2025-09-06T19:58:47.488Z",
+      "updatedAt": "2025-09-06T19:58:47.489Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1757188727485",
+      "createdAt": "2025-09-06T19:58:47.485Z",
+      "updatedAt": "2025-09-06T19:58:47.485Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1757188709716",
+      "createdAt": "2025-09-06T19:58:29.716Z",
+      "updatedAt": "2025-09-06T19:58:29.717Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1757188709713",
+      "createdAt": "2025-09-06T19:58:29.713Z",
+      "updatedAt": "2025-09-06T19:58:29.713Z"
+    },
+    {
+      "_id": "proj_1",
+      "id": "proj_1",
+      "title": "Cybersecurity Portfolio Platform",
+      "description": "A comprehensive portfolio website showcasing cybersecurity expertise, projects, and achievements. Built with Next.js 14, featuring 3D animations, glassmorphism design, and admin dashboard for project management.",
+      "image": "/cybersecurity-vulnerability-assessment-dashboard-w.jpg",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "3D Graphics",
+        "MongoDB"
+      ],
+      "github": "https://github.com/0xDracarys/portfolio",
+      "demo": "https://shubhambhasker.vercel.app",
+      "features": [
+        "Interactive 3D hero section",
+        "Project showcase with live demos",
+        "Client request management system",
+        "Admin dashboard with analytics",
+        "Responsive glassmorphism design"
+      ],
+      "isActive": true,
+      "createdAt": "2024-11-01T00:00:00.000Z",
+      "updatedAt": "2024-12-20T00:00:00.000Z",
+      "client": "Personal Branding",
+      "status": "completed",
+      "budget": 0,
+      "startDate": "2024-11-01",
+      "endDate": "2024-12-20",
+      "progress": 100
+    },
+    {
+      "_id": "proj_5",
+      "id": "proj_5",
+      "title": "Table Tennis Tournament Manager",
+      "description": "Web application for managing table tennis tournaments with real-time scoring, bracket generation, and player statistics. Built for local sports club management.",
+      "image": "/table-tennis-tournament.jpg",
+      "tags": [
+        "Vue.js",
+        "Firebase",
+        "Real-time",
+        "Sports Management",
+        "Statistics"
+      ],
+      "github": "https://github.com/0xDracarys/table-tennis-manager",
+      "demo": "https://table-tennis-tournament.netlify.app",
+      "features": [
+        "Tournament bracket generation",
+        "Real-time score tracking",
+        "Player statistics dashboard",
+        "Match scheduling system",
+        "Results and rankings"
+      ],
+      "isActive": true,
+      "createdAt": "2024-10-01T00:00:00.000Z",
+      "updatedAt": "2024-12-05T00:00:00.000Z",
+      "client": "Local Sports Club",
+      "status": "completed",
+      "budget": 1200,
+      "startDate": "2024-10-01",
+      "endDate": "2024-11-30",
+      "progress": 100
+    },
+    {
+      "_id": "proj_4",
+      "id": "proj_4",
+      "title": "University Student Management System",
+      "description": "Full-stack web application for managing university students, courses, and academic records. Features role-based access control, grade management, and academic analytics.",
+      "image": "/university-management-system.jpg",
+      "tags": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Express",
+        "JWT Authentication"
+      ],
+      "github": "https://github.com/0xDracarys/university-management",
+      "demo": "https://university-management-demo.netlify.app",
+      "features": [
+        "Student enrollment management",
+        "Course scheduling system",
+        "Grade tracking and analytics",
+        "Role-based access control",
+        "Academic report generation"
+      ],
+      "isActive": true,
+      "createdAt": "2024-09-15T00:00:00.000Z",
+      "updatedAt": "2024-12-10T00:00:00.000Z",
+      "client": "Vilnius University",
+      "status": "in-progress",
+      "budget": 6800,
+      "startDate": "2024-09-15",
+      "endDate": "2025-02-15",
+      "progress": 65
+    },
+    {
+      "_id": "proj_3",
+      "id": "proj_3",
+      "title": "E-commerce Security Audit",
+      "description": "Comprehensive security assessment for an e-commerce platform including penetration testing, vulnerability scanning, and security recommendations. Identified and fixed critical security flaws.",
+      "image": "/ecommerce-security-audit.jpg",
+      "tags": [
+        "Security",
+        "Penetration Testing",
+        "OWASP",
+        "Web Security",
+        "Report Generation"
+      ],
+      "github": "https://github.com/0xDracarys/ecommerce-audit",
+      "demo": "https://security-audit-demo.netlify.app",
+      "features": [
+        "OWASP Top 10 vulnerability testing",
+        "SQL injection and XSS testing",
+        "Authentication bypass attempts",
+        "Security report generation",
+        "Remediation recommendations"
+      ],
+      "isActive": true,
+      "createdAt": "2024-08-01T00:00:00.000Z",
+      "updatedAt": "2024-12-01T00:00:00.000Z",
+      "client": "ShopSecure Inc",
+      "status": "completed",
+      "budget": 4500,
+      "startDate": "2024-08-01",
+      "endDate": "2024-10-15",
+      "progress": 100
+    },
+    {
+      "_id": "proj_2",
+      "id": "proj_2",
+      "title": "TryHackMe Progress Tracker",
+      "description": "Automated tracking system for TryHackMe learning progress with advanced analytics, leaderboard monitoring, and achievement visualization. Achieved Top 5 ranking in Lithuania.",
+      "image": "/tryhackme-progress-tracker-with-leaderboard-and-st.jpg",
+      "tags": [
+        "Python",
+        "Selenium",
+        "FastAPI",
+        "Data Analysis",
+        "Automation"
+      ],
+      "github": "https://github.com/0xDracarys/tryhackme-tracker",
+      "demo": "https://tryhackme.com/p/ShubhamBhasker",
+      "features": [
+        "Automated progress tracking",
+        "Leaderboard position monitoring",
+        "Performance analytics dashboard",
+        "Goal setting and reminders",
+        "Achievement badge system"
+      ],
+      "isActive": true,
+      "createdAt": "2024-03-10T00:00:00.000Z",
+      "updatedAt": "2024-11-15T00:00:00.000Z",
+      "client": "Personal Learning",
+      "status": "completed",
+      "budget": 0,
+      "startDate": "2024-03-10",
+      "endDate": "2024-06-10",
+      "progress": 100
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1757189300089",
+      "createdAt": "2025-09-06T20:08:20.089Z",
+      "updatedAt": "2025-09-06T20:08:20.090Z"
+    }
+  ],
+  "clientRequests": [
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757189300078",
+      "createdAt": "2025-09-06T20:08:20.078Z",
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757188727482",
+      "createdAt": "2025-09-06T19:58:47.482Z",
+      "status": "rejected",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757188727476",
+      "createdAt": "2025-09-06T19:58:47.476Z",
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757188709710",
+      "createdAt": "2025-09-06T19:58:29.710Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757188709695",
+      "createdAt": "2025-09-06T19:58:29.695Z",
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757188693710",
+      "createdAt": "2025-09-06T19:58:13.710Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757188693695",
+      "createdAt": "2025-09-06T19:58:13.695Z",
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "req_5",
+      "name": "Sophie Anderson",
+      "email": "sophie.anderson@consulting.com",
+      "phone": "+44-712-345678",
+      "projectType": "Portfolio Website",
+      "requirements": "Looking for a modern, professional portfolio website to showcase my consulting work. Need clean design, project galleries, contact forms, and blog functionality. Should reflect my expertise in business strategy.",
+      "budget": "€1200-€2500",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://squarespace.com",
+        "https://wix.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "40% upfront payment required",
+      "status": "pending",
+      "createdAt": "2024-12-20T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "req_1",
+      "name": "Alexandra Petrov",
+      "email": "alexandra.petrov@techstartup.lt",
+      "phone": "+370-612-34567",
+      "projectType": "Web Application Security Audit",
+      "requirements": "We need a comprehensive security assessment for our new fintech web application. Looking for penetration testing, vulnerability scanning, and security recommendations. Our app handles sensitive financial data and needs to be PCI DSS compliant.",
+      "budget": "€3000-€5000",
+      "timeline": "2-3 months",
+      "referenceLinks": [
+        "https://owasp.org",
+        "https://pci-dss.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "30% upfront payment required",
+      "status": "pending",
+      "createdAt": "2024-12-18T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "req_2",
+      "name": "Marcus Johnson",
+      "email": "marcus.johnson@university.edu",
+      "phone": "+1-555-0456",
+      "projectType": "Student Management System",
+      "requirements": "Looking to develop a modern student management system for our university. Need features for enrollment, course management, grade tracking, and academic analytics. Should integrate with existing university systems.",
+      "budget": "€5000-€8000",
+      "timeline": "4-6 months",
+      "referenceLinks": [
+        "https://canvas.instructure.com",
+        "https://blackboard.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "25% upfront payment required",
+      "status": "approved",
+      "createdAt": "2024-12-15T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "req_3",
+      "name": "Elena Rodriguez",
+      "email": "elena.rodriguez@startup.com",
+      "phone": "+34-612-987654",
+      "projectType": "E-commerce Platform",
+      "requirements": "Building a new e-commerce platform for sustainable products. Need full-stack development with modern UI/UX, payment integration, inventory management, and admin dashboard. Focus on performance and user experience.",
+      "budget": "€4000-€7000",
+      "timeline": "3-5 months",
+      "referenceLinks": [
+        "https://shopify.com",
+        "https://stripe.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "20% upfront payment required",
+      "status": "reviewed",
+      "createdAt": "2024-12-12T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "req_4",
+      "name": "David Chen",
+      "email": "david.chen@localbusiness.lt",
+      "phone": "+370-612-11111",
+      "projectType": "Sports Tournament Management",
+      "requirements": "Need a web application for managing table tennis tournaments at our local sports club. Should handle registration, bracket generation, real-time scoring, and player statistics. Mobile-friendly interface is important.",
+      "budget": "€800-€1500",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://challonge.com",
+        "https://tournamentbracket.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront payment required",
+      "status": "approved",
+      "createdAt": "2024-11-20T00:00:00.000Z",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757189300083",
+      "createdAt": "2025-09-06T20:08:20.083Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    }
+  ],
+  "adminUsers": [
+    {
+      "_id": "admin_1",
+      "username": "admin",
+      "email": "admin@portfolio.com",
+      "passwordHash": "$2b$12$HqEovANG3fK8dgXQtc9lUOgLJBVUurCsQ8AfeA/BqZab7doInB0qq",
+      "role": "admin",
+      "createdAt": "2025-09-06T19:58:13.691Z",
+      "lastLogin": "2025-09-06T20:08:20.096Z"
+    }
+  ],
+  "websiteSettings": [
+    {
+      "_id": "68bc983bf4da488a337b0118",
+      "profile": {
+        "name": "Sam",
+        "title": "Cybersecurity Expert & Full-Stack Developer",
+        "bio": "Passionate cybersecurity professional with expertise in vulnerability assessment, penetration testing, and secure web development.",
+        "location": "Kaunas, Lithuania",
+        "email": "shubham@example.com",
+        "phone": "+370-612-34567",
+        "profileImage": "/hero-img.jpeg",
+        "coverImage": "/hero-img.jpeg"
+      },
+      "experience": [
+        {
+          "title": "Senior Cybersecurity Consultant",
+          "company": "TechCorp Solutions",
+          "duration": "2022 - Present",
+          "description": "Leading security assessments and implementing security frameworks for enterprise clients.",
+          "achievements": [
+            "Reduced security vulnerabilities by 85% across client portfolios",
+            "Implemented zero-trust architecture for 50+ organizations",
+            "Led team of 12 security professionals"
+          ]
+        },
+        {
+          "title": "Penetration Tester",
+          "company": "SecureNet Inc",
+          "duration": "2020 - 2022",
+          "description": "Conducted comprehensive security assessments and vulnerability testing.",
+          "achievements": [
+            "Identified 200+ critical security vulnerabilities",
+            "Developed automated testing tools used by 100+ security teams",
+            "Achieved 99.8% client satisfaction rate"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "name": "Penetration Testing",
+          "level": 95,
+          "category": "Security"
+        },
+        {
+          "name": "Vulnerability Assessment",
+          "level": 90,
+          "category": "Security"
+        },
+        {
+          "name": "Security Architecture",
+          "level": 88,
+          "category": "Security"
+        },
+        {
+          "name": "React/Next.js",
+          "level": 85,
+          "category": "Frontend"
+        },
+        {
+          "name": "Node.js",
+          "level": 80,
+          "category": "Backend"
+        },
+        {
+          "name": "Python",
+          "level": 85,
+          "category": "Programming"
+        },
+        {
+          "name": "AWS Security",
+          "level": 82,
+          "category": "Cloud"
+        },
+        {
+          "name": "Docker",
+          "level": 75,
+          "category": "DevOps"
+        }
+      ],
+      "socialLinks": [
+        {
+          "platform": "LinkedIn",
+          "url": "https://linkedin.com/in/sam-cybersecurity",
+          "icon": "linkedin"
+        },
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/sam-cyber",
+          "icon": "github"
+        },
+        {
+          "platform": "Twitter",
+          "url": "https://twitter.com/sam_cyber",
+          "icon": "twitter"
+        },
+        {
+          "platform": "Email",
+          "url": "mailto:shubham@example.com",
+          "icon": "mail"
+        }
+      ],
+      "personalInterests": [
+        {
+          "title": "Cybersecurity Research",
+          "description": "Staying updated with latest security threats and defense mechanisms"
+        },
+        {
+          "title": "Open Source Contributions",
+          "description": "Contributing to security tools and frameworks"
+        },
+        {
+          "title": "Tech Blogging",
+          "description": "Writing about cybersecurity best practices and trends"
+        },
+        {
+          "title": "Mentoring",
+          "description": "Helping junior developers learn security practices"
+        }
+      ],
+      "musicTracks": [
+        {
+          "title": "Coding Focus",
+          "artist": "Lofi Hip Hop",
+          "duration": "2:30",
+          "genre": "Instrumental"
+        },
+        {
+          "title": "Deep Work",
+          "artist": "Ambient Sounds",
+          "duration": "3:45",
+          "genre": "Ambient"
+        },
+        {
+          "title": "Security Mindset",
+          "artist": "Electronic",
+          "duration": "4:12",
+          "genre": "Electronic"
+        }
+      ],
+      "contactInfo": {
+        "email": "shubham@example.com",
+        "phone": "+370-612-34567",
+        "location": "Kaunas, Lithuania",
+        "availability": "Available for freelance projects",
+        "responseTime": "Usually responds within 24 hours"
+      },
+      "updatedAt": "2025-09-06T20:43:55.878Z"
+    }
+  ]
+}

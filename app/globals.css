@@ -1,0 +1,170 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated to cyberpunk/futuristic color scheme */
+  --background: oklch(0.98 0.01 0); /* Near white with slight warmth */
+  --foreground: oklch(0.25 0 0); /* Dark gray for text */
+  --card: oklch(1 0 0 / 0.1); /* Glassmorphism white with transparency */
+  --card-foreground: oklch(1 0 0); /* Pure white text on cards */
+  --popover: oklch(1 0 0 / 0.2); /* Glassmorphism popover */
+  --popover-foreground: oklch(1 0 0); /* White text on popovers */
+  --primary: oklch(0.55 0.22 27); /* Vibrant red for CTAs */
+  --primary-foreground: oklch(1 0 0); /* White text on primary */
+  --secondary: oklch(0.75 0.15 85); /* Amber accent */
+  --secondary-foreground: oklch(0.25 0 0); /* Dark text on secondary */
+  --muted: oklch(0 0 0 / 0.5); /* Semi-transparent black */
+  --muted-foreground: oklch(1 0 0); /* White text for muted */
+  --accent: oklch(0.75 0.15 85); /* Amber for hover effects */
+  --accent-foreground: oklch(0.25 0 0); /* Dark text on accent */
+  --destructive: oklch(0.55 0.22 27); /* Red for errors */
+  --destructive-foreground: oklch(1 0 0); /* White text on destructive */
+  --border: oklch(1 0 0 / 0.2); /* Subtle glassmorphic borders */
+  --input: oklch(1 0 0 / 0.1); /* Glassmorphic input fields */
+  --ring: oklch(1 0 0 / 0.3); /* Focus ring */
+  --chart-1: oklch(0.55 0.22 27); /* Red chart color */
+  --chart-2: oklch(0.75 0.15 85); /* Amber chart color */
+  --chart-3: oklch(0.45 0.15 220); /* Blue chart color */
+  --chart-4: oklch(0.55 0.15 140); /* Green chart color */
+  --chart-5: oklch(0.65 0.18 320); /* Purple chart color */
+  --radius: 0.5rem; /* Rounded corners */
+  --sidebar: oklch(0 0 0 / 0.7); /* Dark sidebar with transparency */
+  --sidebar-foreground: oklch(1 0 0); /* White sidebar text */
+  --sidebar-primary: oklch(0.55 0.22 27); /* Red primary in sidebar */
+  --sidebar-primary-foreground: oklch(1 0 0); /* White text */
+  --sidebar-accent: oklch(0.75 0.15 85); /* Amber accent in sidebar */
+  --sidebar-accent-foreground: oklch(0.25 0 0); /* Dark text on accent */
+  --sidebar-border: oklch(1 0 0 / 0.3); /* Glassmorphic sidebar border */
+  --sidebar-ring: oklch(1 0 0 / 0.5); /* Sidebar focus ring */
+  
+  /* Text color utilities */
+  --text-primary: var(--foreground);
+  --text-secondary: oklch(0.7 0 0);
+  --text-muted: oklch(0.5 0 0);
+  --text-accent: var(--primary);
+  --text-inverse: var(--background);
+}
+
+.dark {
+  /* Enhanced dark mode for cyberpunk aesthetic */
+  --background: oklch(0.08 0 0); /* Very dark background */
+  --foreground: oklch(0.95 0 0); /* Near white text */
+  --card: oklch(0.12 0 0 / 0.8); /* Dark glassmorphic cards */
+  --card-foreground: oklch(0.95 0 0); /* Light text on cards */
+  --popover: oklch(0.12 0 0 / 0.9); /* Dark popover */
+  --popover-foreground: oklch(0.95 0 0); /* Light text on popovers */
+  --primary: oklch(0.65 0.25 27); /* Brighter red for dark mode */
+  --primary-foreground: oklch(0.08 0 0); /* Dark text on primary */
+  --secondary: oklch(0.8 0.18 85); /* Brighter amber for dark mode */
+  --secondary-foreground: oklch(0.08 0 0); /* Dark text on secondary */
+  --muted: oklch(0.2 0 0); /* Dark muted background */
+  --muted-foreground: oklch(0.7 0 0); /* Light muted text */
+  --accent: oklch(0.8 0.18 85); /* Bright amber accent */
+  --accent-foreground: oklch(0.08 0 0); /* Dark text on accent */
+  --destructive: oklch(0.65 0.25 27); /* Bright red for errors */
+  --destructive-foreground: oklch(0.95 0 0); /* Light text on destructive */
+  --border: oklch(0.2 0 0 / 0.5); /* Dark glassmorphic borders */
+  --input: oklch(0.15 0 0 / 0.8); /* Dark input fields */
+  --ring: oklch(0.8 0.18 85 / 0.5); /* Amber focus ring */
+  --chart-1: oklch(0.65 0.25 27); /* Bright red */
+  --chart-2: oklch(0.8 0.18 85); /* Bright amber */
+  --chart-3: oklch(0.6 0.2 220); /* Bright blue */
+  --chart-4: oklch(0.7 0.2 140); /* Bright green */
+  --chart-5: oklch(0.75 0.22 320); /* Bright purple */
+  --sidebar: oklch(0.05 0 0 / 0.95); /* Very dark sidebar */
+  --sidebar-foreground: oklch(0.95 0 0); /* Light sidebar text */
+  --sidebar-primary: oklch(0.65 0.25 27); /* Bright red primary */
+  --sidebar-primary-foreground: oklch(0.95 0 0); /* Light text */
+  --sidebar-accent: oklch(0.8 0.18 85); /* Bright amber accent */
+  --sidebar-accent-foreground: oklch(0.08 0 0); /* Dark text on accent */
+  --sidebar-border: oklch(0.2 0 0 / 0.5); /* Dark sidebar border */
+  --sidebar-ring: oklch(0.8 0.18 85 / 0.5); /* Amber sidebar ring */
+  
+  /* Text color utilities for dark mode */
+  --text-primary: var(--foreground);
+  --text-secondary: oklch(0.8 0 0);
+  --text-muted: oklch(0.6 0 0);
+  --text-accent: var(--primary);
+  --text-inverse: var(--background);
+}
+
+/* Added custom fonts for futuristic aesthetic */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;500;600&display=swap");
+
+/* Text color utility classes */
+.text-primary { color: var(--text-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-accent { color: var(--text-accent) !important; }
+.text-inverse { color: var(--text-inverse) !important; }
+
+@theme inline {
+  --font-sans: "Source Sans Pro", var(--font-geist-sans);
+  --font-serif: "Playfair Display", serif;
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Added custom animations for futuristic effects */
+  .glow {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+  }
+
+  .glassmorphism {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+}
