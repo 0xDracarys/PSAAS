@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useRef, useState, useEffect } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { useInView } from "@/hooks/use-in-view"
 import { Canvas } from "@react-three/fiber"
@@ -792,7 +793,7 @@ function ProjectsPortfolio() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} className="py-20 px-4 relative">
+    <section id="projects" ref={ref} className="py-20 px-4 relative">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -915,7 +916,7 @@ function PersonalShowcase() {
   }
 
   return (
-    <section ref={ref} className="py-20 px-4 relative bg-gradient-to-br from-muted/10 to-background">
+    <section id="about" ref={ref} className="py-20 px-4 relative bg-gradient-to-br from-muted/10 to-background">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -1165,7 +1166,7 @@ function ContactSection() {
   ]
 
   return (
-    <section ref={ref} className="py-20 px-4 relative bg-gradient-to-br from-muted/5 to-background">
+    <section id="contact" ref={ref} className="py-20 px-4 relative bg-gradient-to-br from-muted/5 to-background">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -1674,8 +1675,8 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 1.5 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               >
-                <Button size="lg" className="glow hover:glow-amber transition-all duration-300 text-lg px-8 py-3">
-                  Explore My Work
+                <Button size="lg" className="glow hover:glow-amber transition-all duration-300 text-lg px-8 py-3" asChild>
+                  <a href="#projects">Explore My Work</a>
                 </Button>
 
                 <div className="flex gap-4">
