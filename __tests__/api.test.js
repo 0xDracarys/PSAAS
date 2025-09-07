@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 
 // Test configuration
 const TEST_CONFIG = {
-  baseUrl: 'http://localhost:3000', // Updated to use port 3000
+  baseUrl: process.env.BASE_URL || 'http://localhost:3000',
   timeout: 10000,
   retries: 3
 };

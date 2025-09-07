@@ -7,7 +7,20 @@ export async function GET() {
     // Use MongoDB service directly
     const mongoService = await (await import("@/lib/mongodb")).getDbService()
     
-    const themes = await mongoService.getThemes()
+    const rawThemes = await mongoService.getThemes()
+    // Ensure each theme has an 'id' field for API consumers/tests
+    const themes = rawThemes.map((t: any) => ({
+      id: t.id || t._id,
+      effects: t.effects || {
+        backgroundParticles: false,
+        glowEffects: false,
+        glassmorphism: false,
+        neonBorders: false,
+        gradientBackgrounds: false,
+        animatedElements: false,
+      },
+      ...t,
+    }))
     const activeTheme = themes.find((theme: any) => theme.isActive) || null
 
     return NextResponse.json({

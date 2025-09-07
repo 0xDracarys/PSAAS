@@ -205,7 +205,13 @@ export class DatabaseService {
     }
 
     const collection: Collection<ClientRequest> = this.db!.collection("client_requests")
-    return await collection.find({}).sort({ createdAt: -1 }).limit(limit).skip(skip).toArray()
+    return await collection
+      .find({})
+      .project({ _id: 1, id: 1, name: 1, email: 1, phone: 1, projectType: 1, budget: 1, timeline: 1, requirements: 1, referenceLinks: 1, status: 1, createdAt: 1, updatedAt: 1 })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip(skip)
+      .toArray()
   }
 
   async updateClientRequestStatus(id: string, status: ClientRequest["status"]): Promise<boolean> {
@@ -216,7 +222,13 @@ export class DatabaseService {
     }
 
     const collection: Collection<ClientRequest> = this.db!.collection("client_requests")
-    const result = await collection.updateOne({ _id: id }, { $set: { status, updatedAt: new Date() } })
+    // Try match by string id, ObjectId _id, or custom id field
+    const candidates: any[] = [{ _id: id }, { id }]
+    try {
+      const maybeObjectId = new ObjectId(id as any)
+      candidates.push({ _id: maybeObjectId })
+    } catch {}
+    const result = await collection.updateOne({ $or: candidates }, { $set: { status, updatedAt: new Date() } })
 
     return result.modifiedCount > 0
   }
@@ -231,7 +243,12 @@ export class DatabaseService {
     const collection: Collection<ClientRequest> = this.db!.collection("client_requests")
     // Remove _id from updateData to prevent MongoDB error
     const { _id, ...safeUpdateData } = updateData as any
-    const result = await collection.updateOne({ _id: id }, { $set: { ...safeUpdateData, updatedAt: new Date() } })
+    const candidates: any[] = [{ _id: id }, { id }]
+    try {
+      const maybeObjectId = new ObjectId(id as any)
+      candidates.push({ _id: maybeObjectId })
+    } catch {}
+    const result = await collection.updateOne({ $or: candidates }, { $set: { ...safeUpdateData, updatedAt: new Date() } })
 
     return result.modifiedCount > 0
   }

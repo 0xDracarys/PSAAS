@@ -32,7 +32,17 @@ class TestRunner {
         const output = data.toString();
         console.log(`[SERVER] ${output.trim()}`);
         
-        if (output.includes('Ready in') || output.includes('Local:')) {
+        if (output.includes('Local:')) {
+          // Parse the actual port from Next.js output and expose to child tests
+          const match = output.match(/Local:\s+http:\/\/localhost:(\d+)/);
+          if (match) {
+            const port = match[1];
+            process.env.BASE_URL = `http://localhost:${port}`;
+            console.log(`🌐 Using BASE_URL=${process.env.BASE_URL}`);
+          }
+        }
+
+        if (output.includes('Ready in')) {
           serverReady = true;
           clearTimeout(timeout);
           this.isServerRunning = true;

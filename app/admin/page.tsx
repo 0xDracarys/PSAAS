@@ -1496,6 +1496,31 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <DashboardStats debouncedFetch={debouncedFetch} />
 
+          {/* Quick Navigation Menu */}
+          <div className="mt-4 mb-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+            {[
+              { key: 'projects', label: 'Projects', Icon: FolderOpen },
+              { key: 'requests', label: 'Requests', Icon: MessageSquare },
+              { key: 'settings', label: 'Settings', Icon: Settings },
+              { key: 'themes', label: 'Themes', Icon: Palette },
+              { key: 'blog', label: 'Blog', Icon: FileText },
+              { key: 'docs', label: 'Docs', Icon: BookOpen },
+            ].map(({ key, label, Icon }) => (
+              <Button
+                key={key}
+                variant="outline"
+                className="justify-start gap-2"
+                onClick={() => {
+                  const tab = document.querySelector(`[value="${key}"]`) as HTMLElement | null
+                  tab?.click()
+                }}
+              >
+                <Icon className="h-4 w-4" />
+                {label}
+              </Button>
+            ))}
+          </div>
+
           <Tabs defaultValue="projects" className="space-y-6">
             <TabsList className="glassmorphism bg-slate-800/40 backdrop-blur-md border border-slate-700/50 shadow-lg">
               <TabsTrigger value="projects" className="data-[state=active]:bg-primary/20">
