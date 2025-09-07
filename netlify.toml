@@ -1,18 +1,16 @@
 [build]
   command = "npm run build"
-  publish = ".next"
-  edge_functions = "netlify/edge-functions"
 
 [build.environment]
   NEXT_TELEMETRY_DISABLED = "1"
-  NODE_VERSION = "22"
+  NODE_VERSION = "20"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[functions]
-  node_bundler = "esbuild"
-  included_files = ["public/**"]
+#[functions]
+#  node_bundler = "esbuild"
+#  included_files = ["public/**"]
 
 [dev]
   command = "npm run dev"
