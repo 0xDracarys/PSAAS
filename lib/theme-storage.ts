@@ -2148,14 +2148,43 @@ export class ThemeService {
       const success = await dbService.updateTheme(id, updates)
       
       if (success) {
-        // Update local cache
+        // Update local cache with deep merge for nested objects
         const theme = this.getThemeById(id)
         if (theme) {
           const oldVersion = theme.version || 1
+          
+          // Deep merge for nested objects like colors, typography, etc.
+          if (updates.colors) {
+            theme.colors = { ...theme.colors, ...updates.colors }
+            delete (updates as any).colors
+          }
+          if (updates.typography) {
+            theme.typography = { ...theme.typography, ...updates.typography }
+            delete (updates as any).typography
+          }
+          if (updates.layout) {
+            theme.layout = { ...theme.layout, ...updates.layout }
+            delete (updates as any).layout
+          }
+          if (updates.components) {
+            theme.components = { ...theme.components, ...updates.components }
+            delete (updates as any).components
+          }
+          if (updates.animations) {
+            theme.animations = { ...theme.animations, ...updates.animations }
+            delete (updates as any).animations
+          }
+          if (updates.effects) {
+            theme.effects = { ...theme.effects, ...updates.effects }
+            delete (updates as any).effects
+          }
+          
+          // Apply remaining updates
           Object.assign(theme, updates, { 
             updatedAt: new Date(),
             version: oldVersion + 1
           })
+          
           await this.addToHistory(theme, changeDescription, 'admin')
         }
       }
