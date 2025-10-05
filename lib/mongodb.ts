@@ -364,7 +364,11 @@ export class DatabaseService {
   }
 
   async deleteProject(id: string): Promise<boolean> {
-    if (!this.db) await this.init()
+    if (!this.initialized) await this.init()
+
+    if (this.useMemoryStorage) {
+      return await memoryDbService.deleteProject(id)
+    }
 
     const collection: Collection<Project> = this.db!.collection("projects")
     // Try to delete by _id first, then by id field
@@ -374,6 +378,7 @@ export class DatabaseService {
       result = await collection.deleteOne({ id: id })
     }
 
+    console.log(`[MongoDB] Delete result for ${id}:`, result.deletedCount)
     return result.deletedCount > 0
   }
 
