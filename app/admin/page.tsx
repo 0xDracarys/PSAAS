@@ -43,7 +43,6 @@ import {
   RefreshCw,
   HelpCircle,
 } from "lucide-react"
-import { PasswordResetForm } from "@/components/password-reset-form"
 import { PasswordChangeForm } from "@/components/password-change-form"
 
 // Types for API data
@@ -1163,7 +1162,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
             <h3 className="text-lg font-medium">Security Settings</h3>
             <div className="border rounded-lg p-6">
               <h4 className="text-md font-medium mb-4">Change Password</h4>
-              <PasswordResetForm />
+              <PasswordChangeForm adminEmail="admin@example.com" />
             </div>
           </div>
         );
