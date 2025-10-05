@@ -535,9 +535,24 @@ export class DatabaseService {
     // Remove _id from updates to prevent MongoDB error
     const { _id, ...updatesWithoutId } = updates as any
     
+    // Flatten nested objects to use dot notation for proper MongoDB updates
+    // This prevents replacing entire nested objects
+    const flattenedUpdates: any = { updatedAt: new Date() }
+    
+    for (const [key, value] of Object.entries(updatesWithoutId)) {
+      if (value && typeof value === 'object' && !Array.isArray(value) && !(value instanceof Date)) {
+        // Flatten nested objects like colors, typography, etc.
+        for (const [nestedKey, nestedValue] of Object.entries(value as any)) {
+          flattenedUpdates[`${key}.${nestedKey}`] = nestedValue
+        }
+      } else {
+        flattenedUpdates[key] = value
+      }
+    }
+    
     const result = await collection.updateOne(
       { _id: id },
-      { $set: { ...updatesWithoutId, updatedAt: new Date() } }
+      { $set: flattenedUpdates }
     )
 
     return result.modifiedCount > 0

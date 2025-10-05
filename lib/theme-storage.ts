@@ -1262,7 +1262,7 @@ export const defaultThemes: ThemeSettings[] = [
       success: '#9fef00',
       textPrimary: '#9fef00',
       textSecondary: '#a4b816',
-      textMuted: '#6c8f3f',
+      textMuted: '#a4b816',
       textAccent: '#2ecc71',
       textInverse: '#0a0e0f',
     },
@@ -2153,34 +2153,29 @@ export class ThemeService {
         if (theme) {
           const oldVersion = theme.version || 1
           
-          // Deep merge for nested objects like colors, typography, etc.
-          if (updates.colors) {
+          // Deep merge for nested objects to match what MongoDB now has
+          if (updates.colors && theme.colors) {
             theme.colors = { ...theme.colors, ...updates.colors }
-            delete (updates as any).colors
           }
-          if (updates.typography) {
+          if (updates.typography && theme.typography) {
             theme.typography = { ...theme.typography, ...updates.typography }
-            delete (updates as any).typography
           }
-          if (updates.layout) {
+          if (updates.layout && theme.layout) {
             theme.layout = { ...theme.layout, ...updates.layout }
-            delete (updates as any).layout
           }
-          if (updates.components) {
+          if (updates.components && theme.components) {
             theme.components = { ...theme.components, ...updates.components }
-            delete (updates as any).components
           }
-          if (updates.animations) {
+          if (updates.animations && theme.animations) {
             theme.animations = { ...theme.animations, ...updates.animations }
-            delete (updates as any).animations
           }
-          if (updates.effects) {
+          if (updates.effects && theme.effects) {
             theme.effects = { ...theme.effects, ...updates.effects }
-            delete (updates as any).effects
           }
           
-          // Apply remaining updates
-          Object.assign(theme, updates, { 
+          // Apply remaining top-level updates
+          const { colors, typography, layout, components, animations, effects, ...topLevelUpdates } = updates as any
+          Object.assign(theme, topLevelUpdates, { 
             updatedAt: new Date(),
             version: oldVersion + 1
           })
