@@ -1202,6 +1202,13 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
     const file = event.target.files?.[0]
     if (!file) return
 
+    console.log('[Upload] Starting upload process:', {
+      fileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+      uploadType: type
+    })
+
     // Validate file type
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file')
@@ -1215,10 +1222,12 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
     }
 
     try {
+      console.log('[Upload] Creating FormData and sending request...')
+      
       // Create FormData for file upload
       const uploadFormData = new FormData()
       uploadFormData.append('file', file)
-      uploadFormData.append('type', type) // Use the type parameter for folder organization
+      uploadFormData.append('type', type)
 
       // Upload file to API
       const response = await fetch('/api/upload', {
@@ -1226,33 +1235,45 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
         body: uploadFormData,
       })
 
+      console.log('[Upload] Response status:', response.status, response.statusText)
+
       if (response.ok) {
         const data = await response.json()
+        console.log('[Upload] Response data:', data)
         
         if (data.success && data.url) {
+          console.log('[Upload] Upload successful! URL:', data.url)
+          
           // Update image URL based on type
           switch (type) {
             case 'profile':
               handleProfileUpdate('profileImage', data.url)
+              console.log('[Upload] Updated profile image in state')
               break
             case 'cover':
               handleProfileUpdate('coverImage', data.url)
+              console.log('[Upload] Updated cover image in state')
               break
           }
           
-          alert(`${type} image uploaded successfully!`)
+          alert(`✅ ${type.charAt(0).toUpperCase() + type.slice(1)} image uploaded successfully! Don't forget to click "Save Changes" to persist.`)
         } else {
-          console.error('Upload response missing URL:', data)
-          alert('Failed to upload image: No URL returned')
+          console.error('[Upload] Invalid response:', data)
+          alert(`❌ Failed to upload image: Server returned invalid response.`)
         }
       } else {
-        const errorData = await response.json().catch(() => ({}))
-        console.error('Upload failed:', errorData)
-        alert(`Failed to upload image: ${errorData.error || 'Unknown error'}`)
+        let errorData: any = {}
+        try {
+          errorData = await response.json()
+        } catch (e) {
+          console.error('[Upload] Failed to parse error:', e)
+        }
+        console.error('[Upload] Failed:', response.status, errorData)
+        alert(`❌ Failed to upload image: ${errorData.error || errorData.details || response.statusText}. Check Cloudinary config.`)
       }
-    } catch (error) {
-      console.error('Error uploading file:', error)
-      alert('Error uploading image')
+    } catch (error: any) {
+      console.error('[Upload] Error:', error)
+      alert(`❌ Error uploading image: ${error?.message || 'Network error'}. Check connection.`)
     }
   }
 
