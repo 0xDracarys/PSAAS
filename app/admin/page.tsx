@@ -1216,38 +1216,39 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
 
     try {
       // Create FormData for file upload
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('type', type) // Use the type parameter for folder organization
+      const uploadFormData = new FormData()
+      uploadFormData.append('file', file)
+      uploadFormData.append('type', type) // Use the type parameter for folder organization
 
       // Upload file to API
       const response = await fetch('/api/upload', {
         method: 'POST',
-        body: formData,
+        body: uploadFormData,
       })
 
       if (response.ok) {
         const data = await response.json()
         
-        // Update image URL based on type
-        switch (type) {
-          case 'profile':
-            handleProfileUpdate('profileImage', data.url)
-            break
-          case 'cover':
-            handleProfileUpdate('coverImage', data.url)
-            break
-          case 'project':
-            setFormData({ ...formData, image: data.url })
-            break
-          case 'blog':
-            // Handle blog image update
-            break
+        if (data.success && data.url) {
+          // Update image URL based on type
+          switch (type) {
+            case 'profile':
+              handleProfileUpdate('profileImage', data.url)
+              break
+            case 'cover':
+              handleProfileUpdate('coverImage', data.url)
+              break
+          }
+          
+          alert(`${type} image uploaded successfully!`)
+        } else {
+          console.error('Upload response missing URL:', data)
+          alert('Failed to upload image: No URL returned')
         }
-        
-        alert(`${type} image uploaded successfully!`)
       } else {
-        alert('Failed to upload image')
+        const errorData = await response.json().catch(() => ({}))
+        console.error('Upload failed:', errorData)
+        alert(`Failed to upload image: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
       console.error('Error uploading file:', error)

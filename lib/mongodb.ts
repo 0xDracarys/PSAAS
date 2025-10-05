@@ -371,9 +371,22 @@ export class DatabaseService {
     }
 
     const collection: Collection<Project> = this.db!.collection("projects")
-    // Try to delete by _id first, then by id field
+    
+    // Try multiple strategies to find and delete the project
+    // 1. Try as string _id
     let result = await collection.deleteOne({ _id: id })
     
+    // 2. Try as ObjectId if first attempt failed
+    if (result.deletedCount === 0) {
+      try {
+        const { ObjectId } = await import('mongodb')
+        result = await collection.deleteOne({ _id: new ObjectId(id) })
+      } catch (error) {
+        console.log(`[MongoDB] Could not convert to ObjectId: ${id}`)
+      }
+    }
+    
+    // 3. Try with id field as fallback
     if (result.deletedCount === 0) {
       result = await collection.deleteOne({ id: id })
     }
