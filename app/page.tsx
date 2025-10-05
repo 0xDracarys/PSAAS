@@ -1159,9 +1159,15 @@ function ContactSection() {
     },
     {
       icon: Shield,
-      label: "Bugcrowd",
-      href: "https://bugcrowd.com/0xDracarys",
+      label: "TryHackMe",
+      href: "https://tryhackme.com/p/DracarysRegar",
       color: "hover:text-red-400",
+    },
+    {
+      icon: Code,
+      label: "CodePen",
+      href: "https://codepen.io/0xdracarys",
+      color: "hover:text-purple-400",
     },
   ]
 

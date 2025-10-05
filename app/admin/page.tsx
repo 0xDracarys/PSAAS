@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useCallback, useMemo, ErrorBoundary } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -38,9 +39,12 @@ import {
   FileText,
   BookOpen,
   Code,
+  Image as ImageIcon,
   RefreshCw,
   HelpCircle,
 } from "lucide-react"
+import { PasswordResetForm } from "@/components/password-reset-form"
+import { PasswordChangeForm } from "@/components/password-change-form"
 
 // Types for API data
 interface Project {
@@ -932,13 +936,34 @@ function ProjectForm({ project, onSave }: { project: Project | null, onSave: (da
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="image">Image URL</Label>
-          <Input
-            id="image"
-            value={formData.image}
-            onChange={(e) => setFormData({...formData, image: e.target.value})}
-            className="glassmorphism bg-slate-800/50"
-          />
+          <Label htmlFor="image">Project Image</Label>
+          <div className="flex gap-4 items-start">
+            <div className="flex-1 space-y-2">
+              <Input
+                id="image"
+                value={formData.image}
+                onChange={(e) => setFormData({...formData, image: e.target.value})}
+                className="glassmorphism bg-slate-800/50"
+                placeholder="Image URL or upload an image"
+              />
+              {formData.image && (
+                <div className="relative h-48 border rounded-md overflow-hidden glassmorphism bg-slate-800/30">
+                  <Image 
+                    src={formData.image}
+                    alt="Project preview"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </div>
+            <div className="flex-shrink-0">
+              <ImageUploadButton 
+                onImageUploaded={(url) => setFormData(prev => ({ ...prev, image: url }))}
+              />
+            </div>
+          </div>
         </div>
         <div className="space-y-2">
           <Label htmlFor="github">GitHub URL</Label>
@@ -1072,6 +1097,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
   const [settings, setSettings] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState("general") // Add this line
 
   useEffect(() => {
     fetchSettings()
@@ -1129,6 +1155,27 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
     }
   }
 
+  const renderSettingsContent = () => {
+    switch (activeTab) {
+      case "security":
+        return (
+          <div className="space-y-6">
+            <h3 className="text-lg font-medium">Security Settings</h3>
+            <div className="border rounded-lg p-6">
+              <h4 className="text-md font-medium mb-4">Change Password</h4>
+              <PasswordResetForm />
+            </div>
+          </div>
+        );
+      default:
+        return (
+          <div className="space-y-6">
+            {/* Existing settings content */}
+          </div>
+        );
+    }
+  }
+
   // Debounced save function
   const debouncedSave = useCallback(
     debounce((settingsToSave: any) => {
@@ -1150,7 +1197,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
     // Remove auto-save - only save when button is clicked
   }
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>, type: string = 'profile') => {
     const file = event.target.files?.[0]
     if (!file) return
 
@@ -1170,7 +1217,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
       // Create FormData for file upload
       const formData = new FormData()
       formData.append('file', file)
-      formData.append('type', 'profile-image')
+      formData.append('type', type) // Use the type parameter for folder organization
 
       // Upload file to API
       const response = await fetch('/api/upload', {
@@ -1180,9 +1227,24 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
 
       if (response.ok) {
         const data = await response.json()
-        // Update profile image URL
-        handleProfileUpdate('profileImage', data.url)
-        alert('Profile image uploaded successfully!')
+        
+        // Update image URL based on type
+        switch (type) {
+          case 'profile':
+            handleProfileUpdate('profileImage', data.url)
+            break
+          case 'cover':
+            handleProfileUpdate('coverImage', data.url)
+            break
+          case 'project':
+            setFormData({ ...formData, image: data.url })
+            break
+          case 'blog':
+            // Handle blog image update
+            break
+        }
+        
+        alert(`${type} image uploaded successfully!`)
       } else {
         alert('Failed to upload image')
       }
@@ -1396,6 +1458,15 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
             </div>
           ))}
         </div>
+      </Card>
+
+      {/* Security & Password Settings */}
+      <Card className="glassmorphism bg-slate-800/40 backdrop-blur-md border border-slate-700/50 shadow-lg p-6">
+        <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Lock className="w-5 h-5 text-primary" />
+          Security & Password Management
+        </h3>
+        <PasswordChangeForm adminEmail="admin@example.com" />
       </Card>
     </div>
   )
@@ -3045,6 +3116,69 @@ localStorage.setItem('debug', 'true')
   )
 }
 
+// Image Upload Component
+function ImageUploadButton({ onImageUploaded }: { onImageUploaded: (url: string) => void }) {
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) return;
+    
+    setIsUploading(true);
+    try {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.url) {
+          onImageUploaded(data.url);
+        }
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Failed to upload image');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  return (
+    <>
+      <Input
+        type="file"
+        accept="image/*"
+        className="hidden"
+        id="image-upload"
+        onChange={handleUpload}
+      />
+      <Button 
+        type="button" 
+        variant="secondary"
+        onClick={() => document.getElementById('image-upload')?.click()}
+        disabled={isUploading}
+      >
+        {isUploading ? (
+          <div className="flex items-center gap-2">
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent" />
+            <span>Uploading...</span>
+          </div>
+        ) : (
+          <>
+            <Upload className="h-4 w-4 mr-2" />
+            Upload Image
+          </>
+        )}
+      </Button>
+    </>
+  );
+}
+
 // Blog Form Component
 function BlogForm({ blog, onSave, onCancel }: { blog?: any, onSave: (data: any) => void, onCancel: () => void }) {
   const [formData, setFormData] = useState({
@@ -3058,7 +3192,8 @@ function BlogForm({ blog, onSave, onCancel }: { blog?: any, onSave: (data: any) 
     metaTitle: blog?.metaTitle || '',
     metaDescription: blog?.metaDescription || '',
     keywords: blog?.keywords || ''
-  })
+  });
+  const [showImageHelper, setShowImageHelper] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -3107,24 +3242,78 @@ function BlogForm({ blog, onSave, onCancel }: { blog?: any, onSave: (data: any) 
           />
         </div>
 
-        <div>
+        <div className="space-y-2">
           <Label htmlFor="content">Content (Markdown)</Label>
-          <Textarea
-            id="content"
-            value={formData.content}
-            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-            rows={10}
-            className="font-mono"
-          />
+          <div className="flex gap-4 items-start">
+            <div className="flex-1">
+              <Textarea
+                id="content"
+                value={formData.content}
+                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                rows={10}
+                className="font-mono"
+                placeholder="Write your blog content here. Use markdown formatting.&#10;&#10;Use ![alt text](image-url) for images."
+              />
+            </div>
+            <div className="flex-shrink-0 space-y-2">
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowImageHelper(!showImageHelper)}
+              >
+                <ImageIcon className="h-4 w-4 mr-2" />
+                Add Image
+              </Button>
+              {showImageHelper && (
+                <Card className="p-4 space-y-4">
+                  <h4 className="text-sm font-medium">Upload Image</h4>
+                  <ImageUploadButton 
+                    onImageUploaded={(url) => {
+                      const imageMarkdown = `![Image](${url})\n\n`;
+                      const cursorPosition = (document.getElementById('content') as HTMLTextAreaElement)?.selectionStart || formData.content.length;
+                      const newContent = formData.content.slice(0, cursorPosition) + imageMarkdown + formData.content.slice(cursorPosition);
+                      setFormData({ ...formData, content: newContent });
+                    }}
+                  />
+                  <div className="text-xs text-muted-foreground">
+                    <p>Images will be inserted at cursor position</p>
+                    <p>Use drag and drop in content area to reposition</p>
+                  </div>
+                </Card>
+              )}
+            </div>
+          </div>
         </div>
 
-        <div>
-          <Label htmlFor="featuredImage">Featured Image URL</Label>
-          <Input
-            id="featuredImage"
-            value={formData.featuredImage}
-            onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
-          />
+        <div className="space-y-2">
+          <Label htmlFor="featuredImage">Featured Image</Label>
+          <div className="flex gap-4 items-start">
+            <div className="flex-1 space-y-2">
+              <Input
+                id="featuredImage"
+                value={formData.featuredImage}
+                onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
+                placeholder="Image URL or upload an image"
+              />
+              {formData.featuredImage && (
+                <div className="relative w-40 h-40 border rounded-md overflow-hidden">
+                  <Image 
+                    src={formData.featuredImage}
+                    alt="Featured image preview"
+                    fill
+                    sizes="160px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </div>
+            <div className="flex-shrink-0">
+              <ImageUploadButton 
+                onImageUploaded={(url) => setFormData(prev => ({ ...prev, featuredImage: url }))}
+              />
+            </div>
+          </div>
         </div>
 
         <div>
