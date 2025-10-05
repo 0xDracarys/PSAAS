@@ -53,7 +53,6 @@
     "@react-three/fiber": "latest",
     "@remix-run/react": "latest",
     "@sveltejs/kit": "latest",
-    "@types/bcryptjs": "^3.0.0",
     "@vercel/analytics": "latest",
     "autoprefixer": "^10.4.20",
     "aws4": "^1.13.2",
