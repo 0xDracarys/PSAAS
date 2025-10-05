@@ -1672,7 +1672,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 1.2 }}
                 className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto"
               >
-                {websiteSettings?.profile?.bio || "Cybersecurity professional focused on building secure digital solutions. Currently working as Customer Success Manager at CyberCare (NordVPN), with experience in security research and bug hunting."}
+                {websiteSettings?.profile?.bio || "Cybersecurity enthusiast & bug hunter from Delhi 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!"}
               </motion.p>
 
               <motion.div
@@ -1746,21 +1746,22 @@ export default function HomePage() {
             </h2>
             <div className="max-w-3xl mx-auto">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
-                I'm Shubham Bhasker, a university student and cybersecurity professional working in security research and customer success. 
-                Currently pursuing my Bachelor's in Information Systems & Cyber Security at Vilnius University while 
-                working as a Customer Success Manager at CyberCare (NordVPN).
+                Hey! I'm Shubham Bhasker, a cybersecurity enthusiast from New Delhi, India 🇮🇳 
+                Currently rocking it as Customer Success Manager at CyberCare (NordVPN) while studying 
+                Information Systems & Cyber Security at Vilnius University. Yeah, I'm doing both – sleep is overrated anyway 😅
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                My interest in cybersecurity started with curiosity about how systems work. This led me to security 
-                research and bug hunting, where I've gained experience in vulnerability assessment and security analysis.
+                My journey into cybersecurity started with one simple question: "How do hackers do it?" That curiosity led me down 
+                the rabbit hole of bug bounties, CTF challenges, and late-night hacking sessions. Now I'm in the Top 1% on TryHackMe 
+                and Top 500 on Bugcrowd. Not bad for someone who started with zero knowledge!
               </p>
               <blockquote className="text-xl italic text-primary border-l-4 border-primary pl-6 mb-8">
-                "Security is about understanding systems and staying informed about potential risks."
+                "The smallest oversight can lead to the biggest breach. I build with security at the core, not as an afterthought."
               </blockquote>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                When I'm not working on security projects, I enjoy learning new technologies, contributing to open source 
-                projects, and helping others in the security community. My approach focuses on systematic analysis and 
-                continuous learning.
+                When I'm not hunting bugs or helping customers, you'll find me playing table tennis, vibing to some music, 
+                or brewing the perfect cup of coffee ☕ I believe in learning by doing, sharing knowledge, and keeping things fun. 
+                Because hey, cybersecurity doesn't have to be boring!
               </p>
             </div>
           </motion.div>

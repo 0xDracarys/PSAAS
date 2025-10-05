@@ -345,11 +345,11 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
     _id: "settings_1",
     profile: {
       name: "Shubham Bhasker",
-      title: "Cybersecurity Expert & Full-Stack Developer",
-      bio: "Passionate cybersecurity professional with expertise in vulnerability assessment, penetration testing, and secure web development. Currently serving as Customer Success Manager at CyberCare, helping organizations strengthen their security posture.",
-      location: "Kaunas, Lithuania",
-      email: "shubham@example.com",
-      phone: "+370-612-34567",
+      title: "Cybersecurity Enthusiast & Bug Hunter",
+      bio: "Cybersecurity enthusiast & bug hunter from Delhi 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!",
+      location: "New Delhi, India",
+      email: "shubhambhasker2020@gmail.com",
+      phone: "+91 8700780007",
       profileImage: "/placeholder-user.jpg",
       coverImage: "/hero-img.jpeg",
     },
@@ -399,13 +399,13 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
       {
         icon: "Linkedin",
         label: "LinkedIn",
-        href: "https://linkedin.com/in/shubhambhasker",
+        href: "https://linkedin.com/in/shubham-bhasker",
         color: "hover:text-blue-400",
       },
       {
         icon: "Mail",
         label: "Email",
-        href: "mailto:shubham@example.com",
+        href: "mailto:shubhambhasker2020@gmail.com",
         color: "hover:text-red-400",
       },
       {
