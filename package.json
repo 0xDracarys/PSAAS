@@ -13,7 +13,6 @@
     "test:coverage": "npx jest --coverage",
     "test:api": "node scripts/test-runner.js",
     "test:comprehensive": "node scripts/test-runner.js",
-    "postinstall": "node node_modules/.pnpm/next@14.2.16_@babel+core@7._1a9384248520f74d96cd9dadf22ac9a7/node_modules/next/dist/bin/next telemetry disable",
     "dev:auto": "node scripts/auto-restart.js"
   },
   "dependencies": {
