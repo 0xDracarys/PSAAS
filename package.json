@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "node scripts/setup-env.js && next build",
+    "export": "node scripts/setup-env.js && next build && next export",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
@@ -12,9 +13,11 @@
     "test:coverage": "npx jest --coverage",
     "test:api": "node scripts/test-runner.js",
     "test:comprehensive": "node scripts/test-runner.js",
+    "postinstall": "node node_modules/.pnpm/next@14.2.16_@babel+core@7._1a9384248520f74d96cd9dadf22ac9a7/node_modules/next/dist/bin/next telemetry disable",
     "dev:auto": "node scripts/auto-restart.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.901.0",
     "@aws-sdk/credential-providers": "latest",
     "@emotion/is-prop-valid": "latest",
     "@hookform/resolvers": "^3.10.0",
@@ -53,10 +56,13 @@
     "@types/bcryptjs": "^3.0.0",
     "@vercel/analytics": "latest",
     "autoprefixer": "^10.4.20",
+    "aws4": "^1.13.2",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.7.0",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
+    "critters": "^0.0.25",
     "date-fns": "4.1.0",
     "dotenv": "latest",
     "embla-carousel-react": "8.5.1",
@@ -102,5 +108,10 @@
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "overrides": {
+      "htmlparser2": "^9.1.0"
+    }
   }
 }
