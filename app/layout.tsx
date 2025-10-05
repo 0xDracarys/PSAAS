@@ -38,9 +38,18 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              document.documentElement.classList.add('dark');
+            } catch (e) {}
+          `
+        }} />
+      </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark" disableTransitionOnChange>
           <div className="relative min-h-screen">
             {/* Site Header Navigation */}
             <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur">
