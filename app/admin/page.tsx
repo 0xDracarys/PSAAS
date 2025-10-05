@@ -1874,21 +1874,158 @@ function ThemeManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, 
     )
   }
 
+  // Export theme as JSON file
+  const exportTheme = (theme: any) => {
+    const themeData = {
+      ...theme,
+      _id: undefined, // Remove MongoDB ID for clean import
+      isActive: false, // New imported themes shouldn't be active by default
+      createdAt: undefined,
+      updatedAt: undefined,
+      version: theme.version || 1
+    }
+    
+    const blob = new Blob([JSON.stringify(themeData, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `theme-${theme.name.toLowerCase().replace(/\s+/g, '-')}.json`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+    alert(`Theme "${theme.name}" exported successfully!`)
+  }
+
+  // Import theme from JSON file
+  const importTheme = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      const text = await file.text()
+      const themeData = JSON.parse(text)
+
+      // Validate required fields
+      if (!themeData.name || !themeData.colors || !themeData.typography) {
+        alert('Invalid theme file. Missing required fields (name, colors, typography).')
+        return
+      }
+
+      // Generate unique ID
+      const uniqueId = `theme_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      
+      // Prepare theme for creation
+      const newTheme = {
+        ...themeData,
+        _id: uniqueId,
+        isActive: false,
+        version: themeData.version || 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+
+      // Create theme via API
+      const response = await fetch('/api/themes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTheme)
+      })
+
+      if (response.ok) {
+        await fetchThemes()
+        alert(`Theme "${themeData.name}" imported successfully!`)
+        // Reset file input
+        event.target.value = ''
+      } else {
+        const error = await response.json()
+        alert(`Failed to import theme: ${error.error || 'Unknown error'}`)
+      }
+    } catch (error: any) {
+      console.error('Error importing theme:', error)
+      alert(`Error importing theme: ${error.message || 'Invalid JSON file'}`)
+    }
+  }
+
   return (
     <div className="space-y-6" data-testid="themes-tab">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-serif font-bold" data-testid="themes-heading">Theme Management</h2>
-        <Button 
-          onClick={() => {
-            // TODO: Open theme creation dialog
-            alert('Theme creation coming soon!')
-          }}
-          className="glow hover:glow-amber transition-all duration-300"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Create Theme
-        </Button>
+        <div className="flex gap-2">
+          <label htmlFor="theme-import" className="cursor-pointer">
+            <Button 
+              type="button"
+              variant="outline"
+              className="glow hover:glow-amber transition-all duration-300"
+              onClick={() => document.getElementById('theme-import')?.click()}
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              Import Theme
+            </Button>
+            <input
+              id="theme-import"
+              type="file"
+              accept=".json"
+              onChange={importTheme}
+              className="hidden"
+            />
+          </label>
+          <Button 
+            onClick={() => {
+              alert('Theme creation coming soon! For now, duplicate an existing theme or import a JSON file.')
+            }}
+            className="glow hover:glow-amber transition-all duration-300"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Create Theme
+          </Button>
+        </div>
       </div>
+
+      {/* Import/Export Info Card */}
+      <Card className="glassmorphism bg-slate-800/30 border-primary/20 p-4">
+        <div className="flex items-start gap-3">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <FileText className="h-5 w-5 text-primary" />
+          </div>
+          <div className="flex-1">
+            <h3 className="font-semibold text-lg mb-2">Theme Import/Export</h3>
+            <p className="text-sm text-muted-foreground mb-3">
+              Easily share and import themes using JSON files. Export any theme to get a portable configuration file, 
+              then import it on another site or share it with others.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="space-y-1">
+                <h4 className="font-medium flex items-center gap-2">
+                  <Download className="h-4 w-4 text-primary" />
+                  To Export a Theme:
+                </h4>
+                <ul className="text-muted-foreground space-y-1 ml-6 list-disc">
+                  <li>Click the download icon on any theme card</li>
+                  <li>A JSON file will be downloaded to your computer</li>
+                  <li>Share this file or keep it as a backup</li>
+                </ul>
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-medium flex items-center gap-2">
+                  <Upload className="h-4 w-4 text-primary" />
+                  To Import a Theme:
+                </h4>
+                <ul className="text-muted-foreground space-y-1 ml-6 list-disc">
+                  <li>Click \"Import Theme\" button above</li>
+                  <li>Select a theme JSON file from your computer</li>
+                  <li>The theme will be added to your collection</li>
+                  <li>Activate it like any other theme</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-3 p-2 bg-amber-500/10 border border-amber-500/20 rounded text-xs text-amber-200">
+              <strong>Required Fields:</strong> name, colors (with all color properties), typography (fontFamily, fontSize, fontWeight), 
+              layout, components, animations, effects
+            </div>
+          </div>
+        </div>
+      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {themes.map((theme) => (
@@ -2014,6 +2151,14 @@ function ThemeManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, 
                     title="View history"
                   >
                     <History className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => exportTheme(theme)}
+                    title="Export theme as JSON"
+                  >
+                    <Download className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="outline"

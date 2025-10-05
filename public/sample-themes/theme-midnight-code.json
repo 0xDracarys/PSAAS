@@ -1,0 +1,95 @@
+{
+  "name": "Midnight Code",
+  "colors": {
+    "primary": "#a78bfa",
+    "secondary": "#818cf8",
+    "accent": "#fb7185",
+    "background": "#0c0a1d",
+    "foreground": "#e0e7ff",
+    "muted": "#1e1b33",
+    "border": "#312e4a",
+    "card": "#161329",
+    "popover": "#1e1b33",
+    "destructive": "#f43f5e",
+    "warning": "#fbbf24",
+    "success": "#34d399",
+    "textPrimary": "#e0e7ff",
+    "textSecondary": "#c7d2fe",
+    "textMuted": "#a5b4fc",
+    "textAccent": "#fb7185",
+    "textInverse": "#0c0a1d"
+  },
+  "typography": {
+    "fontFamily": "'Fira Code', 'JetBrains Mono', monospace",
+    "fontSize": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem",
+      "4xl": "2.25rem",
+      "5xl": "3rem",
+      "6xl": "3.75rem"
+    },
+    "fontWeight": {
+      "light": "300",
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700",
+      "extrabold": "800"
+    }
+  },
+  "layout": {
+    "borderRadius": "0.25rem",
+    "spacing": {
+      "xs": "0.25rem",
+      "sm": "0.5rem",
+      "md": "1rem",
+      "lg": "1.5rem",
+      "xl": "2rem",
+      "2xl": "3rem"
+    },
+    "shadows": {
+      "sm": "0 1px 2px 0 rgba(167, 139, 250, 0.1)",
+      "md": "0 4px 8px -2px rgba(167, 139, 250, 0.15)",
+      "lg": "0 10px 20px -6px rgba(167, 139, 250, 0.2)",
+      "xl": "0 20px 40px -12px rgba(167, 139, 250, 0.25)"
+    }
+  },
+  "components": {
+    "button": {
+      "style": "default",
+      "size": "md",
+      "rounded": false
+    },
+    "card": {
+      "style": "glassmorphism",
+      "border": true,
+      "shadow": true
+    },
+    "input": {
+      "style": "glassmorphism",
+      "border": true
+    }
+  },
+  "animations": {
+    "enabled": true,
+    "duration": "fast",
+    "easing": "ease-out"
+  },
+  "effects": {
+    "backgroundParticles": true,
+    "glowEffects": true,
+    "glassmorphism": true,
+    "neonBorders": true,
+    "gradientBackgrounds": true,
+    "animatedElements": true,
+    "hoverEffects": true,
+    "scrollAnimations": true
+  },
+  "customCSS": "/* Custom terminal-like cursor */\n.cursor-blink::after {\n  content: '|';\n  animation: blink 1s step-end infinite;\n}\n\n@keyframes blink {\n  from, to { opacity: 1; }\n  50% { opacity: 0; }\n}",
+  "version": 1
+}
