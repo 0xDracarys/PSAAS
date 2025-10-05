@@ -2294,30 +2294,8 @@ function ThemeManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, 
 
 // Theme Editor Component
 function ThemeEditor({ theme, onSave, onCancel }: { theme: any, onSave: (theme: any) => void, onCancel: () => void }) {
-  const [editedTheme, setEditedTheme] = useState({
-    ...theme,
-    colors: theme.colors || {
-      primary: '#3b82f6',
-      secondary: '#64748b',
-      accent: '#f59e0b',
-      background: '#0f172a',
-      foreground: '#f8fafc',
-      textPrimary: '#f8fafc',
-      textSecondary: '#94a3b8'
-    },
-    typography: theme.typography || {
-      fontFamily: 'Inter, sans-serif',
-      fontSize: { base: '16px' }
-    },
-    effects: theme.effects || {
-      backgroundParticles: false,
-      glowEffects: false,
-      glassmorphism: false,
-      neonBorders: false,
-      gradientBackgrounds: false,
-      animatedElements: false
-    }
-  })
+  // DON'T use fallback objects - work with what we have from the database
+  const [editedTheme, setEditedTheme] = useState({...theme})
 
   const handleSave = () => {
     onSave(editedTheme)
@@ -2327,7 +2305,7 @@ function ThemeEditor({ theme, onSave, onCancel }: { theme: any, onSave: (theme: 
     setEditedTheme({
       ...editedTheme,
       colors: {
-        ...editedTheme.colors,
+        ...(editedTheme.colors || {}),
         [colorType]: value
       }
     })
@@ -2337,7 +2315,7 @@ function ThemeEditor({ theme, onSave, onCancel }: { theme: any, onSave: (theme: 
     setEditedTheme({
       ...editedTheme,
       effects: {
-        ...editedTheme.effects,
+        ...(editedTheme.effects || {}),
         [effectType]: value
       }
     })
@@ -2365,9 +2343,8 @@ function ThemeEditor({ theme, onSave, onCancel }: { theme: any, onSave: (theme: 
               onChange={(e) => setEditedTheme({
                 ...editedTheme,
                 typography: { 
-                  ...editedTheme.typography, 
-                  fontFamily: e.target.value,
-                  fontSize: editedTheme.typography?.fontSize || { base: '16px' }
+                  ...(editedTheme.typography || {}),
+                  fontFamily: e.target.value
                 }
               })}
             />
