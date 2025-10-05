@@ -468,7 +468,9 @@ export class DatabaseService {
       { upsert: true }
     )
 
-    return result.modifiedCount > 0 || result.upsertedCount > 0
+    // Return true if operation was acknowledged (includes no changes case)
+    // modifiedCount can be 0 if data is identical, which is still a successful operation
+    return result.acknowledged
   }
 
   // Theme operations
