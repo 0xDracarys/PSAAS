@@ -17,6 +17,7 @@ let cachedDb: Db | null = null
 // Connect to MongoDB Atlas
 export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db }> {
   if (cachedClient && cachedDb) {
+    console.log("Using cached MongoDB connection")
     return { client: cachedClient, db: cachedDb }
   }
 
@@ -25,9 +26,12 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
     console.log("MONGODB_URI:", MONGODB_URI ? "Found" : "Not found")
     console.log("MONGODB_DB:", MONGODB_DB)
     
+    // Increased timeouts for Netlify serverless environment
     const client = new MongoClient(MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000, // 5 second timeout
-      connectTimeoutMS: 10000, // 10 second timeout
+      serverSelectionTimeoutMS: 30000, // 30 second timeout for serverless cold starts
+      connectTimeoutMS: 30000, // 30 second timeout
+      maxPoolSize: 10,
+      minPoolSize: 1,
     })
     
     await client.connect()
@@ -163,17 +167,15 @@ export class DatabaseService {
       const { db } = await connectToDatabase()
       this.db = db
       this.useMemoryStorage = false
-      console.log("MongoDB connection successful")
-    } catch (error) {
-      console.warn("MongoDB connection failed, falling back to memory storage:", error.message)
-      this.useMemoryStorage = true
-      // Initialize memory storage as fallback
-      await memoryDbService.init()
+      this.initialized = true
+      isGloballyInitialized = true
+      console.log("[DatabaseService] MongoDB connection successful")
+    } catch (error: any) {
+      console.error("[DatabaseService] MongoDB connection failed:", error.message)
+      console.error("[DatabaseService] Stack:", error.stack)
+      // Re-throw the error instead of silently falling back
+      throw new Error(`MongoDB connection failed: ${error.message}`)
     }
-    
-    this.initialized = true
-    isGloballyInitialized = true
-    console.log(`[DatabaseService] Initialization complete, useMemoryStorage: ${this.useMemoryStorage}`)
   }
 
   // Client Requests operations
