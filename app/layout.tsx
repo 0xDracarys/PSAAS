@@ -23,34 +23,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const isServer = typeof window === 'undefined';
-
-  if (isServer) {
-    return (
-      <html lang="en" suppressHydrationWarning>
-        <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-          <div className="relative min-h-screen">
-            {children}
-          </div>
-        </body>
-      </html>
-    );
-  }
-
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
-      <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            try {
-              document.documentElement.classList.add('dark');
-            } catch (e) {}
-          `
-        }} />
-      </head>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className="dark" style={{ colorScheme: 'dark' }}>
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased bg-black text-white`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark" disableTransitionOnChange>
-          <div className="relative min-h-screen">
+          <div className="relative min-h-screen bg-background text-foreground">
             {/* Site Header Navigation */}
             <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur">
               <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
