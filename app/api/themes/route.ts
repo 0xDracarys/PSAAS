@@ -1,5 +1,6 @@
 // API route for theme management
 import { type NextRequest, NextResponse } from "next/server"
+import { defaultThemes } from "@/lib/theme-storage"
 
 // GET - Retrieve all themes
 export async function GET() {
@@ -7,7 +8,26 @@ export async function GET() {
     // Use MongoDB service directly
     const mongoService = await (await import("@/lib/mongodb")).getDbService()
     
-    const rawThemes = await mongoService.getThemes()
+    let rawThemes = await mongoService.getThemes()
+    
+    // If no themes exist, seed default themes
+    if (!rawThemes || rawThemes.length === 0) {
+      console.log("[API] No themes found, seeding default themes...")
+      
+      for (const theme of defaultThemes) {
+        try {
+          await mongoService.createTheme(theme)
+          console.log(`[API] Seeded theme: ${theme.name}`)
+        } catch (error) {
+          console.error(`[API] Error seeding theme ${theme.name}:`, error)
+        }
+      }
+      
+      // Fetch themes again after seeding
+      rawThemes = await mongoService.getThemes()
+      console.log(`[API] Seeded ${rawThemes.length} themes successfully`)
+    }
+    
     // Ensure each theme has an 'id' field for API consumers/tests
     const themes = rawThemes.map((t: any) => ({
       id: t.id || t._id,
@@ -18,6 +38,8 @@ export async function GET() {
         neonBorders: false,
         gradientBackgrounds: false,
         animatedElements: false,
+        hoverEffects: false,
+        scrollAnimations: false,
       },
       ...t,
     }))
@@ -27,6 +49,7 @@ export async function GET() {
       success: true,
       themes,
       activeTheme,
+      count: themes.length,
     })
   } catch (error) {
     console.error("[API] Error fetching themes:", error)
