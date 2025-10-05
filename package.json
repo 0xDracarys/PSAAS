@@ -107,9 +107,7 @@
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
   },
-  "pnpm": {
-    "overrides": {
-      "htmlparser2": "^9.1.0"
-    }
+  "overrides": {
+    "htmlparser2": "^9.1.0"
   }
 }
