@@ -336,3 +336,5 @@ If you encounter any issues or need help with setup:
 ---
 
 **"In cybersecurity, the smallest oversight can lead to the biggest breach. I build with security at the core, not as an afterthought."** - Shubham Bhasker
+#   T r i g g e r   d e p l o y m e n t  
+ 
