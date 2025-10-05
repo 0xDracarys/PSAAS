@@ -1909,9 +1909,7 @@ export class ThemeService {
         this.themes.forEach(t => t.isActive = false)
         const theme = this.getThemeById(id)
         if (theme) {
-          // Ensure theme has all required properties with defaults
-          const completeTheme = this.ensureCompleteTheme(theme)
-          Object.assign(theme, completeTheme)
+          // Just update the active state, don't replace theme properties
           theme.isActive = true
           theme.updatedAt = new Date()
           await this.addToHistory(theme, 'Theme activated', 'admin')
