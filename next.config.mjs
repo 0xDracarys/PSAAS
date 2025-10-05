@@ -8,7 +8,13 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['localhost']
+    domains: ['localhost', 'res.cloudinary.com']
+  },
+  // Disable static optimization for pages that need database access
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {

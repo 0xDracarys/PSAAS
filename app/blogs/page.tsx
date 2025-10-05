@@ -1,5 +1,9 @@
 import Link from "next/link"
 
+// Force dynamic rendering - don't try to fetch data at build time
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 async function getBlogsDirect() {
   const { getDbService } = await import("@/lib/mongodb")
   const db = await getDbService()
