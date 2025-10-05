@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     // Connect to database
     const { db } = await connectToDatabase()
-    const collection = db.collection('adminUsers')
+    const collection = db.collection('admin_users')
 
     // Find admin user
     const admin = await collection.findOne({ email })
