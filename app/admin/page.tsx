@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useCallback, useMemo, ErrorBoundary } from "react"
+import React, { useState, useEffect, useCallback, useMemo } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -70,6 +70,7 @@ interface Project {
 
 interface ClientRequest {
   _id: string
+  id?: string
   name: string
   email: string
   phone: string
