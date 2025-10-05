@@ -1672,7 +1672,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 1.2 }}
                 className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto"
               >
-                {websiteSettings?.profile?.bio || "Cybersecurity enthusiast & bug hunter from Delhi 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!"}
+                {websiteSettings?.profile?.bio || "Cybersecurity enthusiast & bug hunter from Bareilly 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!"}
               </motion.p>
 
               <motion.div
@@ -1746,7 +1746,7 @@ export default function HomePage() {
             </h2>
             <div className="max-w-3xl mx-auto">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
-                Hey! I'm Shubham Bhasker, a cybersecurity enthusiast from New Delhi, India 🇮🇳 
+                Hey! I'm Shubham Bhasker, a cybersecurity enthusiast from Bareilly, India 🇮🇳 
                 Currently rocking it as Customer Success Manager at CyberCare (NordVPN) while studying 
                 Information Systems & Cyber Security at Vilnius University. Yeah, I'm doing both – sleep is overrated anyway 😅
               </p>

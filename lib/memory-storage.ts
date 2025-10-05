@@ -346,8 +346,8 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
     profile: {
       name: "Shubham Bhasker",
       title: "Cybersecurity Enthusiast & Bug Hunter",
-      bio: "Cybersecurity enthusiast & bug hunter from Delhi 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!",
-      location: "New Delhi, India",
+      bio: "Cybersecurity enthusiast & bug hunter from Bareilly 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!",
+      location: "Bareilly, India",
       email: "shubhambhasker2020@gmail.com",
       phone: "+91 8700780007",
       profileImage: "/placeholder-user.jpg",
