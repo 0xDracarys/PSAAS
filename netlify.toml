@@ -1,21 +1,75 @@
 [build]
-  command = "npm run build"
+  command = "pnpm install && pnpm run build"
+  publish = ".next"
 
 [build.environment]
+  CI = "true"
+  NODE_ENV = "production"
+  NODE_VERSION = "18"
   NEXT_TELEMETRY_DISABLED = "1"
-  NODE_VERSION = "20"
+  # Remove sensitive data from config file
+  # Use Netlify Environment Variables instead
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-#[functions]
-#  node_bundler = "esbuild"
-#  included_files = ["public/**"]
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
-[dev]
-  command = "npm run dev"
-  port = 8888
-  targetPort = 3000
-  framework = "next"
+[[headers]]
+  for = "/_next/image/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "X-Requested-With, Content-Type, Authorization"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@aws-sdk/*"]
+
+[build.processing]
+  skip_processing = false
 
 
