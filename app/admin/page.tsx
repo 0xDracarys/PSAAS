@@ -460,7 +460,7 @@ function ProjectsTab({ debouncedFetch }: { debouncedFetch: (url: string, delay?:
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="projects-tab">
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div className="flex gap-4 items-center">
@@ -695,7 +695,7 @@ function ClientRequestsTab({ debouncedFetch }: { debouncedFetch: (url: string, d
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="requests-tab">
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div className="flex gap-4 items-center">
@@ -1276,9 +1276,9 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="settings-tab">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-serif font-bold">Website Settings</h2>
+        <h2 className="text-2xl font-serif font-bold" data-testid="settings-heading">Settings - Profile & Website Configuration</h2>
         <Button 
           onClick={() => updateSettings(settings)}
           disabled={isSaving}
@@ -1531,13 +1531,13 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.03),transparent_50%)]"></div>
       
       {/* Header */}
-      <header className="relative glassmorphism bg-slate-800/30 backdrop-blur-md border-b border-slate-700/50 p-4 shadow-xl">
+      <header className="relative glassmorphism bg-slate-800/30 backdrop-blur-md border-b border-slate-700/50 p-4 shadow-xl" data-testid="admin-dashboard">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Shield className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-xl font-serif font-bold">Admin Dashboard</h1>
-              <p className="text-sm text-muted-foreground">Project Management Portal</p>
+              <h1 className="text-xl font-serif font-bold" data-testid="dashboard-title">Dashboard</h1>
+              <p className="text-sm text-muted-foreground">Admin Project Management Portal</p>
             </div>
           </div>
 
@@ -1853,9 +1853,9 @@ function ThemeManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, 
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="themes-tab">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-serif font-bold">Theme Management</h2>
+        <h2 className="text-2xl font-serif font-bold" data-testid="themes-heading">Theme Management</h2>
         <Button 
           onClick={() => {
             // TODO: Open theme creation dialog
@@ -2680,9 +2680,9 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="blog-tab">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Blog Management</h2>
+        <h2 className="text-2xl font-bold" data-testid="blog-heading">Blog & Articles Management</h2>
         <Button onClick={() => setShowCreateForm(true)}>
           <Plus className="h-4 w-4 mr-2" />
           Create Blog Post
