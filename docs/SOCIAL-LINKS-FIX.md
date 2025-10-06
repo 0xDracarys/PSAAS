@@ -62,7 +62,7 @@ Added proper anchor tags with correct URLs to each social media button using the
    - Security: `rel="noopener noreferrer"`
 
 2. **LinkedIn Button:**
-   - URL: `https://linkedin.com/in/shubham-bhasker`
+   - URL: `https://www.linkedin.com/in/shubham-bhasker-63846a203/`
    - Opens in new tab (`target="_blank"`)
    - Security: `rel="noopener noreferrer"`
 
@@ -122,7 +122,7 @@ These sections already had working links and did not need fixes:
    ```tsx
    const socialLinks = [
      { icon: Github, href: "https://github.com/0xDracarys", ... },
-     { icon: Linkedin, href: "https://linkedin.com/in/shubham-bhasker", ... },
+     { icon: Linkedin, href: "https://www.linkedin.com/in/shubham-bhasker-63846a203/", ... },
      // ... other links
    ]
    ```

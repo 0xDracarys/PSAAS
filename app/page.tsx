@@ -1148,7 +1148,7 @@ function ContactSection() {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com/in/shubham-bhasker",
+      href: "https://www.linkedin.com/in/shubham-bhasker-63846a203/",
       color: "hover:text-blue-400",
     },
     {
@@ -1702,7 +1702,7 @@ export default function HomePage() {
                     className="glassmorphism hover:glow-amber transition-all duration-300 bg-transparent"
                     asChild
                   >
-                    <a href="https://linkedin.com/in/shubham-bhasker" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/shubham-bhasker-63846a203/" target="_blank" rel="noopener noreferrer">
                       <Linkedin className="h-5 w-5" />
                     </a>
                   </Button>

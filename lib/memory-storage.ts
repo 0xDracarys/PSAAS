@@ -399,7 +399,7 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
       {
         icon: "Linkedin",
         label: "LinkedIn",
-        href: "https://linkedin.com/in/shubham-bhasker",
+        href: "https://www.linkedin.com/in/shubham-bhasker-63846a203/",
         color: "hover:text-blue-400",
       },
       {
