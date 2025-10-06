@@ -1690,22 +1690,31 @@ export default function HomePage() {
                     variant="outline"
                     size="icon"
                     className="glassmorphism hover:glow-amber transition-all duration-300 bg-transparent"
+                    asChild
                   >
-                    <Github className="h-5 w-5" />
+                    <a href="https://github.com/0xDracarys" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-5 w-5" />
+                    </a>
                   </Button>
                   <Button
                     variant="outline"
                     size="icon"
                     className="glassmorphism hover:glow-amber transition-all duration-300 bg-transparent"
+                    asChild
                   >
-                    <Linkedin className="h-5 w-5" />
+                    <a href="https://linkedin.com/in/shubham-bhasker" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-5 w-5" />
+                    </a>
                   </Button>
                   <Button
                     variant="outline"
                     size="icon"
                     className="glassmorphism hover:glow-amber transition-all duration-300 bg-transparent"
+                    asChild
                   >
-                    <Mail className="h-5 w-5" />
+                    <a href="mailto:shubhambhaskr123@gmail.com">
+                      <Mail className="h-5 w-5" />
+                    </a>
                   </Button>
                 </div>
               </motion.div>
