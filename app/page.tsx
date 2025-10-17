@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge"
 import { ClientRequestForm } from "@/components/client-request-form"
 import Chatbot from "@/components/chatbot"
+import { GitHubProjects } from "@/components/github-projects"
 import {
   ChevronDown,
   Github,
@@ -1806,6 +1807,9 @@ export default function HomePage() {
 
       {/* Projects Portfolio Section */}
       <ProjectsPortfolio />
+
+      {/* GitHub Projects Section */}
+      <GitHubProjects />
 
       {/* Personal Showcase Section */}
       <PersonalShowcase />
