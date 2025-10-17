@@ -163,48 +163,43 @@ export function GitHubProjects() {
         const categorizedData = await categorizeResponse.json()
         let reposWithCategories = categorizedData.success ? categorizedData.repos : reposData.repos
 
-        // Fetch visibility settings
-        const settingsResponse = await fetch('/api/github/manage?visibility=public')
+        // Fetch ALL visibility settings (not just public)
+        const settingsResponse = await fetch('/api/github/manage')
         const settingsData = await settingsResponse.json()
         
         // Apply settings to repos
-        if (settingsData.success && settingsData.settings) {
-          const settingsArray = Array.isArray(settingsData.settings) 
-            ? settingsData.settings 
-            : [settingsData.settings]
-          
-          const settingsMap = new Map()
-          settingsArray.forEach((setting: any) => {
+        const settingsArray = settingsData.success && settingsData.settings
+          ? (Array.isArray(settingsData.settings) ? settingsData.settings : [settingsData.settings])
+          : []
+        
+        const settingsMap = new Map()
+        settingsArray.forEach((setting: any) => {
+          if (setting && setting.repoId) {
             settingsMap.set(setting.repoId, setting)
-          })
+          }
+        })
 
-          reposWithCategories = reposWithCategories.map((repo: GitHubRepo) => {
-            const settings = settingsMap.get(repo.id)
-            if (settings) {
-              return {
-                ...repo,
-                category: settings.category || repo.category,
-                visibility: settings.visibility || 'public',
-                customTitle: settings.customTitle,
-                customDescription: settings.customDescription,
-                featured: settings.featured || false,
-                title: settings.customTitle || repo.title,
-                description: settings.customDescription || repo.description,
-              }
+        reposWithCategories = reposWithCategories.map((repo: GitHubRepo) => {
+          const settings = settingsMap.get(repo.id)
+          if (settings) {
+            return {
+              ...repo,
+              category: settings.category || repo.category,
+              visibility: settings.visibility || 'public',
+              customTitle: settings.customTitle,
+              customDescription: settings.customDescription,
+              featured: settings.featured || false,
+              title: settings.customTitle || repo.title,
+              description: settings.customDescription || repo.description,
             }
-            return { ...repo, visibility: 'public' }
-          })
-        } else {
-          // No settings found, all repos are public by default
-          reposWithCategories = reposWithCategories.map((repo: GitHubRepo) => ({
-            ...repo,
-            visibility: 'public'
-          }))
-        }
+          }
+          // Default: show all repos as public if no settings exist
+          return { ...repo, visibility: 'public' }
+        })
 
         // Filter out hidden repos (only show public ones on the website)
         const publicRepos = reposWithCategories.filter((repo: GitHubRepo) => 
-          repo.visibility === 'public'
+          repo.visibility !== 'hidden' && repo.visibility !== 'private'
         )
 
         setRepos(publicRepos)
