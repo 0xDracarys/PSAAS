@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { GitHubProjectManager } from "@/components/github-project-manager"
 import {
   Lock,
   User,
@@ -42,6 +43,7 @@ import {
   Image as ImageIcon,
   RefreshCw,
   HelpCircle,
+  Github,
 } from "lucide-react"
 import { PasswordChangeForm } from "@/components/password-change-form"
 
@@ -1622,6 +1624,10 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 <FolderOpen className="h-4 w-4 mr-2" />
                 Projects
               </TabsTrigger>
+              <TabsTrigger value="github" className="data-[state=active]:bg-primary/20">
+                <Github className="h-4 w-4 mr-2" />
+                GitHub Manager
+              </TabsTrigger>
               <TabsTrigger value="requests" className="data-[state=active]:bg-primary/20">
                 <MessageSquare className="h-4 w-4 mr-2" />
                 Client Requests
@@ -1646,6 +1652,10 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
             <TabsContent value="projects">
               <ProjectsTab debouncedFetch={debouncedFetch} />
+            </TabsContent>
+
+            <TabsContent value="github">
+              <GitHubProjectManager />
             </TabsContent>
 
             <TabsContent value="requests">

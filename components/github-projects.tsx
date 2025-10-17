@@ -30,6 +30,11 @@ interface GitHubRepo {
   updatedAt: string
   size: number
   isPrivate: boolean
+  category?: string
+  visibility?: 'public' | 'private' | 'hidden'
+  customTitle?: string
+  customDescription?: string
+  featured?: boolean
 }
 
 // Language color mapping
@@ -133,31 +138,86 @@ export function GitHubProjects() {
   const [isLoading, setIsLoading] = useState(true)
   const [sortBy, setSortBy] = useState("updated")
   const [filterLanguage, setFilterLanguage] = useState("all")
+  const [filterCategory, setFilterCategory] = useState("all")
   const [totalStats, setTotalStats] = useState({ stars: 0, forks: 0, repos: 0 })
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
-  // Fetch GitHub repos
+  // Fetch GitHub repos with settings
   useEffect(() => {
     const fetchGitHubRepos = async () => {
       try {
-        const response = await fetch(`/api/github/repos?sort=${sortBy}`)
-        if (response.ok) {
-          const data = await response.json()
-          if (data.success && data.repos) {
-            setRepos(data.repos)
-            setFilteredRepos(data.repos)
-            
-            // Calculate total stats
-            const stats = data.repos.reduce((acc: any, repo: GitHubRepo) => ({
-              stars: acc.stars + repo.stars,
-              forks: acc.forks + repo.forks,
-              repos: acc.repos + 1
-            }), { stars: 0, forks: 0, repos: 0 })
-            
-            setTotalStats(stats)
-          }
+        // Fetch repos from GitHub
+        const reposResponse = await fetch(`/api/github/repos?sort=${sortBy}`)
+        if (!reposResponse.ok) throw new Error('Failed to fetch repos')
+        
+        const reposData = await reposResponse.json()
+        if (!reposData.success || !reposData.repos) throw new Error('Invalid repos data')
+
+        // Auto-categorize repos
+        const categorizeResponse = await fetch('/api/github/categorize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ repos: reposData.repos }),
+        })
+        const categorizedData = await categorizeResponse.json()
+        let reposWithCategories = categorizedData.success ? categorizedData.repos : reposData.repos
+
+        // Fetch visibility settings
+        const settingsResponse = await fetch('/api/github/manage?visibility=public')
+        const settingsData = await settingsResponse.json()
+        
+        // Apply settings to repos
+        if (settingsData.success && settingsData.settings) {
+          const settingsArray = Array.isArray(settingsData.settings) 
+            ? settingsData.settings 
+            : [settingsData.settings]
+          
+          const settingsMap = new Map()
+          settingsArray.forEach((setting: any) => {
+            settingsMap.set(setting.repoId, setting)
+          })
+
+          reposWithCategories = reposWithCategories.map((repo: GitHubRepo) => {
+            const settings = settingsMap.get(repo.id)
+            if (settings) {
+              return {
+                ...repo,
+                category: settings.category || repo.category,
+                visibility: settings.visibility || 'public',
+                customTitle: settings.customTitle,
+                customDescription: settings.customDescription,
+                featured: settings.featured || false,
+                title: settings.customTitle || repo.title,
+                description: settings.customDescription || repo.description,
+              }
+            }
+            return { ...repo, visibility: 'public' }
+          })
+        } else {
+          // No settings found, all repos are public by default
+          reposWithCategories = reposWithCategories.map((repo: GitHubRepo) => ({
+            ...repo,
+            visibility: 'public'
+          }))
         }
+
+        // Filter out hidden repos (only show public ones on the website)
+        const publicRepos = reposWithCategories.filter((repo: GitHubRepo) => 
+          repo.visibility === 'public'
+        )
+
+        setRepos(publicRepos)
+        setFilteredRepos(publicRepos)
+            
+        // Calculate total stats
+        const stats = publicRepos.reduce((acc: any, repo: GitHubRepo) => ({
+          stars: acc.stars + repo.stars,
+          forks: acc.forks + repo.forks,
+          repos: acc.repos + 1
+        }), { stars: 0, forks: 0, repos: 0 })
+        
+        setTotalStats(stats)
       } catch (error) {
         console.error('Error fetching GitHub repos:', error)
       } finally {
@@ -171,6 +231,9 @@ export function GitHubProjects() {
   // Get unique languages
   const languages = ["all", ...new Set(repos.map(repo => repo.language).filter(Boolean))]
 
+  // Get unique categories
+  const categories = ["all", ...new Set(repos.map(repo => repo.category).filter(Boolean))]
+
   // Get language distribution
   const languageDistribution = repos.reduce((acc: { [key: string]: number }, repo) => {
     if (repo.language) {
@@ -183,14 +246,20 @@ export function GitHubProjects() {
     .sort(([, a], [, b]) => b - a)
     .slice(0, 5)
 
-  // Filter repos by language
+  // Filter repos by language and category
   useEffect(() => {
-    if (filterLanguage === "all") {
-      setFilteredRepos(repos)
-    } else {
-      setFilteredRepos(repos.filter(repo => repo.language === filterLanguage))
+    let filtered = repos
+
+    if (filterLanguage !== "all") {
+      filtered = filtered.filter(repo => repo.language === filterLanguage)
     }
-  }, [filterLanguage, repos])
+
+    if (filterCategory !== "all") {
+      filtered = filtered.filter(repo => repo.category === filterCategory)
+    }
+
+    setFilteredRepos(filtered)
+  }, [filterLanguage, filterCategory, repos])
 
   // Format date
   const formatDate = (dateString: string) => {
@@ -360,6 +429,23 @@ export function GitHubProjects() {
               </Select>
             </div>
 
+            <div className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-amber-500" />
+              <span className="text-sm text-muted-foreground font-medium">Category:</span>
+              <Select value={filterCategory} onValueChange={setFilterCategory}>
+                <SelectTrigger className="w-[200px] glassmorphism border-amber-500/20">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat} value={cat}>
+                      {cat === "all" ? "📁 All Categories" : `🗂️ ${cat}`}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             <Badge variant="secondary" className="glassmorphism bg-gradient-to-r from-primary/20 to-secondary/20 border-primary/30">
               <Zap className="h-3 w-3 mr-1" />
               {filteredRepos.length} {filteredRepos.length === 1 ? 'repository' : 'repositories'}
@@ -411,12 +497,25 @@ export function GitHubProjects() {
                               {repo.title}
                             </h3>
                           </div>
-                          {repo.stars > 0 && (
-                            <Badge className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border-amber-500/50 text-amber-400 font-bold">
-                              <Star className="h-3 w-3 mr-1 fill-amber-400" />
-                              {repo.stars}
-                            </Badge>
-                          )}
+                          <div className="flex flex-col gap-1 items-end">
+                            {repo.category && (
+                              <Badge variant="secondary" className="text-xs bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-500/30 whitespace-nowrap">
+                                🗂️ {repo.category}
+                              </Badge>
+                            )}
+                            {repo.featured && (
+                              <Badge variant="default" className="text-xs bg-gradient-to-r from-amber-500 to-orange-500">
+                                <Star className="h-3 w-3 mr-1 fill-white" />
+                                Featured
+                              </Badge>
+                            )}
+                            {repo.stars > 0 && (
+                              <Badge className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border-amber-500/50 text-amber-400 font-bold">
+                                <Star className="h-3 w-3 mr-1 fill-amber-400" />
+                                {repo.stars}
+                              </Badge>
+                            )}
+                          </div>
                         </div>
 
                         {/* Description with gradient text on hover */}
