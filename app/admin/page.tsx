@@ -90,7 +90,7 @@ interface ClientRequest {
 
 function LoginScreen({ onLogin }: { onLogin: () => void }) {
   const [showPassword, setShowPassword] = useState(false)
-  const [credentials, setCredentials] = useState({ username: "admin", password: "admin123" })
+  const [credentials, setCredentials] = useState({ username: "", password: "" })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -146,13 +146,6 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
             <Shield className="h-16 w-16 text-primary mx-auto mb-4" />
             <h1 className="text-3xl font-serif font-bold mb-2">Admin Portal</h1>
             <p className="text-muted-foreground">Secure access to project management</p>
-            <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-              <p className="text-blue-400 text-sm">
-                <strong>Default Credentials:</strong><br />
-                Username: <code className="bg-blue-500/20 px-1 rounded">admin</code><br />
-                Password: <code className="bg-blue-500/20 px-1 rounded">admin123</code>
-              </p>
-            </div>
           </motion.div>
 
           <form onSubmit={handleLogin} className="space-y-6">
@@ -1167,7 +1160,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
             <h3 className="text-lg font-medium">Security Settings</h3>
             <div className="border rounded-lg p-6">
               <h4 className="text-md font-medium mb-4">Change Password</h4>
-              <PasswordChangeForm adminEmail="admin@example.com" />
+              <PasswordChangeForm adminEmail="admin@portfolio.com" />
             </div>
           </div>
         );
@@ -1492,7 +1485,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
           <Lock className="w-5 h-5 text-primary" />
           Security & Password Management
         </h3>
-        <PasswordChangeForm adminEmail="admin@example.com" />
+        <PasswordChangeForm adminEmail="admin@portfolio.com" />
       </Card>
     </div>
   )

@@ -15,7 +15,7 @@ async function createAdminUser() {
     const db = client.db(MONGODB_DB)
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash("admin123", 12)
+    const hashedPassword = await bcrypt.hash("Dracarysregar321**#", 12)
 
     // Create admin user
     const adminUser = {
@@ -46,7 +46,7 @@ async function createAdminUser() {
     console.log("🔐 ADMIN CREDENTIALS")
     console.log("=".repeat(50))
     console.log("Username: admin")
-    console.log("Password: admin123")
+    console.log("Password: Dracarysregar321**#")
     console.log("Email: admin@portfolio.com")
     console.log("=".repeat(50))
     console.log("\n🌐 Access admin at: http://localhost:3000/admin")
