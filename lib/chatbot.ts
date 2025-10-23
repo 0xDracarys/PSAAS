@@ -249,56 +249,64 @@ export class ChatbotService {
   private generateResponse(userMessage: string): any {
     const message = userMessage.toLowerCase().trim()
     
-    // Check for specific keywords
+    // Check for specific keywords (prioritized from most specific to least)
+    // Greetings
     if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
       return this.responses.get('greeting')
+    }
+    
+    // Service inquiries (check specific services first to avoid overlap)
+    if (message.includes('web') && (message.includes('dev') || message.includes('website') || message.includes('development'))) {
+      return this.responses.get('web_dev')
+    }
+    
+    if (message.includes('security') || message.includes('cyber') || message.includes('penetration') || message.includes('hack')) {
+      return this.responses.get('cyber_security')
     }
     
     if (message.includes('service') || message.includes('what do you do')) {
       return this.responses.get('services')
     }
     
-    if (message.includes('portfolio') || message.includes('work') || message.includes('project')) {
+    // Portfolio & Projects
+    if (message.includes('portfolio') || message.includes('project') || message.includes('work')) {
       return this.responses.get('portfolio')
     }
     
-    if (message.includes('contact') || message.includes('reach') || message.includes('email')) {
-      return this.responses.get('contact')
-    }
-    
-    if (message.includes('price') || message.includes('cost') || message.includes('rate')) {
+    // Pricing
+    if (message.includes('price') || message.includes('cost') || message.includes('rate') || message.includes('pricing')) {
       return this.responses.get('pricing')
     }
     
-    if (message.includes('web') || message.includes('website') || message.includes('development')) {
-      return this.responses.get('web_dev')
-    }
-    
-    if (message.includes('security') || message.includes('cyber') || message.includes('hack')) {
-      return this.responses.get('cyber_security')
-    }
-    
-    if (message.includes('consult') || message.includes('advice') || message.includes('help')) {
-      return this.responses.get('consulting')
-    }
-    
-    if (message.includes('quote') || message.includes('estimate') || message.includes('price')) {
+    // Quote & Consulting
+    if (message.includes('quote') || message.includes('estimate')) {
       return this.responses.get('get_quote')
     }
     
-    if (message.includes('call') || message.includes('schedule') || message.includes('meeting')) {
+    if (message.includes('consult') || message.includes('advice')) {
+      return this.responses.get('consulting')
+    }
+    
+    // Scheduling (check before generic 'call' to avoid conflict with phone)
+    if (message.includes('schedule') || message.includes('meeting') || message.includes('book')) {
       return this.responses.get('schedule_call')
     }
     
+    // Contact info
+    if (message.includes('contact') || message.includes('reach')) {
+      return this.responses.get('contact')
+    }
+    
+    // Specific contact methods
     if (message.includes('email') || message.includes('mail')) {
       return this.responses.get('email')
     }
     
-    if (message.includes('phone') || message.includes('call')) {
+    if (message.includes('phone') && !message.includes('contact')) {
       return this.responses.get('phone')
     }
     
-    if (message.includes('linkedin') || message.includes('linkedin')) {
+    if (message.includes('linkedin')) {
       return this.responses.get('linkedin')
     }
     
@@ -311,12 +319,59 @@ export class ChatbotService {
   }
 
   processQuickReply(sessionId: string, payload: string): ChatMessage {
+    const session = this.sessions.get(sessionId)
+    if (!session) throw new Error('Session not found')
+
+    // Add user's quick reply choice as a user message
+    const quickReplyLabel = this.getQuickReplyLabel(payload)
+    this.addMessage(sessionId, quickReplyLabel, 'user', 'quick_reply')
+
+    // Get response for this payload
     const response = this.responses.get(payload)
     if (!response) {
       return this.addMessage(sessionId, "I'm not sure what you're looking for. How can I help?", 'bot')
     }
     
     return this.addMessage(sessionId, response.message, 'bot', response.card ? 'card' : 'text')
+  }
+
+  private getQuickReplyLabel(payload: string): string {
+    const labels: { [key: string]: string } = {
+      'services': 'View Services',
+      'portfolio': 'See Portfolio',
+      'contact': 'Contact Info',
+      'pricing': 'Pricing',
+      'web_dev': 'Web Development',
+      'cyber_security': 'Cybersecurity',
+      'consulting': 'Tech Consulting',
+      'maintenance': 'Maintenance',
+      'view_projects': 'View Projects',
+      'download_cv': 'Download CV',
+      'github': 'GitHub Profile',
+      'email': 'Email Me',
+      'phone': 'Call Me',
+      'linkedin': 'LinkedIn',
+      'schedule': 'Schedule Call',
+      'basic_plan': 'Basic Plan',
+      'premium_plan': 'Premium Plan',
+      'enterprise': 'Enterprise',
+      'custom_quote': 'Custom Quote',
+      'get_quote': 'Get Quote',
+      'view_samples': 'View Samples',
+      'back': 'Back',
+      'security_audit': 'Security Audit',
+      'consultation': 'Free Consultation',
+      'schedule_call': 'Schedule Call',
+      'email_details': 'Email Details',
+      'calendly': 'Book via Calendly',
+      'whatsapp': 'WhatsApp Call',
+      'zoom': 'Zoom Meeting',
+      'compose_email': 'Compose Email',
+      'call_now': 'Call Now',
+      'open_linkedin': 'Open LinkedIn',
+      'open_github': 'Open GitHub'
+    }
+    return labels[payload] || payload
   }
 
   getActiveSessions(): ChatSession[] {
