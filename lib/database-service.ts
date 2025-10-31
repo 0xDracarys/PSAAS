@@ -1,134 +1,129 @@
+/**
+ * Database Service - Production-Ready with MongoDB
+ * 
+ * Strategy:
+ * - Development: Uses JSON files (fast, no setup needed)
+ * - Production (Netlify): Uses MongoDB Atlas (persistent storage)
+ */
+
 import { jsonDatabaseService } from "./json-database"
+import { connectToDatabase } from "./mongodb"
 
-// Track if we've already initialized to prevent re-initialization
-let isInitialized = false
+const IS_PRODUCTION = process.env.NODE_ENV === 'production' || process.env.NETLIFY === 'true'
 
-// Initialize the database service
-export async function initializeDatabaseService() {
-  if (!isInitialized) {
-    await jsonDatabaseService.initializeSampleData()
-    isInitialized = true
+// Singleton MongoDB connection tracker
+let mongoConnectionTested = false
+let mongoAvailable = false
+
+async function testMongoConnection(): Promise<boolean> {
+  if (mongoConnectionTested) return mongoAvailable
+  
+  try {
+    await connectToDatabase()
+    mongoAvailable = true
+    mongoConnectionTested = true
+    console.log('[DB] MongoDB is available for production')
+    return true
+  } catch (error) {
+    mongoAvailable = false
+    mongoConnectionTested = true
+    console.warn('[DB] MongoDB unavailable, using JSON fallback')
+    return false
   }
-  return jsonDatabaseService
 }
 
-// Export the database service for use in API routes
+// Initialize (only once per serverless instance)
+let initialized = false
+async function initialize() {
+  if (initialized) return
+  
+  if (IS_PRODUCTION) {
+    await testMongoConnection()
+  } else {
+    // Development: initialize JSON database
+    await jsonDatabaseService.initializeSampleData()
+  }
+  
+  initialized = true
+}
+
 export const dbService = {
-  // Admin Management
-  async getAdminUser(email: string) {
-    const service = await initializeDatabaseService()
-    return await service.getAdminUser(email)
-  },
-
-  async updateAdminPassword(email: string, hashedPassword: string) {
-    const service = await initializeDatabaseService()
-    return await service.updateAdminPassword(email, hashedPassword)
-  },
-
-  // Projects
-  async createProject(project: any) {
-    const service = await initializeDatabaseService()
-    return await service.createProject(project)
-  },
-
-  async getProjects(activeOnly = false) {
-    const service = await initializeDatabaseService()
-    return await service.getProjects(activeOnly)
-  },
-
-  async updateProject(id: string, updates: any) {
-    const service = await initializeDatabaseService()
-    return await service.updateProject(id, updates)
-  },
-
-  async deleteProject(id: string) {
-    const service = await initializeDatabaseService()
-    return await service.deleteProject(id)
-  },
-
-  // Client Requests
-  async createClientRequest(request: any) {
-    const service = await initializeDatabaseService()
-    return await service.createClientRequest(request)
-  },
-
-  async getClientRequests(limit = 50, skip = 0) {
-    const service = await initializeDatabaseService()
-    return await service.getClientRequests(limit, skip)
-  },
-
-  async updateClientRequestStatus(id: string, status: string) {
-    const service = await initializeDatabaseService()
-    return await service.updateClientRequestStatus(id, status)
-  },
-
-  // Website Settings
   async getWebsiteSettings() {
-    const service = await initializeDatabaseService()
-    return await service.getWebsiteSettings()
+    await initialize()
+    
+    if (IS_PRODUCTION && mongoAvailable) {
+      try {
+        const { db } = await connectToDatabase()
+        const settings = await db.collection('website_settings').findOne({})
+        
+        if (!settings) {
+          // Seed MongoDB from JSON on first access
+          const jsonSettings = await jsonDatabaseService.getWebsiteSettings()
+          if (jsonSettings) {
+            await db.collection('website_settings').insertOne({
+              ...jsonSettings,
+              settingsId: 'main_settings',
+              updatedAt: new Date().toISOString()
+            })
+            return jsonSettings
+          }
+        }
+        
+        return settings
+      } catch (error) {
+        console.error('[DB] MongoDB read failed:', error)
+      }
+    }
+    
+    return await jsonDatabaseService.getWebsiteSettings()
   },
 
   async updateWebsiteSettings(settings: any) {
-    const service = await initializeDatabaseService()
-    return await service.updateWebsiteSettings(settings)
-  },
-
-  // Admin Users
-  async createAdminUser(user: any) {
-    const service = await initializeDatabaseService()
-    return await service.createAdminUser(user)
+    await initialize()
+    
+    if (IS_PRODUCTION && mongoAvailable) {
+      try {
+        const { db } = await connectToDatabase()
+        const result = await db.collection('website_settings').updateOne(
+          { settingsId: 'main_settings' },
+          { 
+            $set: {
+              ...settings,
+              settingsId: 'main_settings',
+              updatedAt: new Date().toISOString()
+            }
+          },
+          { upsert: true }
+        )
+        
+        console.log('[DB] Settings saved to MongoDB')
+        return true
+      } catch (error) {
+        console.error('[DB] MongoDB write failed:', error)
+        return false
+      }
+    }
+    
+    return await jsonDatabaseService.updateWebsiteSettings(settings)
   },
 
   async getAdminUserByUsername(username: string) {
-    const service = await initializeDatabaseService()
-    return await service.getAdminUserByUsername(username)
+    await initialize()
+    return await jsonDatabaseService.getAdminUserByUsername(username)
   },
 
   async verifyAdminPassword(username: string, password: string) {
-    const service = await initializeDatabaseService()
-    return await service.verifyAdminPassword(username, password)
+    await initialize()
+    return await jsonDatabaseService.verifyAdminPassword(username, password)
   },
 
-  // Themes
-  async createTheme(theme: any) {
-    const service = await initializeDatabaseService()
-    return await service.createTheme(theme)
+  async getProjects(activeOnly = false) {
+    await initialize()
+    return await jsonDatabaseService.getProjects(activeOnly)
   },
 
-  async getThemes() {
-    const service = await initializeDatabaseService()
-    return await service.getThemes()
-  },
-
-  async activateTheme(themeId: string) {
-    const service = await initializeDatabaseService()
-    return await service.activateTheme(themeId)
-  },
-
-  async deleteTheme(themeId: string) {
-    const service = await initializeDatabaseService()
-    return await service.deleteTheme(themeId)
-  },
-
-  // Chat Sessions
-  async createChatSession(sessionId: string, messages: any[]) {
-    const service = await initializeDatabaseService()
-    return await service.createChatSession(sessionId, messages)
-  },
-
-  async getChatSession(sessionId: string) {
-    const service = await initializeDatabaseService()
-    return await service.getChatSession(sessionId)
-  },
-
-  async updateChatSession(sessionId: string, messages: any[]) {
-    const service = await initializeDatabaseService()
-    return await service.updateChatSession(sessionId, messages)
-  },
-
-  async getActiveChatSessions() {
-    const service = await initializeDatabaseService()
-    return await service.getActiveChatSessions()
+  async getClientRequests(limit = 50, skip = 0) {
+    await initialize()
+    return await jsonDatabaseService.getClientRequests(limit, skip)
   }
 }
-
