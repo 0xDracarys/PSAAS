@@ -47,6 +47,7 @@ import {
 } from "lucide-react"
 import { PasswordChangeForm } from "@/components/password-change-form"
 import ShaderBackgroundSettings from "@/components/shader-background-settings"
+import ProfessionalJourneySettings from "@/components/professional-journey-settings"
 
 // Types for API data
 interface Project {
@@ -1645,6 +1646,10 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 <BookOpen className="h-4 w-4 mr-2" />
                 Documentation
               </TabsTrigger>
+              <TabsTrigger value="journey" className="data-[state=active]:bg-primary/20">
+                <User className="h-4 w-4 mr-2" />
+                Professional Journey
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="projects">
@@ -1673,6 +1678,10 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
             <TabsContent value="docs">
               <DocumentationTab debouncedFetch={debouncedFetch} />
+            </TabsContent>
+
+            <TabsContent value="journey">
+              <ProfessionalJourneySettings />
             </TabsContent>
           </Tabs>
         </motion.div>

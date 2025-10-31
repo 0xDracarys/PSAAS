@@ -423,35 +423,60 @@ function SkillsVisualization() {
 
 // Timeline Component
 function Timeline() {
-  const timelineData = [
-    {
-      year: "2024",
-      title: "Customer Success Manager",
-      company: "CyberCare (NordVPN)",
-      description: "Working on customer success initiatives and providing security consulting for clients.",
-    },
-    {
-      year: "2020",
-      title: "Security Researcher & Bug Hunter",
-      company: "Bugcrowd",
-      description: "Participated in bug bounty programs and gained experience in vulnerability research.",
-    },
-    {
-      year: "2021",
-      title: "TryHackMe Platform",
-      company: "TryHackMe Platform",
-      description: "Completed various cybersecurity challenges and learning modules.",
-    },
-    {
-      year: "2018",
-      title: "Bachelor's in Science",
-      company: "Siddhi Vinayak Group",
-      description: "Completed foundational studies in computer science and information systems.",
-    },
-  ]
+  const [timelineData, setTimelineData] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProfessionalJourney = async () => {
+      try {
+        const response = await fetch('/api/settings/professional-journey')
+        if (response.ok) {
+          const data = await response.json()
+          // Transform experience data to timeline format
+          const transformedData = data.experience.map((exp: any) => ({
+            year: exp.duration.split(' ')[0] || exp.duration, // Extract year from duration
+            title: exp.title,
+            company: exp.company,
+            description: exp.description,
+            achievements: exp.achievements
+          }))
+          setTimelineData(transformedData)
+        }
+      } catch (error) {
+        console.error('Error fetching professional journey:', error)
+        // Fallback to default data
+        setTimelineData([
+          {
+            year: "2024",
+            title: "Customer Success Manager",
+            company: "CyberCare (NordVPN)",
+            description: "Working on customer success initiatives and providing security consulting for clients.",
+          },
+          {
+            year: "2020",
+            title: "Security Researcher & Bug Hunter",
+            company: "Bugcrowd",
+            description: "Participated in bug bounty programs and gained experience in vulnerability research.",
+          },
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProfessionalJourney()
+  }, [])
 
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
 
   return (
     <div ref={ref} className="relative">
@@ -482,7 +507,20 @@ function Timeline() {
                   <Zap className="h-5 w-5 text-secondary" />
                 </div>
                 <h3 className="text-xl font-serif font-semibold mb-2 text-primary">{item.title}</h3>
-                <p className="leading-relaxed text-secondary">{item.description}</p>
+                <p className="text-sm text-gray-400 mb-2">{item.company}</p>
+                <p className="leading-relaxed text-secondary mb-3">{item.description}</p>
+                {item.achievements && item.achievements.length > 0 && (
+                  <ul className="space-y-1 mt-3">
+                    {item.achievements.map((achievement: string, idx: number) => (
+                      achievement && (
+                        <li key={idx} className="text-sm text-gray-300 flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{achievement}</span>
+                        </li>
+                      )
+                    ))}
+                  </ul>
+                )}
               </Card>
             </div>
           </motion.div>
