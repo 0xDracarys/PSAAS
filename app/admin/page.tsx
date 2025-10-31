@@ -2728,7 +2728,7 @@ function ClientRequestForm({ request, onSave }: { request: ClientRequest, onSave
         <select
           id="status"
           value={formData.status}
-          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+          onChange={(e) => setFormData({ ...formData, status: e.target.value as "pending" | "reviewed" | "approved" | "rejected" })}
           className="w-full p-2 border border-border rounded-md bg-background"
         >
           <option value="pending">Pending</option>

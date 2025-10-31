@@ -1,8 +1,14 @@
 import { jsonDatabaseService } from "./json-database"
 
+// Track if we've already initialized to prevent re-initialization
+let isInitialized = false
+
 // Initialize the database service
 export async function initializeDatabaseService() {
-  await jsonDatabaseService.initializeSampleData()
+  if (!isInitialized) {
+    await jsonDatabaseService.initializeSampleData()
+    isInitialized = true
+  }
   return jsonDatabaseService
 }
 
