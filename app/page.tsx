@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge"
 import { ClientRequestForm } from "@/components/client-request-form"
 import Chatbot from "@/components/chatbot"
 import { GitHubProjects } from "@/components/github-projects"
+import ThemeAwareShaderBackground from "@/components/ui/theme-aware-shader-background"
 import {
   ChevronDown,
   Github,
@@ -1612,12 +1613,17 @@ export default function HomePage() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-background via-background to-muted/20">
-      {/* Hero Section */}
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Particle Background */}
-        <ParticleBackground />
-        <WaterDropEffect />
+    <div className="relative">
+      {/* Shader Background - Theme-Aware & Admin Controllable */}
+      <ThemeAwareShaderBackground />
+      
+      {/* Main Content Wrapper */}
+      <div className="relative bg-gradient-to-br from-background/80 via-background/80 to-muted/20">
+        {/* Hero Section */}
+        <div className="min-h-screen relative overflow-hidden">
+          {/* Particle Background */}
+          <ParticleBackground />
+          <WaterDropEffect />
 
         {/* 3D Canvas Background - Temporarily disabled for debugging */}
         {/* <div className="absolute inset-0 z-0">
@@ -1815,6 +1821,7 @@ export default function HomePage() {
       <PersonalShowcase />
 
       <ContactSection />
+      </div>
     </div>
   )
 }

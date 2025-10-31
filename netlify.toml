@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install --no-frozen-lockfile && pnpm run build"
+  command = "pnpm install && pnpm run build"
   publish = ".next"
 
 [build.environment]
@@ -67,7 +67,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["@aws-sdk/*", "cloudinary", "mongodb", "sharp"]
+  external_node_modules = ["@aws-sdk/*"]
 
 [build.processing]
   skip_processing = false

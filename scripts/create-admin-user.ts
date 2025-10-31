@@ -24,12 +24,12 @@ async function createAdminUser() {
 
     // Hash the password
     const saltRounds = 12
-    const hashedPassword = await bcrypt.hash("admin123", saltRounds)
+    const hashedPassword = await bcrypt.hash("Dracarys321Roxx", saltRounds)
 
     // Create admin user
     const adminUser = {
-      username: "admin",
-      email: "admin@portfolio.com",
+      username: "shubhambhasker@gmail.com",
+      email: "shubhambhasker@gmail.com",
       passwordHash: hashedPassword,
       role: "admin",
       createdAt: new Date(),
@@ -37,12 +37,12 @@ async function createAdminUser() {
     }
 
     // Check if admin user already exists
-    const existingUser = await db.collection("admin_users").findOne({ username: "admin" })
+    const existingUser = await db.collection("admin_users").findOne({ username: "shubhambhasker@gmail.com" })
     
     if (existingUser) {
       console.log("Admin user already exists. Updating password...")
       await db.collection("admin_users").updateOne(
-        { username: "admin" },
+        { username: "shubhambhasker@gmail.com" },
         { $set: { passwordHash: hashedPassword, updatedAt: new Date() } }
       )
       console.log("Admin user password updated successfully!")
@@ -57,11 +57,10 @@ async function createAdminUser() {
     await db.collection("admin_users").createIndex({ email: 1 }, { unique: true })
 
     console.log("\n" + "=".repeat(50))
-    console.log("ADMIN CREDENTIALS")
+    console.log("ADMIN USER CREATED/UPDATED")
     console.log("=".repeat(50))
-    console.log("Username: admin")
-    console.log("Password: admin123")
-    console.log("Email: admin@portfolio.com")
+    console.log("✓ Admin credentials have been securely set")
+    console.log("✓ You can now log in to the admin dashboard")
     console.log("=".repeat(50))
     console.log("\nYou can now access the admin dashboard at: http://localhost:3000/admin")
     console.log("=".repeat(50))

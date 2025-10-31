@@ -34,6 +34,7 @@ export interface DatabaseAdminUser {
   username: string
   email: string
   passwordHash: string
+  role?: string
   createdAt: string
 }
 
@@ -46,6 +47,11 @@ export interface DatabaseWebsiteSettings {
   personalInterests: any[]
   musicTracks: any[]
   contactInfo: any[]
+  shaderBackground?: {
+    bgColor1: { r: number; g: number; b: number; a: number }
+    bgColor2: { r: number; g: number; b: number; a: number }
+    lineColor: { r: number; g: number; b: number; a: number }
+  }
   updatedAt: string
 }
 
@@ -419,12 +425,13 @@ export class JsonDatabaseService {
     }
     
     if (data.adminUsers.length === 0) {
-      const hashedPassword = await bcrypt.hash('admin123', 10)
+      const hashedPassword = await bcrypt.hash('Admin@123', 10)
       const sampleAdmin = {
         id: 'admin_1',
-        username: 'admin',
-        email: 'admin@example.com',
+        username: 'shubhambhasker@gmail.com',
+        email: 'shubhambhasker@gmail.com',
         passwordHash: hashedPassword,
+        role: 'admin',
         createdAt: new Date().toISOString()
       }
       data.adminUsers = [sampleAdmin]

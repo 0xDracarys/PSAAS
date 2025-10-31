@@ -120,7 +120,7 @@ git push
 
 1. **Go to Admin Dashboard:**
    - URL: https://zenitthhhhh.netlify.app/admin
-   - Login: `admin` / `admin123`
+   - Login with your configured admin credentials
 
 2. **Navigate to Settings Tab:**
    - Click on **Settings** in the sidebar

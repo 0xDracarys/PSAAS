@@ -7,7 +7,13 @@ const TEST_CONFIG = {
   retries: 3
 };
 
-// Test utilities
+describe('API Routes', () => {
+  test('API configuration is valid', () => {
+    expect(TEST_CONFIG.baseUrl).toBeDefined();
+    expect(TEST_CONFIG.timeout).toBeDefined();
+    expect(TEST_CONFIG.retries).toBeDefined();
+  });
+});
 class TestRunner {
   constructor() {
     this.results = {

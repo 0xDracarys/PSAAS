@@ -46,6 +46,7 @@ import {
   Github,
 } from "lucide-react"
 import { PasswordChangeForm } from "@/components/password-change-form"
+import ShaderBackgroundSettings from "@/components/shader-background-settings"
 
 // Types for API data
 interface Project {
@@ -1417,6 +1418,9 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
           />
         </div>
       </Card>
+
+      {/* Shader Background Settings */}
+      <ShaderBackgroundSettings />
 
       {/* Experience Settings */}
       <Card className="glassmorphism bg-slate-800/40 backdrop-blur-md border border-slate-700/50 shadow-lg p-6">

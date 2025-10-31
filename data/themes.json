@@ -1,0 +1,84 @@
+{
+  "themes": [
+    {
+      "_id": "theme_modern_minimal",
+      "name": "Modern Minimal",
+      "description": "Clean and minimalistic design with ample white space",
+      "colors": {
+        "primary": "#2D3250",
+        "secondary": "#424769",
+        "accent": "#7077A1",
+        "background": "#F6F6F6",
+        "text": "#000000"
+      },
+      "fonts": {
+        "heading": "Montserrat",
+        "body": "Inter"
+      },
+      "spacing": {
+        "container": "max-w-6xl",
+        "padding": "px-4 md:px-8"
+      }
+    },
+    {
+      "_id": "theme_tech_noir",
+      "name": "Tech Noir",
+      "description": "Dark cyberpunk-inspired theme with neon accents",
+      "colors": {
+        "primary": "#0A192F",
+        "secondary": "#112240",
+        "accent": "#64FFDA",
+        "background": "#0A192F",
+        "text": "#E6F1FF"
+      },
+      "fonts": {
+        "heading": "Space Grotesk",
+        "body": "Fira Code"
+      },
+      "spacing": {
+        "container": "max-w-7xl",
+        "padding": "px-6 md:px-12"
+      }
+    },
+    {
+      "_id": "theme_gradient_pop",
+      "name": "Gradient Pop",
+      "description": "Modern design with vibrant gradients",
+      "colors": {
+        "primary": "linear-gradient(135deg, #6366F1, #A855F7)",
+        "secondary": "#3730A3",
+        "accent": "#F472B6",
+        "background": "#FFFFFF",
+        "text": "#1F2937"
+      },
+      "fonts": {
+        "heading": "Clash Display",
+        "body": "Plus Jakarta Sans"
+      },
+      "spacing": {
+        "container": "max-w-6xl",
+        "padding": "px-5 md:px-10"
+      }
+    },
+    {
+      "_id": "theme_retro_wave",
+      "name": "Retro Wave",
+      "description": "80s-inspired design with bold colors",
+      "colors": {
+        "primary": "#FF2E63",
+        "secondary": "#252A34",
+        "accent": "#08D9D6",
+        "background": "#2B2D42",
+        "text": "#EAEAEA"
+      },
+      "fonts": {
+        "heading": "Orbitron",
+        "body": "DM Sans"
+      },
+      "spacing": {
+        "container": "max-w-7xl",
+        "padding": "px-4 md:px-8"
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 import { type NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
-import { dbService } from "@/lib/mongodb"
+import { dbService } from "@/lib/database-service"
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,31 +16,31 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Ensure database service is initialized
-    await dbService.init()
+    console.log("[API] Login attempt for username:", username)
 
-    // Get admin user from database
-    const adminUser = await dbService.getAdminUser(username)
+    // Get admin user from database (uses JSON database fallback)
+    const adminUser = await dbService.getAdminUserByUsername(username)
 
     if (!adminUser) {
+      console.log("[API] User not found:", username)
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
       )
     }
+
+    console.log("[API] User found, verifying password...")
 
     // Verify password
     const isValidPassword = await bcrypt.compare(password, adminUser.passwordHash)
 
     if (!isValidPassword) {
+      console.log("[API] Password verification failed")
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
       )
     }
-
-    // Update last login
-    await dbService.updateLastLogin(username)
 
     console.log("[API] Admin login successful:", { username })
 
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       user: {
         username: adminUser.username,
         email: adminUser.email,
-        role: adminUser.role,
+        role: adminUser.role || 'admin',
       },
     })
   } catch (error) {

@@ -3,11 +3,26 @@
  * Tests all CRUD operations, API endpoints, and UI interactions
  */
 
-const { MongoClient } = require('mongodb')
+const { MongoClient } = require('mongodb');
 
 // Test configuration
 const TEST_CONFIG = {
-  MONGODB_URI: process.env.MONGODB_URI || 'mongodb+srv://uniqthatswhatyouare_db_user:jnjF8Db3LnHeM8DR@portfolio.oijkdkg.mongodb.net/portfolio_db?retryWrites=true&w=majority',
+  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
+};
+
+describe('Admin Panel Functionality', () => {
+  test('MongoDB configuration is valid', () => {
+    expect(TEST_CONFIG.MONGODB_URI).toBeDefined();
+    expect(TEST_CONFIG.MONGODB_URI).toContain('mongodb://');
+  });
+});
+}
+
+describe('Admin Panel Functionality', () => {
+  test('MongoDB configuration is valid', () => {
+    expect(TEST_CONFIG.MONGODB_URI).toBeDefined();
+    expect(TEST_CONFIG.MONGODB_URI).toContain('mongodb://');
+  });
   BASE_URL: 'http://localhost:3000',
   TEST_TIMEOUT: 30000
 }

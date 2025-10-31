@@ -2,6 +2,9 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { ThemeService } from "@/lib/theme-storage"
 
+// Configure dynamic route behavior
+export const dynamic = 'force-dynamic'
+
 // GET - Retrieve theme history
 export async function GET(request: NextRequest) {
   try {

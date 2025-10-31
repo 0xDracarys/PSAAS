@@ -21,6 +21,76 @@
       "startDate": "2024-01-01",
       "endDate": "2024-02-01",
       "progress": 0,
+      "_id": "proj_1759612599664",
+      "createdAt": "2025-10-04T21:16:39.664Z",
+      "updatedAt": "2025-10-04T21:16:39.664Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1759609941231",
+      "createdAt": "2025-10-04T20:32:21.231Z",
+      "updatedAt": "2025-10-04T20:32:21.232Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1759609941224",
+      "createdAt": "2025-10-04T20:32:21.224Z",
+      "updatedAt": "2025-10-04T20:32:21.224Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1757189300089",
+      "createdAt": "2025-09-06T20:08:20.089Z",
+      "updatedAt": "2025-09-06T20:08:20.090Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
       "_id": "proj_1757189300085",
       "createdAt": "2025-09-06T20:08:20.085Z",
       "updatedAt": "2025-09-06T20:08:20.085Z"
@@ -261,12 +331,86 @@
       "isActive": true,
       "status": "in-progress",
       "progress": 50,
-      "_id": "proj_1757189300089",
-      "createdAt": "2025-09-06T20:08:20.089Z",
-      "updatedAt": "2025-09-06T20:08:20.090Z"
+      "_id": "proj_1759612599668",
+      "createdAt": "2025-10-04T21:16:39.668Z",
+      "updatedAt": "2025-10-04T21:16:39.669Z"
     }
   ],
   "clientRequests": [
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1759612599655",
+      "id": "req_1759612599655",
+      "createdAt": "2025-10-04T21:16:39.655Z",
+      "status": "pending"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1759609941221",
+      "id": "req_1759609941221",
+      "createdAt": "2025-10-04T20:32:21.221Z",
+      "status": "approved",
+      "updatedAt": null
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1759609941216",
+      "id": "req_1759609941216",
+      "createdAt": "2025-10-04T20:32:21.216Z",
+      "status": "pending",
+      "updatedAt": null
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1757189300083",
+      "createdAt": "2025-09-06T20:08:20.083Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
     {
       "name": "John Doe",
       "email": "john@example.com",
@@ -506,35 +650,35 @@
       "files": [],
       "acceptedTerms": true,
       "paymentTerms": "50% upfront",
-      "_id": "req_1757189300083",
-      "createdAt": "2025-09-06T20:08:20.083Z",
-      "status": "approved",
-      "updatedAt": "1970-01-01T00:00:00.000Z"
+      "_id": "req_1759612599661",
+      "id": "req_1759612599661",
+      "createdAt": "2025-10-04T21:16:39.661Z",
+      "status": "approved"
     }
   ],
   "adminUsers": [
     {
       "_id": "admin_1",
-      "username": "admin",
-      "email": "admin@portfolio.com",
-      "passwordHash": "$2b$12$HqEovANG3fK8dgXQtc9lUOgLJBVUurCsQ8AfeA/BqZab7doInB0qq",
+      "username": "shubhambhasker@gmail.com",
+      "email": "shubhambhasker@gmail.com",
+      "passwordHash": "$2b$10$Nx5ymR7r6Q9iPfB872fYj.QNE5bfUhRs.NoxjSbgJpzJyzQtmzwP.",
       "role": "admin",
       "createdAt": "2025-09-06T19:58:13.691Z",
-      "lastLogin": "2025-09-06T20:08:20.096Z"
+      "lastLogin": null
     }
   ],
   "websiteSettings": [
     {
       "_id": "68bc983bf4da488a337b0118",
       "profile": {
-        "name": "Sam",
-        "title": "Cybersecurity Expert & Full-Stack Developer",
-        "bio": "Passionate cybersecurity professional with expertise in vulnerability assessment, penetration testing, and secure web development.",
-        "location": "Kaunas, Lithuania",
-        "email": "shubham@example.com",
-        "phone": "+370-612-34567",
-        "profileImage": "/hero-img.jpeg",
-        "coverImage": "/hero-img.jpeg"
+        "name": "Updated Name",
+        "title": "Updated Title",
+        "bio": "Updated bio",
+        "email": "updated@example.com",
+        "phone": "+9876543210",
+        "location": "Updated Location",
+        "profileImage": "/updated-image.jpg",
+        "coverImage": "/updated-cover.jpg"
       },
       "experience": [
         {
@@ -669,7 +813,10 @@
         "availability": "Available for freelance projects",
         "responseTime": "Usually responds within 24 hours"
       },
-      "updatedAt": "2025-09-06T20:43:55.878Z"
+      "updatedAt": "2025-10-04T21:16:39.681Z"
     }
-  ]
+  ],
+  "themes": [],
+  "themeHistory": [],
+  "blogs": []
 }

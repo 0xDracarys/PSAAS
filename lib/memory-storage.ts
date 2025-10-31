@@ -332,9 +332,9 @@ const sampleProjects: MemoryProject[] = [
 const sampleAdminUsers: MemoryAdminUser[] = [
   {
     _id: "admin_1",
-    username: "admin",
-    email: "admin@portfolio.com",
-    passwordHash: "$2b$12$HqEovANG3fK8dgXQtc9lUOgLJBVUurCsQ8AfeA/BqZab7doInB0qq", // admin123
+    username: "shubhambhasker@gmail.com",
+    email: "shubhambhasker@gmail.com",
+    passwordHash: "$2b$10$Nx5ymR7r6Q9iPfB872fYj.QNE5bfUhRs.NoxjSbgJpzJyzQtmzwP.",
     role: "admin",
     createdAt: new Date(),
   },

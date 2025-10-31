@@ -8,6 +8,17 @@ export async function initializeDatabaseService() {
 
 // Export the database service for use in API routes
 export const dbService = {
+  // Admin Management
+  async getAdminUser(email: string) {
+    const service = await initializeDatabaseService()
+    return await service.getAdminUser(email)
+  },
+
+  async updateAdminPassword(email: string, hashedPassword: string) {
+    const service = await initializeDatabaseService()
+    return await service.updateAdminPassword(email, hashedPassword)
+  },
+
   // Projects
   async createProject(project: any) {
     const service = await initializeDatabaseService()
