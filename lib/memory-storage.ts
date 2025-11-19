@@ -543,6 +543,13 @@ if (typeof window === 'undefined' && existsSync(DATA_FILE)) {
         updatedAt: new Date(s.updatedAt)
       }))
     }
+    if (fileData.blogs) {
+      blogs = fileData.blogs.map((b: any) => ({
+        ...b,
+        createdAt: new Date(b.createdAt),
+        updatedAt: new Date(b.updatedAt)
+      }))
+    }
     console.log('✅ Loaded data from file system')
   } catch (error) {
     console.error('Error loading data from file:', error)
