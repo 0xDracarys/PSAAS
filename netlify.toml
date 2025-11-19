@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install && pnpm run build"
+  command = "pnpm install && node scripts/sync-database.js && pnpm run build"
   publish = ".next"
 
 [build.environment]

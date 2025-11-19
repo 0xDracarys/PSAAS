@@ -158,7 +158,44 @@
         "profileImage": "/hero-img.jpeg",
         "coverImage": "/hero-img.jpeg"
       },
-      "experience": [],
+      "experience": [
+        {
+          "id": "exp_1",
+          "title": "Senior Cybersecurity Consultant",
+          "company": "TechCorp Solutions",
+          "duration": "2022 - Present",
+          "description": "Leading security assessments and implementing security frameworks for enterprise clients.",
+          "achievements": [
+            "Reduced security vulnerabilities by 85% across client portfolios",
+            "Implemented zero-trust architecture for 50+ organizations",
+            "Led team of 12 security professionals"
+          ]
+        },
+        {
+          "id": "exp_2",
+          "title": "Penetration Tester",
+          "company": "SecureNet Inc",
+          "duration": "2020 - 2022",
+          "description": "Conducted comprehensive security assessments and vulnerability testing.",
+          "achievements": [
+            "Identified 200+ critical security vulnerabilities",
+            "Developed automated testing tools used by 100+ security teams",
+            "Achieved 99.8% client satisfaction rate"
+          ]
+        },
+        {
+          "id": "exp_3",
+          "title": "Security Analyst",
+          "company": "CyberDefense Corp",
+          "duration": "2019 - 2020",
+          "description": "Monitored network security and responded to incidents.",
+          "achievements": [
+            "Responded to 150+ security incidents with zero data breaches",
+            "Implemented advanced threat detection systems",
+            "Reduced incident response time by 60%"
+          ]
+        }
+      ],
       "skills": [],
       "socialLinks": [],
       "personalInterests": [],
