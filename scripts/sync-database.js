@@ -69,6 +69,13 @@ async function syncDatabase() {
       console.log('✅ Synced themes to MongoDB');
     }
 
+    // Sync blogs
+    if (localData.blogs && localData.blogs.length > 0) {
+      await db.collection('blogs').deleteMany({});
+      await db.collection('blogs').insertMany(localData.blogs);
+      console.log('✅ Synced blogs to MongoDB');
+    }
+
     console.log('✅ Database sync complete');
     await client.close();
     process.exit(0);
