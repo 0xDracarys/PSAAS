@@ -4,6 +4,8 @@ export interface ChatMessage {
   sender: 'user' | 'bot'
   timestamp: Date
   type: 'text' | 'quick_reply' | 'card'
+  quickReplies?: QuickReply[]
+  card?: ChatCard
 }
 
 export interface QuickReply {
@@ -50,6 +52,7 @@ export class ChatbotService {
     this.responses.set('services', {
       message: "Here are the services I offer:",
       card: {
+        id: 'card_services',
         title: "My Services",
         description: "Comprehensive tech solutions for your business",
         buttons: [
@@ -64,6 +67,7 @@ export class ChatbotService {
     this.responses.set('portfolio', {
       message: "Check out my latest projects and achievements:",
       card: {
+        id: 'card_portfolio',
         title: "Portfolio Highlights",
         description: "Recent work showcasing my expertise",
         buttons: [
@@ -77,6 +81,7 @@ export class ChatbotService {
     this.responses.set('contact', {
       message: "Get in touch with me:",
       card: {
+        id: 'card_contact',
         title: "Contact Information",
         description: "Multiple ways to reach me",
         buttons: [
@@ -91,6 +96,7 @@ export class ChatbotService {
     this.responses.set('pricing', {
       message: "Here's my pricing structure:",
       card: {
+        id: 'card_pricing',
         title: "Pricing Plans",
         description: "Flexible pricing for different needs",
         buttons: [
@@ -141,6 +147,7 @@ export class ChatbotService {
     this.responses.set('schedule_call', {
       message: "Great! I'm available for calls. Here are some options:",
       card: {
+        id: 'card_schedule',
         title: "Schedule a Call",
         description: "Choose a convenient time",
         buttons: [
@@ -212,7 +219,14 @@ export class ChatbotService {
     return this.sessions.get(sessionId) || null
   }
 
-  addMessage(sessionId: string, content: string, sender: 'user' | 'bot', type: 'text' | 'quick_reply' | 'card' = 'text'): ChatMessage {
+  addMessage(
+    sessionId: string,
+    content: string,
+    sender: 'user' | 'bot',
+    type: 'text' | 'quick_reply' | 'card' = 'text',
+    quickReplies?: QuickReply[],
+    card?: ChatCard
+  ): ChatMessage {
     const session = this.sessions.get(sessionId)
     if (!session) throw new Error('Session not found')
 
@@ -221,7 +235,9 @@ export class ChatbotService {
       content,
       sender,
       timestamp: new Date(),
-      type
+      type,
+      quickReplies,
+      card
     }
 
     session.messages.push(message)
@@ -240,8 +256,15 @@ export class ChatbotService {
     // Process the message and generate response
     const response = this.generateResponse(userMessage)
     
-    // Add bot response
-    const botMessage = this.addMessage(sessionId, response.message, 'bot', response.card ? 'card' : 'text')
+    // Add bot response with quickReplies and card payload
+    const botMessage = this.addMessage(
+      sessionId,
+      response.message,
+      'bot',
+      response.card ? 'card' : (response.quickReplies ? 'quick_reply' : 'text'),
+      response.quickReplies,
+      response.card
+    )
 
     return botMessage
   }
@@ -332,7 +355,14 @@ export class ChatbotService {
       return this.addMessage(sessionId, "I'm not sure what you're looking for. How can I help?", 'bot')
     }
     
-    return this.addMessage(sessionId, response.message, 'bot', response.card ? 'card' : 'text')
+    return this.addMessage(
+      sessionId,
+      response.message,
+      'bot',
+      response.card ? 'card' : (response.quickReplies ? 'quick_reply' : 'text'),
+      response.quickReplies,
+      response.card
+    )
   }
 
   private getQuickReplyLabel(payload: string): string {

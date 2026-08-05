@@ -21,6 +21,146 @@
       "startDate": "2024-01-01",
       "endDate": "2024-02-01",
       "progress": 0,
+      "_id": "proj_1785938453396",
+      "createdAt": "2026-08-05T14:00:53.396Z",
+      "updatedAt": "2026-08-05T14:00:53.396Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1785937527772",
+      "createdAt": "2026-08-05T13:45:27.772Z",
+      "updatedAt": "2026-08-05T13:45:27.774Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1785937527768",
+      "createdAt": "2026-08-05T13:45:27.768Z",
+      "updatedAt": "2026-08-05T13:45:27.768Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1785937485726",
+      "createdAt": "2026-08-05T13:44:45.726Z",
+      "updatedAt": "2026-08-05T13:44:45.728Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1785937485720",
+      "createdAt": "2026-08-05T13:44:45.720Z",
+      "updatedAt": "2026-08-05T13:44:45.720Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1785937424248",
+      "createdAt": "2026-08-05T13:43:44.248Z",
+      "updatedAt": "2026-08-05T13:43:44.250Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
+      "_id": "proj_1785937424243",
+      "createdAt": "2026-08-05T13:43:44.243Z",
+      "updatedAt": "2026-08-05T13:43:44.243Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1759612599668",
+      "createdAt": "2025-10-04T21:16:39.668Z",
+      "updatedAt": "2025-10-04T21:16:39.669Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
       "_id": "proj_1759612599664",
       "createdAt": "2025-10-04T21:16:39.664Z",
       "updatedAt": "2025-10-04T21:16:39.664Z"
@@ -331,9 +471,9 @@
       "isActive": true,
       "status": "in-progress",
       "progress": 50,
-      "_id": "proj_1759612599668",
-      "createdAt": "2025-10-04T21:16:39.668Z",
-      "updatedAt": "2025-10-04T21:16:39.669Z"
+      "_id": "proj_1785938453404",
+      "createdAt": "2026-08-05T14:00:53.404Z",
+      "updatedAt": "2026-08-05T14:00:53.407Z"
     }
   ],
   "clientRequests": [
@@ -351,10 +491,162 @@
       "files": [],
       "acceptedTerms": true,
       "paymentTerms": "50% upfront",
+      "_id": "req_1785938453371",
+      "id": "req_1785938453371",
+      "createdAt": "2026-08-05T14:00:53.371Z",
+      "status": "pending"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785937527764",
+      "id": "req_1785937527764",
+      "createdAt": "2026-08-05T13:45:27.764Z",
+      "status": "approved",
+      "updatedAt": null
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785937527755",
+      "id": "req_1785937527755",
+      "createdAt": "2026-08-05T13:45:27.755Z",
+      "status": "pending",
+      "updatedAt": null
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785937485713",
+      "id": "req_1785937485713",
+      "createdAt": "2026-08-05T13:44:45.713Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785937485704",
+      "id": "req_1785937485704",
+      "createdAt": "2026-08-05T13:44:45.704Z",
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785937424238",
+      "id": "req_1785937424238",
+      "createdAt": "2026-08-05T13:43:44.238Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785937424230",
+      "id": "req_1785937424230",
+      "createdAt": "2026-08-05T13:43:44.230Z",
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1759612599661",
+      "id": "req_1759612599661",
+      "createdAt": "2025-10-04T21:16:39.661Z",
+      "status": "approved",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
       "_id": "req_1759612599655",
       "id": "req_1759612599655",
       "createdAt": "2025-10-04T21:16:39.655Z",
-      "status": "pending"
+      "status": "pending",
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "name": "Jane Doe",
@@ -372,7 +664,7 @@
       "id": "req_1759609941221",
       "createdAt": "2025-10-04T20:32:21.221Z",
       "status": "approved",
-      "updatedAt": null
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "name": "John Doe",
@@ -392,7 +684,7 @@
       "id": "req_1759609941216",
       "createdAt": "2025-10-04T20:32:21.216Z",
       "status": "pending",
-      "updatedAt": null
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "name": "Jane Doe",
@@ -650,121 +942,130 @@
       "files": [],
       "acceptedTerms": true,
       "paymentTerms": "50% upfront",
-      "_id": "req_1759612599661",
-      "id": "req_1759612599661",
-      "createdAt": "2025-10-04T21:16:39.661Z",
+      "_id": "req_1785938453387",
+      "id": "req_1785938453387",
+      "createdAt": "2026-08-05T14:00:53.387Z",
       "status": "approved"
     }
   ],
   "adminUsers": [
     {
       "_id": "admin_1",
-      "username": "shubhambhasker@gmail.com",
+      "username": "admin",
       "email": "shubhambhasker@gmail.com",
       "passwordHash": "$2b$10$Nx5ymR7r6Q9iPfB872fYj.QNE5bfUhRs.NoxjSbgJpzJyzQtmzwP.",
       "role": "admin",
       "createdAt": "2025-09-06T19:58:13.691Z",
-      "lastLogin": null
+      "lastLogin": "2026-08-05T14:00:53.420Z"
     }
   ],
   "websiteSettings": [
     {
       "_id": "68bc983bf4da488a337b0118",
       "profile": {
-        "name": "Updated Name",
-        "title": "Updated Title",
-        "bio": "Updated bio",
-        "email": "updated@example.com",
-        "phone": "+9876543210",
-        "location": "Updated Location",
-        "profileImage": "/updated-image.jpg",
-        "coverImage": "/updated-cover.jpg"
+        "name": "Shubham Bhasker",
+        "title": "Security-focused Engineer",
+        "bio": "Security-focused Engineer with a strong foundation in Technical Integrations, Log Analysis, and System Reliability. Currently managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting. Proven track record in vulnerability research and automation, ranked globally in the Top 250 on TryHackMe. Passionate about ensuring high-availability systems within the Fintech sector.",
+        "email": "samworkingdev@gmail.com",
+        "phone": "+370 63979268",
+        "location": "Vilnius, Lithuania",
+        "profileImage": "/hero-img.jpeg",
+        "coverImage": "/cybersecurity-vulnerability-assessment-dashboard-w.jpg"
       },
       "experience": [
         {
-          "title": "Senior Cybersecurity Consultant",
-          "company": "TechCorp Solutions",
-          "duration": "2022 - Present",
-          "description": "Leading security assessments and implementing security frameworks for enterprise clients.",
+          "id": "exp_1",
+          "title": "Customer Success Manager",
+          "company": "CYBERCARE - NORDVPN",
+          "duration": "14/10/2024 – 15/01/2026",
+          "description": "Managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting.",
           "achievements": [
-            "Reduced security vulnerabilities by 85% across client portfolios",
-            "Implemented zero-trust architecture for 50+ organizations",
-            "Led team of 12 security professionals"
+            "Integration & Troubleshooting: Rapidly progressed to Tier 2 escalations, resolving complex connectivity and system configuration issues.",
+            "Protocol Expertise: Mastered technical implementation and troubleshooting of VPN protocols (NordLynx, OpenVPN) and communication protocols including TCP/IP.",
+            "Log Analysis & Diagnosis: Analyze system logs to identify root causes for connectivity failures in highly restricted regions.",
+            "API & Tooling: Use manual connection setups and custom configurations to bypass network restrictions, mirroring API-level diagnostic workflows.",
+            "Process Improvement: Actively use Jira to document software bugs and provide technical feedback for developer-led remediation.",
+            "Utilized Zendesk to manage and streamline customer support operations, ensuring a 95% SLA adherence for ticket resolution.",
+            "Worked extensively with payment platforms like Adyen, Stripe, and Paddle to locate transactions, resolve discrepancies, and optimize payment processes for better customer satisfaction."
           ]
         },
         {
-          "title": "Penetration Tester",
-          "company": "SecureNet Inc",
-          "duration": "2020 - 2022",
-          "description": "Conducted comprehensive security assessments and vulnerability testing.",
+          "id": "exp_2",
+          "title": "Freelance Security Researcher",
+          "company": "BUGCROWD",
+          "duration": "05/09/2020 – Current",
+          "description": "Vulnerability research, bug bounty discovery, and technical security documentation.",
           "achievements": [
-            "Identified 200+ critical security vulnerabilities",
-            "Developed automated testing tools used by 100+ security teams",
-            "Achieved 99.8% client satisfaction rate"
+            "System Reliability & Logic: Ranked in the Top 300 globally for identifying critical logic and integration flaws, including Broken Authentication and IDOR.",
+            "API Security: Extensively test and troubleshoot web application interfaces using tools like Postman and cURL to identify insecure data handling.",
+            "Automation: Developed a micro bug scanner in Python and Bash to automate the detection of access control issues, improving diagnostic efficiency.",
+            "Reporting: Deliver detailed technical documentation and remediation steps for critical vulnerabilities in financial and e-commerce platforms.",
+            "Created custom automation tools and scripts to streamline vulnerability discovery, including a micro bug scanner focused on IDOR and BAC issues.",
+            "Employed analytical tools to ensure 96% accuracy in vulnerability identification and reporting."
           ]
         }
       ],
       "skills": [
         {
-          "name": "Penetration Testing",
-          "level": 95,
-          "category": "Security"
-        },
-        {
-          "name": "Vulnerability Assessment",
+          "name": "Python / Bash Scripting",
           "level": 90,
           "category": "Security"
         },
         {
-          "name": "Security Architecture",
-          "level": 88,
+          "name": "Web App Security & OWASP Top 10",
+          "level": 95,
           "category": "Security"
         },
         {
-          "name": "React/Next.js",
-          "level": 85,
-          "category": "Frontend"
+          "name": "Networking & Cyber Security",
+          "level": 92,
+          "category": "Security"
         },
         {
-          "name": "Node.js",
-          "level": 80,
-          "category": "Backend"
+          "name": "cURL & Postman API Security",
+          "level": 90,
+          "category": "Testing"
         },
         {
-          "name": "Python",
-          "level": 85,
-          "category": "Programming"
-        },
-        {
-          "name": "AWS Security",
-          "level": 82,
-          "category": "Cloud"
-        },
-        {
-          "name": "Docker",
-          "level": 75,
+          "name": "Git / GitHub",
+          "level": 88,
           "category": "DevOps"
+        },
+        {
+          "name": "Linux & Docker",
+          "level": 85,
+          "category": "Infrastructure"
+        },
+        {
+          "name": "Jira & Technical Escalations",
+          "level": 90,
+          "category": "Management"
+        },
+        {
+          "name": "Firewalls & System Architecture",
+          "level": 85,
+          "category": "Security"
         }
       ],
       "socialLinks": [
         {
           "platform": "LinkedIn",
-          "url": "https://linkedin.com/in/sam-cybersecurity",
+          "url": "https://linkedin.com/in/shubhambhasker",
           "icon": "linkedin"
         },
         {
           "platform": "GitHub",
-          "url": "https://github.com/sam-cyber",
+          "url": "https://github.com/0xDracarys",
           "icon": "github"
         },
         {
-          "platform": "Twitter",
-          "url": "https://twitter.com/sam_cyber",
-          "icon": "twitter"
+          "platform": "Website",
+          "url": "https://www.dracarys.space",
+          "icon": "globe"
         },
         {
           "platform": "Email",
-          "url": "mailto:shubham@example.com",
+          "url": "mailto:samworkingdev@gmail.com",
           "icon": "mail"
         }
       ],
@@ -813,7 +1114,7 @@
         "availability": "Available for freelance projects",
         "responseTime": "Usually responds within 24 hours"
       },
-      "updatedAt": "2025-10-04T21:16:39.681Z"
+      "updatedAt": "2026-08-05T14:00:53.422Z"
     }
   ],
   "themes": [],
@@ -839,8 +1140,8 @@
       "metaDescription": "Step-by-step guide to solving the Lame machine on HackTheBox with vulnerability analysis",
       "keywords": "hackthebox, lame, samba, vulnerability, exploitation, penetration testing",
       "views": 0,
-      "createdAt": "2025-11-19T10:00:00Z",
-      "updatedAt": "2025-11-19T10:00:00Z"
+      "createdAt": "2025-11-19T10:00:00.000Z",
+      "updatedAt": "2025-11-19T10:00:00.000Z"
     },
     {
       "_id": "blog_2",
@@ -862,8 +1163,8 @@
       "metaDescription": "Complete guide to exploiting EternalBlue on HackTheBox Blue machine",
       "keywords": "hackthebox, blue, eternalblue, windows, smb, metasploit",
       "views": 0,
-      "createdAt": "2025-11-19T10:15:00Z",
-      "updatedAt": "2025-11-19T10:15:00Z"
+      "createdAt": "2025-11-19T10:15:00.000Z",
+      "updatedAt": "2025-11-19T10:15:00.000Z"
     },
     {
       "_id": "blog_3",
@@ -885,8 +1186,8 @@
       "metaDescription": "Learn SQL injection exploitation and prevention techniques",
       "keywords": "sql injection, tryhackme, web vulnerability, owasp",
       "views": 0,
-      "createdAt": "2025-11-19T10:30:00Z",
-      "updatedAt": "2025-11-19T10:30:00Z"
+      "createdAt": "2025-11-19T10:30:00.000Z",
+      "updatedAt": "2025-11-19T10:30:00.000Z"
     },
     {
       "_id": "blog_4",
@@ -908,8 +1209,8 @@
       "metaDescription": "Comprehensive guide to XSS vulnerabilities, exploitation, and defense",
       "keywords": "xss, cross-site scripting, tryhackme, web security",
       "views": 0,
-      "createdAt": "2025-11-19T10:45:00Z",
-      "updatedAt": "2025-11-19T10:45:00Z"
+      "createdAt": "2025-11-19T10:45:00.000Z",
+      "updatedAt": "2025-11-19T10:45:00.000Z"
     },
     {
       "_id": "blog_5",
@@ -936,8 +1237,8 @@
         "security"
       ],
       "views": 0,
-      "createdAt": "2025-11-20T10:00:00Z",
-      "updatedAt": "2025-11-20T10:00:00Z"
+      "createdAt": "2025-11-20T10:00:00.000Z",
+      "updatedAt": "2025-11-20T10:00:00.000Z"
     },
     {
       "_id": "blog_6",
@@ -964,8 +1265,8 @@
         "privilege escalation"
       ],
       "views": 0,
-      "createdAt": "2025-11-20T11:00:00Z",
-      "updatedAt": "2025-11-20T11:00:00Z"
+      "createdAt": "2025-11-20T11:00:00.000Z",
+      "updatedAt": "2025-11-20T11:00:00.000Z"
     },
     {
       "_id": "blog_7",
@@ -992,8 +1293,8 @@
         "authentication bypass"
       ],
       "views": 0,
-      "createdAt": "2025-11-20T12:00:00Z",
-      "updatedAt": "2025-11-20T12:00:00Z"
+      "createdAt": "2025-11-20T12:00:00.000Z",
+      "updatedAt": "2025-11-20T12:00:00.000Z"
     },
     {
       "_id": "blog_8",
@@ -1020,8 +1321,8 @@
         "owasp"
       ],
       "views": 0,
-      "createdAt": "2025-11-20T13:00:00Z",
-      "updatedAt": "2025-11-20T13:00:00Z"
+      "createdAt": "2025-11-20T13:00:00.000Z",
+      "updatedAt": "2025-11-20T13:00:00.000Z"
     },
     {
       "_id": "blog_9",
@@ -1048,8 +1349,8 @@
         "2fa"
       ],
       "views": 0,
-      "createdAt": "2025-11-20T14:00:00Z",
-      "updatedAt": "2025-11-20T14:00:00Z"
+      "createdAt": "2025-11-20T14:00:00.000Z",
+      "updatedAt": "2025-11-20T14:00:00.000Z"
     }
   ]
 }

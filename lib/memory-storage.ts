@@ -332,7 +332,7 @@ const sampleProjects: MemoryProject[] = [
 const sampleAdminUsers: MemoryAdminUser[] = [
   {
     _id: "admin_1",
-    username: "shubhambhasker@gmail.com",
+    username: "admin",
     email: "shubhambhasker@gmail.com",
     passwordHash: "$2b$10$Nx5ymR7r6Q9iPfB872fYj.QNE5bfUhRs.NoxjSbgJpzJyzQtmzwP.",
     role: "admin",
@@ -345,39 +345,46 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
     _id: "settings_1",
     profile: {
       name: "Shubham Bhasker",
-      title: "Cybersecurity Enthusiast & Bug Hunter",
-      bio: "Cybersecurity enthusiast & bug hunter from Bareilly 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!",
-      location: "Bareilly, India",
-      email: "shubhambhasker2020@gmail.com",
-      phone: "+91 8700780007",
-      profileImage: "/placeholder-user.jpg",
-      coverImage: "/hero-img.jpeg",
+      title: "Security-focused Engineer",
+      bio: "Security-focused Engineer with a strong foundation in Technical Integrations, Log Analysis, and System Reliability. Currently managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting. Proven track record in vulnerability research and automation, ranked globally in the Top 250 on TryHackMe. Passionate about ensuring high-availability systems within the Fintech sector.",
+      location: "Vilnius, Lithuania",
+      email: "samworkingdev@gmail.com",
+      phone: "+370 63979268",
+      profileImage: "/hero-img.jpeg",
+      coverImage: "/cybersecurity-vulnerability-assessment-dashboard-w.jpg",
     },
     experience: [
       {
-        year: "2024 - Present",
+        id: "exp_1",
         title: "Customer Success Manager",
-        company: "CyberCare",
-        description: "Leading customer success initiatives and security program optimization for enterprise clients.",
+        company: "CYBERCARE - NORDVPN",
+        duration: "14/10/2024 – 15/01/2026",
+        description: "Managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting.",
+        achievements: [
+          "Integration & Troubleshooting: Rapidly progressed to Tier 2 escalations, resolving complex connectivity and system configuration issues.",
+          "Protocol Expertise: Mastered technical implementation and troubleshooting of VPN protocols (NordLynx, OpenVPN) and communication protocols including TCP/IP.",
+          "Log Analysis & Diagnosis: Analyze system logs to identify root causes for connectivity failures in highly restricted regions.",
+          "API & Tooling: Use manual connection setups and custom configurations to bypass network restrictions, mirroring API-level diagnostic workflows.",
+          "Process Improvement: Actively use Jira to document software bugs and provide technical feedback for developer-led remediation.",
+          "Utilized Zendesk to manage and streamline customer support operations, ensuring a 95% SLA adherence for ticket resolution.",
+          "Worked extensively with payment platforms like Adyen, Stripe, and Paddle to locate transactions, resolve discrepancies, and optimize payment processes for better customer satisfaction."
+        ]
       },
       {
-        year: "2023 - 2024",
-        title: "Security Researcher",
-        company: "Freelance",
-        description: "Conducted security assessments and vulnerability research for various organizations.",
-      },
-      {
-        year: "2022 - 2023",
-        title: "Full-Stack Developer",
-        company: "Tech Solutions Ltd",
-        description: "Developed secure web applications and implemented security best practices.",
-      },
-      {
-        year: "2018",
-        title: "Bachelor's in Science",
-        company: "Siddhi Vinayak Group",
-        description: "Completed foundational studies in computer science and information systems.",
-      },
+        id: "exp_2",
+        title: "Freelance Security Researcher",
+        company: "BUGCROWD",
+        duration: "05/09/2020 – Current",
+        description: "Vulnerability research, bug bounty discovery, and technical security documentation.",
+        achievements: [
+          "System Reliability & Logic: Ranked in the Top 300 globally for identifying critical logic and integration flaws, including Broken Authentication and IDOR.",
+          "API Security: Extensively test and troubleshoot web application interfaces using tools like Postman and cURL to identify insecure data handling.",
+          "Automation: Developed a micro bug scanner in Python and Bash to automate the detection of access control issues, improving diagnostic efficiency.",
+          "Reporting: Deliver detailed technical documentation and remediation steps for critical vulnerabilities in financial and e-commerce platforms.",
+          "Created custom automation tools and scripts to streamline vulnerability discovery, including a micro bug scanner focused on IDOR and BAC issues.",
+          "Employed analytical tools to ensure 96% accuracy in vulnerability identification and reporting."
+        ]
+      }
     ],
     skills: [
       { name: "Cybersecurity & Penetration Testing", level: 90 },
@@ -687,11 +694,11 @@ export class MemoryDatabaseService {
   }
 
   async getAdminUser(username: string): Promise<MemoryAdminUser | null> {
-    return adminUsers.find(user => user.username === username) || null
+    return adminUsers.find(user => user.username === username || user.email === username) || null
   }
 
   async updateLastLogin(username: string): Promise<boolean> {
-    const user = adminUsers.find(u => u.username === username)
+    const user = adminUsers.find(u => u.username === username || u.email === username)
     if (user) {
       user.lastLogin = new Date()
       return true

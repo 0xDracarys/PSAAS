@@ -131,11 +131,11 @@ function ParticleBackground() {
   if (dimensions.width === 0) return null
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[...Array(50)].map((_, i) => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(12)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-primary rounded-full"
+          className="absolute w-1 h-1 bg-primary/40 rounded-full"
           initial={{
             x: Math.random() * dimensions.width,
             y: Math.random() * dimensions.height,
@@ -145,7 +145,7 @@ function ParticleBackground() {
             y: Math.random() * dimensions.height,
           }}
           transition={{
-            duration: Math.random() * 10 + 10,
+            duration: Math.random() * 15 + 15,
             repeat: Number.POSITIVE_INFINITY,
             repeatType: "reverse",
           }}
@@ -155,223 +155,9 @@ function ParticleBackground() {
   )
 }
 
-// Cinematic Water Drop Component
+// Water Drop Component - Removed for performance optimization
 function WaterDropEffect() {
-  const [scrollY, setScrollY] = useState(0)
-  const [dropVisible, setDropVisible] = useState(false)
-  const [dropPosition, setDropPosition] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    // Show drop when scrolling starts
-    if (scrollY > 100 && !dropVisible) {
-      setDropVisible(true)
-      // Position drop on the right side, starting from top
-      setDropPosition({
-        x: window.innerWidth * 0.75, // 75% from left
-        y: -100
-      })
-    }
-  }, [scrollY, dropVisible])
-
-  if (!dropVisible) return null
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-5 overflow-hidden">
-      {/* Leaf Branch */}
-      <div 
-        className="absolute"
-        style={{
-          left: `${dropPosition.x - 20}px`,
-          top: '50px',
-          zIndex: 1,
-        }}
-      >
-        {/* Branch */}
-        <div 
-          className="w-1 h-16 bg-gradient-to-b from-green-800 to-green-600 rounded-full"
-          style={{
-            transform: 'rotate(-15deg)',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
-          }}
-        />
-        
-        {/* Leaf */}
-        <div 
-          className="absolute top-12 left-0 w-8 h-4 rounded-full"
-          style={{
-            background: 'linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%)',
-            transform: 'rotate(-15deg)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-          }}
-        />
-        
-        {/* Leaf Veins */}
-        <div 
-          className="absolute top-12 left-0 w-8 h-4"
-          style={{
-            background: `
-              linear-gradient(90deg, transparent 30%, rgba(34,197,94,0.3) 50%, transparent 70%),
-              linear-gradient(0deg, transparent 20%, rgba(34,197,94,0.2) 50%, transparent 80%)
-            `,
-            transform: 'rotate(-15deg)',
-          }}
-        />
-      </div>
-
-      {/* Single Water Drop */}
-      <motion.div
-        className="absolute"
-        initial={{
-          x: dropPosition.x,
-          y: dropPosition.y,
-          opacity: 0,
-          scale: 0.5,
-        }}
-        animate={{
-          y: window.innerHeight + 200,
-          opacity: [0, 1, 1, 0.8, 0],
-          scale: [0.5, 1, 1.1, 1, 0.8],
-          x: dropPosition.x + (scrollY * 0.1), // Slight drift as it falls
-        }}
-        transition={{
-          duration: 8,
-          ease: "easeIn",
-          times: [0, 0.1, 0.3, 0.7, 1],
-        }}
-        style={{
-          width: 12,
-          height: 12,
-        }}
-      >
-        {/* Drop Shadow */}
-        <div 
-          className="absolute inset-0 rounded-full blur-sm"
-          style={{
-            background: 'radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%)',
-            transform: 'translateY(2px)',
-          }}
-        />
-        
-        {/* Main Water Drop */}
-        <div className="relative w-full h-full">
-          {/* Outer Glow */}
-          <div 
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(6,182,212,0.6) 0%, transparent 70%)',
-              filter: 'blur(1px)',
-            }}
-          />
-          
-          {/* Glassmorphic Water Drop */}
-          <div 
-            className="absolute inset-0 rounded-full backdrop-blur-sm border border-white/40 shadow-lg"
-            style={{
-              background: `
-                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0%, transparent 60%),
-                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.4) 0%, transparent 60%),
-                linear-gradient(135deg, 
-                  rgba(6,182,212,0.7) 0%, 
-                  rgba(59,130,246,0.8) 30%,
-                  rgba(147,51,234,0.6) 60%,
-                  rgba(6,182,212,0.7) 100%
-                )
-              `,
-              boxShadow: `
-                0 0 15px rgba(6,182,212,0.5),
-                0 0 30px rgba(59,130,246,0.3),
-                inset 0 1px 0 rgba(255,255,255,0.6),
-                inset 0 -1px 0 rgba(0,0,0,0.2)
-              `,
-            }}
-          />
-          
-          {/* Inner Highlight */}
-          <div 
-            className="absolute top-0.5 left-1 w-2 h-2 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, transparent 70%)',
-            }}
-          />
-          
-          {/* Refraction Effect */}
-          <div 
-            className="absolute top-0 left-0 w-full h-full rounded-full opacity-50"
-            style={{
-              background: `
-                conic-gradient(from 0deg at 50% 50%, 
-                  transparent 0deg, 
-                  rgba(255,255,255,0.3) 45deg, 
-                  transparent 90deg,
-                  transparent 180deg,
-                  rgba(6,182,212,0.2) 225deg,
-                  transparent 270deg,
-                  transparent 360deg
-                )
-              `,
-              animation: 'spin 4s linear infinite',
-            }}
-          />
-          
-          {/* Holographic Shimmer */}
-          <div 
-            className="absolute top-0 left-0 w-full h-full rounded-full opacity-30"
-            style={{
-              background: `
-                linear-gradient(45deg, 
-                  transparent 40%, 
-                  rgba(255,255,255,0.2) 50%, 
-                  transparent 60%
-                )
-              `,
-              animation: 'shimmer 3s ease-in-out infinite',
-            }}
-          />
-        </div>
-        
-        {/* Water Trail */}
-        <motion.div
-          className="absolute top-full left-1/2 w-0.5 h-6 rounded-full"
-          initial={{ opacity: 0, scaleY: 0 }}
-          animate={{ 
-            opacity: [0, 0.8, 0.6, 0.3, 0],
-            scaleY: [0, 1, 1.2, 1, 0],
-            y: [0, 10, 20, 30, 40]
-          }}
-          transition={{
-            duration: 1.5,
-            delay: 0.5,
-            repeat: Infinity,
-            repeatDelay: 0.5,
-          }}
-          style={{
-            background: 'linear-gradient(to bottom, rgba(6,182,212,0.8), transparent)',
-            transform: 'translateX(-50%)',
-          }}
-        />
-      </motion.div>
-      
-      <style jsx>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes shimmer {
-          0% { transform: translateX(-100%) rotate(45deg); }
-          100% { transform: translateX(100%) rotate(45deg); }
-        }
-      `}</style>
-    </div>
-  )
+  return null
 }
 
 // Skills Visualization Component
@@ -433,12 +219,14 @@ function Timeline() {
         if (response.ok) {
           const data = await response.json()
           // Transform experience data to timeline format
-          const transformedData = data.experience.map((exp: any) => ({
-            year: exp.duration.split(' ')[0] || exp.duration, // Extract year from duration
+          const transformedData = (data.experience || []).map((exp: any, index: number) => ({
+            id: exp.id || `exp-${index}`,
+            year: exp.duration?.split(' ')[0] || exp.duration || '2024', // Extract year from duration
+            duration: exp.duration,
             title: exp.title,
             company: exp.company,
             description: exp.description,
-            achievements: exp.achievements
+            achievements: exp.achievements || []
           }))
           setTimelineData(transformedData)
         }
@@ -447,16 +235,22 @@ function Timeline() {
         // Fallback to default data
         setTimelineData([
           {
+            id: 'default-1',
             year: "2024",
+            duration: "2024 - Present",
             title: "Customer Success Manager",
             company: "CyberCare (NordVPN)",
             description: "Working on customer success initiatives and providing security consulting for clients.",
+            achievements: ["Customer satisfaction rating of 98%", "Led key security initiatives"]
           },
           {
+            id: 'default-2',
             year: "2020",
+            duration: "2020 - 2024",
             title: "Security Researcher & Bug Hunter",
             company: "Bugcrowd",
             description: "Participated in bug bounty programs and gained experience in vulnerability research.",
+            achievements: ["Top 500 on Bugcrowd", "Discovered critical security vulnerabilities"]
           },
         ])
       } finally {
@@ -467,9 +261,6 @@ function Timeline() {
     fetchProfessionalJourney()
   }, [])
 
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -478,25 +269,32 @@ function Timeline() {
     )
   }
 
+  if (timelineData.length === 0) {
+    return (
+      <div className="text-center p-8 text-gray-400">
+        No professional journey entries available.
+      </div>
+    )
+  }
+
   return (
-    <div ref={ref} className="relative">
+    <div className="relative">
       {/* Timeline Line */}
       <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-secondary to-primary transform md:-translate-x-1/2" />
 
       <div className="space-y-8">
         {timelineData.map((item, index) => (
           <motion.div
-            key={item.year}
+            key={item.id || `${item.title}-${index}`}
             initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
             className={`relative flex items-center ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
           >
             {/* Timeline Dot */}
             <div
-              className={`absolute left-4 md:left-1/2 w-4 h-4 rounded-full transform md:-translate-x-1/2 z-10 ${
-                true ? "bg-primary glow" : "bg-secondary"
-              }`}
+              className={`absolute left-4 md:left-1/2 w-4 h-4 rounded-full transform md:-translate-x-1/2 z-10 bg-primary glow`}
             />
 
             {/* Content Card */}
@@ -505,6 +303,9 @@ function Timeline() {
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-2xl font-serif font-bold text-primary">{item.year}</span>
                   <Zap className="h-5 w-5 text-secondary" />
+                  {item.duration && item.duration !== item.year && (
+                    <span className="text-xs text-gray-400 ml-auto">{item.duration}</span>
+                  )}
                 </div>
                 <h3 className="text-xl font-serif font-semibold mb-2 text-primary">{item.title}</h3>
                 <p className="text-sm text-gray-400 mb-2">{item.company}</p>

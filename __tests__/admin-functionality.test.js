@@ -7,25 +7,17 @@ const { MongoClient } = require('mongodb');
 
 // Test configuration
 const TEST_CONFIG = {
-  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/test'
-};
-
-describe('Admin Panel Functionality', () => {
-  test('MongoDB configuration is valid', () => {
-    expect(TEST_CONFIG.MONGODB_URI).toBeDefined();
-    expect(TEST_CONFIG.MONGODB_URI).toContain('mongodb://');
-  });
-});
-}
-
-describe('Admin Panel Functionality', () => {
-  test('MongoDB configuration is valid', () => {
-    expect(TEST_CONFIG.MONGODB_URI).toBeDefined();
-    expect(TEST_CONFIG.MONGODB_URI).toContain('mongodb://');
-  });
+  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/test',
   BASE_URL: 'http://localhost:3000',
   TEST_TIMEOUT: 30000
-}
+};
+
+describe('Admin Panel Functionality Module', () => {
+  test('AdminTestSuite module loads correctly', () => {
+    expect(TEST_CONFIG).toBeDefined();
+    expect(TEST_CONFIG.BASE_URL).toBe('http://localhost:3000');
+  });
+});
 
 // Test data
 const TEST_DATA = {

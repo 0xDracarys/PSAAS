@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { chatbotService } from "@/lib/chatbot"
 import { dbService } from "@/lib/database-service"
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
