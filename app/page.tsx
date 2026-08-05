@@ -1518,7 +1518,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 1.2 }}
                 className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto"
               >
-                {websiteSettings?.profile?.bio || "Cybersecurity enthusiast & bug hunter from Bareilly 🇮🇳 Building secure stuff, breaking things (ethically), and learning everyday. Top 1% on TryHackMe, Top 500 on Bugcrowd. Let's connect!"}
+                {websiteSettings?.profile?.bio || "I work at the intersection of security and reliability. Currently at NordVPN handling technical escalations and networking issues. On the side, I hunt bugs on Bugcrowd and tinker with security tooling."}
               </motion.p>
 
               <motion.div
@@ -1601,22 +1601,21 @@ export default function HomePage() {
             </h2>
             <div className="max-w-3xl mx-auto">
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
-                Hey! I'm Shubham Bhasker, a cybersecurity enthusiast from Bareilly, India 🇮🇳 
-                Currently rocking it as Customer Success Manager at CyberCare (NordVPN) while studying 
-                Information Systems & Cyber Security at Vilnius University. Yeah, I'm doing both – sleep is overrated anyway 😅
+                Hey, I'm Shubham. I work in tech support and security — currently at NordVPN where I handle 
+                Tier 2 escalations, dig into network logs, and troubleshoot VPN protocol issues. It's hands-on 
+                work that keeps me sharp.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                My journey into cybersecurity started with one simple question: "How do hackers do it?" That curiosity led me down 
-                the rabbit hole of bug bounties, CTF challenges, and late-night hacking sessions. Now I'm in the Top 1% on TryHackMe 
-                and Top 500 on Bugcrowd. Not bad for someone who started with zero knowledge!
+                Outside of work, I do bug bounty hunting on Bugcrowd. I've found some interesting auth and access 
+                control bugs, and built a small scanner to help automate parts of my workflow. I'm always learning 
+                — security is one of those fields where you never really stop.
               </p>
               <blockquote className="text-xl italic text-primary border-l-4 border-primary pl-6 mb-8">
-                "The smallest oversight can lead to the biggest breach. I build with security at the core, not as an afterthought."
+                "I like understanding how things break so I can help build them better."
               </blockquote>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                When I'm not hunting bugs or helping customers, you'll find me playing table tennis, vibing to some music, 
-                or brewing the perfect cup of coffee ☕ I believe in learning by doing, sharing knowledge, and keeping things fun. 
-                Because hey, cybersecurity doesn't have to be boring!
+                When I'm not working or researching, I'm usually playing table tennis, listening to music, 
+                or just hanging out with a good cup of coffee ☕
               </p>
             </div>
           </motion.div>

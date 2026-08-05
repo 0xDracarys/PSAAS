@@ -150,8 +150,8 @@
       "id": "settings_1",
       "profile": {
         "name": "Shubham Bhasker",
-        "title": "Security-focused Engineer",
-        "bio": "Security-focused Engineer with a strong foundation in Technical Integrations, Log Analysis, and System Reliability. Currently managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting. Proven track record in vulnerability research and automation, ranked globally in the Top 250 on TryHackMe. Passionate about ensuring high-availability systems within the Fintech sector.",
+        "title": "Security Engineer & Bug Hunter",
+        "bio": "I work at the intersection of security and reliability. Currently at NordVPN handling technical escalations and networking issues. On the side, I hunt bugs on Bugcrowd and tinker with security tooling. I enjoy understanding how systems break so I can help make them better.",
         "location": "Vilnius, Lithuania",
         "email": "samworkingdev@gmail.com",
         "phone": "+370 63979268",

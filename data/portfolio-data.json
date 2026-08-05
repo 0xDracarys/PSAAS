@@ -964,8 +964,8 @@
       "_id": "68bc983bf4da488a337b0118",
       "profile": {
         "name": "Shubham Bhasker",
-        "title": "Security-focused Engineer",
-        "bio": "Security-focused Engineer with a strong foundation in Technical Integrations, Log Analysis, and System Reliability. Currently managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting. Proven track record in vulnerability research and automation, ranked globally in the Top 250 on TryHackMe. Passionate about ensuring high-availability systems within the Fintech sector.",
+        "title": "Security Engineer & Bug Hunter",
+        "bio": "I work at the intersection of security and reliability. Currently at NordVPN handling technical escalations and networking issues. On the side, I hunt bugs on Bugcrowd and tinker with security tooling. I enjoy understanding how systems break so I can help make them better.",
         "email": "samworkingdev@gmail.com",
         "phone": "+370 63979268",
         "location": "Vilnius, Lithuania",
@@ -1008,42 +1008,42 @@
       "skills": [
         {
           "name": "Python / Bash Scripting",
-          "level": 90,
+          "level": 75,
           "category": "Security"
         },
         {
           "name": "Web App Security & OWASP Top 10",
-          "level": 95,
+          "level": 80,
           "category": "Security"
         },
         {
           "name": "Networking & Cyber Security",
-          "level": 92,
+          "level": 78,
           "category": "Security"
         },
         {
-          "name": "cURL & Postman API Security",
-          "level": 90,
+          "name": "cURL & Postman API Testing",
+          "level": 75,
           "category": "Testing"
         },
         {
           "name": "Git / GitHub",
-          "level": 88,
+          "level": 72,
           "category": "DevOps"
         },
         {
           "name": "Linux & Docker",
-          "level": 85,
+          "level": 70,
           "category": "Infrastructure"
         },
         {
           "name": "Jira & Technical Escalations",
-          "level": 90,
+          "level": 78,
           "category": "Management"
         },
         {
           "name": "Firewalls & System Architecture",
-          "level": 85,
+          "level": 68,
           "category": "Security"
         }
       ],
