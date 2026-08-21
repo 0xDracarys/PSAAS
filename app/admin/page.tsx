@@ -2751,6 +2751,8 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
   const [isLoading, setIsLoading] = useState(true)
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [editingBlog, setEditingBlog] = useState<any>(null)
+  const [isGeneratingAi, setIsGeneratingAi] = useState(false)
+  const [draftAiBlog, setDraftAiBlog] = useState<any>(null)
 
   useEffect(() => {
     fetchBlogs()
@@ -2770,6 +2772,34 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
     }
   }
 
+  const handleGenerateAiBlog = async () => {
+    const topic = prompt("Enter a topic for the AI Blog (or leave blank for a random cybersecurity topic):")
+    if (topic === null) return // User cancelled
+
+    setIsGeneratingAi(true)
+    try {
+      const response = await fetch('/api/admin/generate-blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic: topic.trim() })
+      })
+      
+      const data = await response.json()
+      
+      if (response.ok && data.success) {
+        setDraftAiBlog(data.blogData)
+        setShowCreateForm(true)
+      } else {
+        alert(data.error || 'Failed to generate AI blog')
+      }
+    } catch (error) {
+      console.error('Error generating AI blog:', error)
+      alert('Error communicating with AI service')
+    } finally {
+      setIsGeneratingAi(false)
+    }
+  }
+
   const handleCreateBlog = async (blogData: any) => {
     try {
       const response = await fetch('/api/blogs', {
@@ -2781,6 +2811,7 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
       if (response.ok) {
         await fetchBlogs()
         setShowCreateForm(false)
+        setDraftAiBlog(null)
         alert('Blog post created successfully!')
       } else {
         alert('Failed to create blog post')
@@ -2844,16 +2875,32 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
     <div className="space-y-6" data-testid="blog-tab">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold" data-testid="blog-heading">Blog & Articles Management</h2>
-        <Button onClick={() => setShowCreateForm(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          Create Blog Post
-        </Button>
+        <div className="flex gap-2">
+          <Button 
+            onClick={handleGenerateAiBlog} 
+            disabled={isGeneratingAi}
+            variant="secondary"
+            className="glow hover:glow-amber transition-all duration-300"
+          >
+            {isGeneratingAi ? (
+              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            )}
+            AI Generate Blog
+          </Button>
+          <Button onClick={() => setShowCreateForm(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Create Blog Post
+          </Button>
+        </div>
       </div>
 
       {showCreateForm && (
         <BlogForm
+          blog={draftAiBlog}
           onSave={handleCreateBlog}
-          onCancel={() => setShowCreateForm(false)}
+          onCancel={() => { setShowCreateForm(false); setDraftAiBlog(null); }}
         />
       )}
 
