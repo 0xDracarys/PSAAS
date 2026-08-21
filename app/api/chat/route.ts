@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       const session = chatbotService.getSession(newSessionId)
       
       // Send initial greeting
-      const greeting = chatbotService.processMessage(newSessionId, 'hello')
+      const greeting = await chatbotService.processMessage(newSessionId, 'hello')
       
       return NextResponse.json({
         success: true,
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Session ID and message are required' }, { status: 400 })
       }
 
-      const botResponse = chatbotService.processMessage(sessionId, message)
+      const botResponse = await chatbotService.processMessage(sessionId, message)
       const session = chatbotService.getSession(sessionId)
       
       return NextResponse.json({

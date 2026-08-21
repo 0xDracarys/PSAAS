@@ -246,14 +246,91 @@ export class ChatbotService {
     return message
   }
 
-  processMessage(sessionId: string, userMessage: string): ChatMessage {
+  async queryNvidiaAI(userMessage: string, history: ChatMessage[] = []): Promise<string | null> {
+    const apiKey =
+      process.env.NVIDIA_API_KEY ||
+      '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'
+    if (!apiKey) return null
+
+    try {
+      const messagesPayload = [
+        {
+          role: 'system',
+          content: `You are the AI Assistant for Shubham Bhasker's portfolio website (Dracarys).
+About Shubham Bhasker:
+- Role: Cybersecurity Engineer, Penetration Tester, and Tech Escalations Specialist.
+- Current position: Customer Success & Tier 2 Technical Escalations at CyberCare (NordVPN) handling VPN protocols (NordLynx, OpenVPN), networking protocols (TCP/IP), log diagnostics, and API troubleshooting.
+- Security achievements: Top 300 globally on Bugcrowd, specialized in Broken Authentication, IDOR, and logic fault discovery.
+- Technical skills: Python, Bash, Node.js, Next.js, React, Linux, Postman/cURL, Metasploit, Burp Suite, Network diagnostics.
+- Contact: shubhambhaskr123@gmail.com, Phone: +370 63979268, Location: Vilnius / Kaunas, Lithuania.
+- Personality: Cyber-savvy, professional, direct, concise, and helpful. Keep responses concise (under 2-3 short paragraphs).`
+        },
+        ...history.slice(-6).map(m => ({
+          role: m.sender === 'user' ? 'user' : 'assistant',
+          content: m.content
+        })),
+        {
+          role: 'user',
+          content: userMessage
+        }
+      ]
+
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000)
+
+      const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'meta/llama-3.1-8b-instruct',
+          messages: messagesPayload,
+          temperature: 0.5,
+          max_tokens: 300
+        }),
+        signal: controller.signal
+      })
+
+      clearTimeout(timeoutId)
+
+      if (response.ok) {
+        const data = await response.json()
+        return data.choices?.[0]?.message?.content?.trim() || null
+      }
+      return null
+    } catch (err) {
+      console.warn('[Chatbot] NVIDIA AI query error:', err)
+      return null
+    }
+  }
+
+  async processMessage(sessionId: string, userMessage: string): Promise<ChatMessage> {
     const session = this.sessions.get(sessionId)
     if (!session) throw new Error('Session not found')
 
     // Add user message
     this.addMessage(sessionId, userMessage, 'user')
 
-    // Process the message and generate response
+    // First try NVIDIA AI for natural conversation
+    const nvidiaReply = await this.queryNvidiaAI(userMessage, session.messages)
+
+    if (nvidiaReply) {
+      return this.addMessage(
+        sessionId,
+        nvidiaReply,
+        'bot',
+        'quick_reply',
+        [
+          { id: 'services', text: 'View Services', payload: 'services' },
+          { id: 'portfolio', text: 'See Portfolio', payload: 'portfolio' },
+          { id: 'contact', text: 'Contact Info', payload: 'contact' }
+        ]
+      )
+    }
+
+    // Fallback to keyword-based response generator
     const response = this.generateResponse(userMessage)
     
     // Add bot response with quickReplies and card payload

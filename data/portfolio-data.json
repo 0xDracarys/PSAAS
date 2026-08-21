@@ -21,6 +21,41 @@
       "startDate": "2024-01-01",
       "endDate": "2024-02-01",
       "progress": 0,
+      "_id": "proj_1787306418539",
+      "createdAt": "2026-08-21T10:00:18.540Z",
+      "updatedAt": "2026-08-21T10:00:18.540Z"
+    },
+    {
+      "title": "Updated Title",
+      "description": "Original description",
+      "isActive": true,
+      "status": "in-progress",
+      "progress": 50,
+      "_id": "proj_1785938453404",
+      "createdAt": "2026-08-05T14:00:53.404Z",
+      "updatedAt": "2026-08-05T14:00:53.407Z"
+    },
+    {
+      "title": "Test Project",
+      "description": "A test project",
+      "image": "/test-image.jpg",
+      "tags": [
+        "React",
+        "Node.js"
+      ],
+      "github": "https://github.com/test/project",
+      "demo": "https://demo.example.com",
+      "features": [
+        "Feature 1",
+        "Feature 2"
+      ],
+      "isActive": true,
+      "client": "Test Client",
+      "status": "pending",
+      "budget": 5000,
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-01",
+      "progress": 0,
       "_id": "proj_1785938453396",
       "createdAt": "2026-08-05T14:00:53.396Z",
       "updatedAt": "2026-08-05T14:00:53.396Z"
@@ -471,9 +506,9 @@
       "isActive": true,
       "status": "in-progress",
       "progress": 50,
-      "_id": "proj_1785938453404",
-      "createdAt": "2026-08-05T14:00:53.404Z",
-      "updatedAt": "2026-08-05T14:00:53.407Z"
+      "_id": "proj_1787306418550",
+      "createdAt": "2026-08-21T10:00:18.550Z",
+      "updatedAt": "2026-08-21T10:00:18.553Z"
     }
   ],
   "clientRequests": [
@@ -491,10 +526,48 @@
       "files": [],
       "acceptedTerms": true,
       "paymentTerms": "50% upfront",
+      "_id": "req_1787306418523",
+      "id": "req_1787306418523",
+      "createdAt": "2026-08-21T10:00:18.523Z",
+      "status": "pending"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+1234567890",
+      "projectType": "Mobile App",
+      "requirements": "Need a mobile app",
+      "budget": "€2000-€3000",
+      "timeline": "2-3 months",
+      "referenceLinks": [],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
+      "_id": "req_1785938453387",
+      "id": "req_1785938453387",
+      "createdAt": "2026-08-05T14:00:53.387Z",
+      "status": "approved",
+      "updatedAt": null
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "projectType": "Web Development",
+      "requirements": "Need a website",
+      "budget": "€1000-€2000",
+      "timeline": "1-2 months",
+      "referenceLinks": [
+        "https://example.com"
+      ],
+      "files": [],
+      "acceptedTerms": true,
+      "paymentTerms": "50% upfront",
       "_id": "req_1785938453371",
       "id": "req_1785938453371",
       "createdAt": "2026-08-05T14:00:53.371Z",
-      "status": "pending"
+      "status": "pending",
+      "updatedAt": null
     },
     {
       "name": "Jane Doe",
@@ -512,7 +585,7 @@
       "id": "req_1785937527764",
       "createdAt": "2026-08-05T13:45:27.764Z",
       "status": "approved",
-      "updatedAt": null
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "name": "John Doe",
@@ -532,7 +605,7 @@
       "id": "req_1785937527755",
       "createdAt": "2026-08-05T13:45:27.755Z",
       "status": "pending",
-      "updatedAt": null
+      "updatedAt": "1970-01-01T00:00:00.000Z"
     },
     {
       "name": "Jane Doe",
@@ -942,9 +1015,9 @@
       "files": [],
       "acceptedTerms": true,
       "paymentTerms": "50% upfront",
-      "_id": "req_1785938453387",
-      "id": "req_1785938453387",
-      "createdAt": "2026-08-05T14:00:53.387Z",
+      "_id": "req_1787306418532",
+      "id": "req_1787306418532",
+      "createdAt": "2026-08-21T10:00:18.532Z",
       "status": "approved"
     }
   ],
@@ -953,24 +1026,24 @@
       "_id": "admin_1",
       "username": "admin",
       "email": "shubhambhasker@gmail.com",
-      "passwordHash": "$2b$10$Nx5ymR7r6Q9iPfB872fYj.QNE5bfUhRs.NoxjSbgJpzJyzQtmzwP.",
+      "passwordHash": "$2b$10$TMIcT3eQPaIn6foMtkxKmeo0lNULzRE78.bw43Is.uIGQtkn.Bwj.",
       "role": "admin",
       "createdAt": "2025-09-06T19:58:13.691Z",
-      "lastLogin": "2026-08-05T14:00:53.420Z"
+      "lastLogin": "2026-08-21T10:00:18.566Z"
     }
   ],
   "websiteSettings": [
     {
       "_id": "68bc983bf4da488a337b0118",
       "profile": {
-        "name": "Shubham Bhasker",
-        "title": "Security Engineer & Bug Hunter",
-        "bio": "I work at the intersection of security and reliability. Currently at NordVPN handling technical escalations and networking issues. On the side, I hunt bugs on Bugcrowd and tinker with security tooling. I enjoy understanding how systems break so I can help make them better.",
-        "email": "samworkingdev@gmail.com",
-        "phone": "+370 63979268",
-        "location": "Vilnius, Lithuania",
-        "profileImage": "/hero-img.jpeg",
-        "coverImage": "/cybersecurity-vulnerability-assessment-dashboard-w.jpg"
+        "name": "Updated Name",
+        "title": "Updated Title",
+        "bio": "Updated bio",
+        "email": "updated@example.com",
+        "phone": "+9876543210",
+        "location": "Updated Location",
+        "profileImage": "/updated-image.jpg",
+        "coverImage": "/updated-cover.jpg"
       },
       "experience": [
         {
@@ -1114,7 +1187,7 @@
         "availability": "Available for freelance projects",
         "responseTime": "Usually responds within 24 hours"
       },
-      "updatedAt": "2026-08-05T14:00:53.422Z"
+      "updatedAt": "2026-08-21T10:00:18.567Z"
     }
   ],
   "themes": [],

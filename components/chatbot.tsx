@@ -164,7 +164,7 @@ export default function Chatbot() {
       <motion.button
         onClick={toggleChat}
         disabled={isLoading && !sessionId}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-primary to-accent text-white p-4 rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-110"
+        className="fixed bottom-6 right-6 z-50 bg-[#8052ff] hover:bg-[#6b3fe6] text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >

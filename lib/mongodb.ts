@@ -180,40 +180,64 @@ export class DatabaseService {
 
   // Client Requests operations
   async createClientRequest(request: Omit<ClientRequest, "_id" | "createdAt" | "status">): Promise<string> {
-    if (!this.initialized) await this.init()
+    try {
+      if (!this.initialized) await this.init()
 
-    if (this.useMemoryStorage) {
+      if (this.useMemoryStorage || !this.db) {
+        return await memoryDbService.createClientRequest(request as any)
+      }
+
+      const collection: Collection<ClientRequest> = this.db.collection("client_requests")
+      const requestId = `req_${Date.now()}`
+      await collection.insertOne({
+        ...request,
+        _id: requestId, // Use _id for MongoDB
+        id: requestId, // Also set id for compatibility
+        createdAt: new Date(),
+        status: "pending",
+      })
+
+      return requestId
+    } catch (error) {
+      console.warn("[MongoDB] Fallback to memory for createClientRequest:", error)
       return await memoryDbService.createClientRequest(request as any)
     }
-
-    const collection: Collection<ClientRequest> = this.db!.collection("client_requests")
-    const requestId = `req_${Date.now()}`
-    const result = await collection.insertOne({
-      ...request,
-      _id: requestId, // Use _id for MongoDB
-      id: requestId, // Also set id for compatibility
-      createdAt: new Date(),
-      status: "pending",
-    })
-
-    return requestId
   }
 
   async getClientRequests(limit = 50, skip = 0): Promise<ClientRequest[]> {
-    if (!this.initialized) await this.init()
+    try {
+      if (!this.initialized) await this.init()
 
-    if (this.useMemoryStorage) {
-      return await memoryDbService.getClientRequests(limit, skip) as any
+      if (this.useMemoryStorage || !this.db) {
+        return (await memoryDbService.getClientRequests(limit, skip)) as any
+      }
+
+      const collection: Collection<ClientRequest> = this.db.collection("client_requests")
+      return (await collection
+        .find({})
+        .project({
+          _id: 1,
+          id: 1,
+          name: 1,
+          email: 1,
+          phone: 1,
+          projectType: 1,
+          budget: 1,
+          timeline: 1,
+          requirements: 1,
+          referenceLinks: 1,
+          status: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        })
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .skip(skip)
+        .toArray()) as any
+    } catch (error) {
+      console.warn("[MongoDB] Fallback to memory for getClientRequests:", error)
+      return (await memoryDbService.getClientRequests(limit, skip)) as any
     }
-
-    const collection: Collection<ClientRequest> = this.db!.collection("client_requests")
-    return await collection
-      .find({})
-      .project({ _id: 1, id: 1, name: 1, email: 1, phone: 1, projectType: 1, budget: 1, timeline: 1, requirements: 1, referenceLinks: 1, status: 1, createdAt: 1, updatedAt: 1 })
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip(skip)
-      .toArray()
   }
 
   async updateClientRequestStatus(id: string, status: ClientRequest["status"]): Promise<boolean> {

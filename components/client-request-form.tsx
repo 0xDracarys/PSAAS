@@ -243,68 +243,68 @@ export function ClientRequestForm() {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Progress Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-serif font-bold">Project Request</h2>
-          <Badge variant="outline" className="glassmorphism">
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-2xl font-normal text-white">Project Request</h2>
+          <Badge variant="outline" className="border-white/25 text-[#ffb829] bg-[#ffb829]/10 font-mono text-xs px-3 py-1">
             Step {currentStep} of {totalSteps}
           </Badge>
         </div>
-        <Progress value={progress} className="h-2" />
+        <Progress value={progress} className="h-1.5 bg-white/15 [&>div]:bg-gradient-to-r [&>div]:from-[#8052ff] [&>div]:to-[#ffb829]" />
       </div>
 
-      <Card className="glassmorphism bg-card/10 border-border/30 overflow-hidden">
+      <Card className="bg-[#0c0c0e]/90 border border-white/20 rounded-[20px] shadow-2xl overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className="p-8"
+            transition={{ duration: 0.25 }}
+            className="p-6 sm:p-8"
           >
             {/* Step 1: Contact Information */}
             {currentStep === 1 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <User className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-serif font-bold mb-2">Contact Information</h3>
-                  <p className="text-muted-foreground">Let's start with your basic details</p>
+                  <User className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif font-bold mb-2 text-white">Contact Information</h3>
+                  <p className="text-[#bdbdbd]">Let's start with your basic details</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name" className="text-white font-medium">Full Name *</Label>
                     <Input
                       id="name"
                       value={formData.name}
                       onChange={(e) => updateFormData("name", e.target.value)}
                       placeholder="John Doe"
-                      className="glassmorphism bg-input/50"
+                      className="bg-black/60 border-white/20 text-white placeholder:text-white/30 focus:border-[#8052ff] focus:ring-1 focus:ring-[#8052ff]"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number *</Label>
+                    <Label htmlFor="phone" className="text-white font-medium">Phone Number *</Label>
                     <Input
                       id="phone"
                       value={formData.phone}
                       onChange={(e) => updateFormData("phone", e.target.value)}
                       placeholder="+1 (555) 123-4567"
-                      className="glassmorphism bg-input/50"
+                      className="bg-black/60 border-white/20 text-white placeholder:text-white/30 focus:border-[#8052ff] focus:ring-1 focus:ring-[#8052ff]"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address *</Label>
+                  <Label htmlFor="email" className="text-white font-medium">Email Address *</Label>
                   <Input
                     id="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => updateFormData("email", e.target.value)}
                     placeholder="john@example.com"
-                    className="glassmorphism bg-input/50"
+                    className="bg-black/60 border-white/20 text-white placeholder:text-white/30 focus:border-[#8052ff] focus:ring-1 focus:ring-[#8052ff]"
                   />
                 </div>
               </div>
@@ -314,29 +314,40 @@ export function ClientRequestForm() {
             {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <Briefcase className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-serif font-bold mb-2">Project Type</h3>
-                  <p className="text-muted-foreground">What kind of project are you looking for?</p>
+                  <Briefcase className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif font-bold mb-2 text-white">Project Type</h3>
+                  <p className="text-[#bdbdbd]">What kind of project are you looking for?</p>
                 </div>
 
                 <RadioGroup
                   value={formData.projectType}
                   onValueChange={(value) => updateFormData("projectType", value)}
-                  className="space-y-4"
+                  className="space-y-3"
                 >
-                  {projectTypes.map((type) => (
-                    <div key={type.value} className="glassmorphism bg-card/5 p-4 rounded-lg border border-border/20">
-                      <div className="flex items-start space-x-3">
-                        <RadioGroupItem value={type.value} id={type.value} className="mt-1" />
-                        <div className="flex-1">
-                          <Label htmlFor={type.value} className="font-semibold cursor-pointer">
-                            {type.label}
-                          </Label>
-                          <p className="text-sm text-muted-foreground mt-1">{type.description}</p>
+                  {projectTypes.map((type) => {
+                    const isSelected = formData.projectType === type.value
+                    return (
+                      <div
+                        key={type.value}
+                        onClick={() => updateFormData("projectType", type.value)}
+                        className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? "border-[#8052ff] bg-[#8052ff]/15 shadow-[0_0_20px_rgba(128,82,255,0.25)]"
+                            : "border-white/20 bg-black/50 hover:border-white/40 hover:bg-white/[0.04]"
+                        }`}
+                      >
+                        <div className="flex items-start space-x-3.5">
+                          <RadioGroupItem value={type.value} id={type.value} className="mt-1" />
+                          <div className="flex-1">
+                            <Label htmlFor={type.value} className={`font-semibold cursor-pointer text-[15px] ${isSelected ? "text-white" : "text-white/90"}`}>
+                              {type.label}
+                            </Label>
+                            <p className="text-sm text-[#9a9a9a] mt-1">{type.description}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </RadioGroup>
               </div>
             )}
@@ -345,30 +356,32 @@ export function ClientRequestForm() {
             {currentStep === 3 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <MessageSquare className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-serif font-bold mb-2">Project Requirements</h3>
-                  <p className="text-muted-foreground">Tell me about your project in detail</p>
+                  <MessageSquare className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif font-bold mb-2 text-white">Project Requirements</h3>
+                  <p className="text-[#bdbdbd]">Tell me about your project in detail</p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="requirements">Detailed Requirements *</Label>
+                  <Label htmlFor="requirements" className="text-white font-medium">Detailed Requirements *</Label>
                   <Textarea
                     id="requirements"
                     value={formData.requirements}
                     onChange={(e) => updateFormData("requirements", e.target.value)}
                     placeholder="Please describe your project requirements, goals, target audience, specific features needed, design preferences, and any other important details..."
-                    className="glassmorphism bg-input/50 min-h-[200px] resize-none"
+                    className="bg-black/60 border-white/20 text-white placeholder:text-white/30 focus:border-[#8052ff] min-h-[200px] resize-none"
                   />
-                  <div className="flex justify-between text-sm text-muted-foreground">
+                  <div className="flex justify-between text-sm text-[#9a9a9a]">
                     <span>Minimum 50 characters required</span>
-                    <span>{formData.requirements.length} characters</span>
+                    <span className={formData.requirements.length >= 50 ? "text-emerald-400" : "text-[#ffb829]"}>
+                      {formData.requirements.length} characters
+                    </span>
                   </div>
                 </div>
 
                 {formData.requirements.length < 50 && formData.requirements.length > 0 && (
-                  <div className="flex items-center gap-2 text-sm text-destructive">
+                  <div className="flex items-center gap-2 text-sm text-red-400">
                     <AlertCircle className="h-4 w-4" />
-                    <span>Please provide more details about your project</span>
+                    <span>Please provide more details about your project (at least 50 characters)</span>
                   </div>
                 )}
               </div>
@@ -378,18 +391,18 @@ export function ClientRequestForm() {
             {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <ImageIcon className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-serif font-bold mb-2">Reference Files</h3>
-                  <p className="text-muted-foreground">Upload any reference images, mockups, or documents (optional)</p>
+                  <ImageIcon className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif font-bold mb-2 text-white">Reference Files</h3>
+                  <p className="text-[#bdbdbd]">Upload any reference images, mockups, or documents (optional)</p>
                 </div>
 
                 <div
-                  className="glassmorphism bg-card/5 border-2 border-dashed border-border/30 rounded-lg p-8 text-center cursor-pointer hover:bg-card/10 transition-colors"
+                  className="bg-black/40 border-2 border-dashed border-white/25 rounded-xl p-8 text-center cursor-pointer hover:border-[#8052ff] hover:bg-white/[0.03] transition-all duration-300"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-lg font-medium mb-2">Drop files here or click to upload</p>
-                  <p className="text-sm text-muted-foreground">
+                  <Upload className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <p className="text-lg font-medium mb-2 text-white">Drop files here or click to upload</p>
+                  <p className="text-sm text-[#9a9a9a]">
                     Supported formats: JPG, PNG, PDF, DOC, DOCX (Max 10MB per file)
                   </p>
                 </div>
@@ -405,24 +418,24 @@ export function ClientRequestForm() {
 
                 {formData.files.length > 0 && (
                   <div className="space-y-3">
-                    <h4 className="font-semibold">Uploaded Files:</h4>
+                    <h4 className="font-semibold text-white">Uploaded Files:</h4>
                     {formData.files.map((file, index) => (
                       <div
                         key={index}
-                        className="glassmorphism bg-card/5 p-3 rounded-lg flex items-center justify-between"
+                        className="bg-black/60 border border-white/15 p-3 rounded-lg flex items-center justify-between"
                       >
                         <div className="flex items-center gap-3">
-                          <FileText className="h-5 w-5 text-primary" />
+                          <FileText className="h-5 w-5 text-[#8052ff]" />
                           <div>
-                            <p className="font-medium">{file.name}</p>
-                            <p className="text-sm text-muted-foreground">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                            <p className="font-medium text-white">{file.name}</p>
+                            <p className="text-sm text-[#9a9a9a]">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                           </div>
                         </div>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => removeFile(index)}
-                          className="text-destructive hover:text-destructive"
+                          className="text-red-400 hover:text-red-300 hover:bg-red-950/30"
                         >
                           Remove
                         </Button>
@@ -437,78 +450,94 @@ export function ClientRequestForm() {
             {currentStep === 5 && (
               <div className="space-y-8">
                 <div className="text-center mb-8">
-                  <Euro className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-serif font-bold mb-2">Budget & Timeline</h3>
-                  <p className="text-muted-foreground">Help me understand your project scope and timeline</p>
+                  <Euro className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif font-bold mb-2 text-white">Budget & Timeline</h3>
+                  <p className="text-[#bdbdbd]">Help me understand your project scope and timeline</p>
                 </div>
 
                 <div className="space-y-12">
                   {/* Budget Selection */}
                   <div className="space-y-6">
-                    <Label className="text-xl font-semibold">Budget Range *</Label>
+                    <Label className="text-xl font-semibold text-white">Budget Range *</Label>
                     <RadioGroup
                       value={formData.budget}
                       onValueChange={(value) => updateFormData("budget", value)}
-                      className="space-y-4"
+                      className="space-y-3"
                     >
-                      {budgetRanges.map((range) => (
-                        <div
-                          key={range.value}
-                          className="glassmorphism bg-card/5 p-4 rounded-lg border border-border/20"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <RadioGroupItem value={range.value} id={range.value} />
-                              <Label htmlFor={range.value} className="font-medium cursor-pointer">
-                                {range.label}
-                              </Label>
+                      {budgetRanges.map((range) => {
+                        const isSelected = formData.budget === range.value
+                        return (
+                          <div
+                            key={range.value}
+                            onClick={() => updateFormData("budget", range.value)}
+                            className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
+                              isSelected
+                                ? "border-[#8052ff] bg-[#8052ff]/15 shadow-[0_0_20px_rgba(128,82,255,0.25)]"
+                                : "border-white/20 bg-black/50 hover:border-white/40 hover:bg-white/[0.04]"
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3.5">
+                                <RadioGroupItem value={range.value} id={range.value} />
+                                <Label htmlFor={range.value} className={`font-medium cursor-pointer text-[15px] ${isSelected ? "text-white" : "text-white/90"}`}>
+                                  {range.label}
+                                </Label>
+                              </div>
+                              <Badge className="bg-[#8052ff]/20 text-[#a57bff] border border-[#8052ff]/40 text-xs">
+                                {range.upfront} upfront
+                              </Badge>
                             </div>
-                            <Badge variant="secondary" className="text-xs">
-                              {range.upfront} upfront
-                            </Badge>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                     </RadioGroup>
                   </div>
 
                   {/* Timeline Selection */}
                   <div className="space-y-6">
-                    <Label className="text-xl font-semibold">Timeline *</Label>
+                    <Label className="text-xl font-semibold text-white">Timeline *</Label>
                     <RadioGroup
                       value={formData.timeline}
                       onValueChange={(value) => updateFormData("timeline", value)}
-                      className="space-y-4"
+                      className="space-y-3"
                     >
-                      {timelineOptions.map((option) => (
-                        <div
-                          key={option.value}
-                          className="glassmorphism bg-card/5 p-4 rounded-lg border border-border/20"
-                        >
-                          <div className="flex items-start space-x-3">
-                            <RadioGroupItem value={option.value} id={option.value} className="mt-1" />
-                            <div>
-                              <Label htmlFor={option.value} className="font-medium cursor-pointer">
-                                {option.label}
-                              </Label>
-                              <p className="text-sm text-muted-foreground mt-1">{option.description}</p>
+                      {timelineOptions.map((option) => {
+                        const isSelected = formData.timeline === option.value
+                        return (
+                          <div
+                            key={option.value}
+                            onClick={() => updateFormData("timeline", option.value)}
+                            className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
+                              isSelected
+                                ? "border-[#8052ff] bg-[#8052ff]/15 shadow-[0_0_20px_rgba(128,82,255,0.25)]"
+                                : "border-white/20 bg-black/50 hover:border-white/40 hover:bg-white/[0.04]"
+                            }`}
+                          >
+                            <div className="flex items-start space-x-3.5">
+                              <RadioGroupItem value={option.value} id={option.value} className="mt-1" />
+                              <div>
+                                <Label htmlFor={option.value} className={`font-medium cursor-pointer text-[15px] ${isSelected ? "text-white" : "text-white/90"}`}>
+                                  {option.label}
+                                </Label>
+                                <p className="text-sm text-[#9a9a9a] mt-1">{option.description}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                     </RadioGroup>
                   </div>
                 </div>
 
                 {/* Reference Links */}
                 <div className="space-y-2">
-                  <Label htmlFor="referenceLinks">Reference Links (Optional)</Label>
+                  <Label htmlFor="referenceLinks" className="text-white font-medium">Reference Links (Optional)</Label>
                   <Textarea
                     id="referenceLinks"
                     value={formData.referenceLinks}
                     onChange={(e) => updateFormData("referenceLinks", e.target.value)}
                     placeholder="Share any websites, designs, or examples that inspire your project..."
-                    className="glassmorphism bg-input/50 min-h-[100px] resize-none"
+                    className="bg-black/60 border-white/20 text-white placeholder:text-white/30 focus:border-[#8052ff] min-h-[100px] resize-none"
                   />
                 </div>
               </div>
@@ -518,63 +547,63 @@ export function ClientRequestForm() {
             {currentStep === 6 && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <FileText className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-2xl font-serif font-bold mb-2">Terms & Conditions</h3>
-                  <p className="text-muted-foreground">Please review and accept the terms</p>
+                  <FileText className="h-12 w-12 text-[#ffb829] mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif font-bold mb-2 text-white">Terms & Conditions</h3>
+                  <p className="text-[#bdbdbd]">Please review and accept the terms</p>
                 </div>
 
                 {/* Project Summary */}
-                <Card className="glassmorphism bg-card/5 p-6">
-                  <h4 className="font-serif font-semibold mb-4">Project Summary</h4>
+                <Card className="bg-black/70 border border-white/20 p-6 rounded-xl">
+                  <h4 className="text-[14px] font-semibold uppercase tracking-[0.35px] text-[#ffb829] mb-4">Project Summary</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <span className="text-muted-foreground">Project Type:</span>
-                      <p className="font-medium">{projectTypes.find((t) => t.value === formData.projectType)?.label}</p>
+                      <span className="text-[#9a9a9a]">Project Type:</span>
+                      <p className="font-medium text-white">{projectTypes.find((t) => t.value === formData.projectType)?.label}</p>
                     </div>
                     <div>
-                      <span className="text-muted-foreground">Budget Range:</span>
-                      <p className="font-medium">{budgetRanges.find((b) => b.value === formData.budget)?.label}</p>
+                      <span className="text-[#9a9a9a]">Budget Range:</span>
+                      <p className="font-medium text-white">{budgetRanges.find((b) => b.value === formData.budget)?.label}</p>
                     </div>
                     <div>
-                      <span className="text-muted-foreground">Timeline:</span>
-                      <p className="font-medium">{timelineOptions.find((t) => t.value === formData.timeline)?.label}</p>
+                      <span className="text-[#9a9a9a]">Timeline:</span>
+                      <p className="font-medium text-white">{timelineOptions.find((t) => t.value === formData.timeline)?.label}</p>
                     </div>
                     <div>
-                      <span className="text-muted-foreground">Upfront Payment:</span>
-                      <p className="font-medium text-primary">{getUpfrontPercentage()}</p>
+                      <span className="text-[#9a9a9a]">Upfront Payment:</span>
+                      <p className="font-medium text-[#ffb829]">{getUpfrontPercentage()}</p>
                     </div>
                   </div>
                 </Card>
 
                 {/* Terms & Conditions */}
-                <Card className="glassmorphism bg-card/5 p-6">
-                  <h4 className="font-serif font-semibold mb-4">Payment Terms</h4>
-                  <div className="space-y-3 text-sm text-muted-foreground">
+                <Card className="bg-black/70 border border-white/20 p-6 rounded-xl">
+                  <h4 className="text-[14px] font-semibold uppercase tracking-[0.35px] text-[#ffb829] mb-4">Payment Terms</h4>
+                  <div className="space-y-3 text-sm text-[#bdbdbd]">
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-[#8052ff] rounded-full mt-2 flex-shrink-0" />
                       <p>
-                        <strong>Upfront Payment:</strong> {getUpfrontPercentage()} of the total project cost is required
+                        <strong className="text-white">Upfront Payment:</strong> {getUpfrontPercentage()} of the total project cost is required
                         before work begins.
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-[#ffb829] rounded-full mt-2 flex-shrink-0" />
                       <p>
-                        <strong>Final Payment:</strong> Remaining balance due upon project completion and client
+                        <strong className="text-white">Final Payment:</strong> Remaining balance due upon project completion and client
                         approval.
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-[#8052ff] rounded-full mt-2 flex-shrink-0" />
                       <p>
-                        <strong>Revisions:</strong> Up to 3 rounds of revisions included. Additional revisions billed
+                        <strong className="text-white">Revisions:</strong> Up to 3 rounds of revisions included. Additional revisions billed
                         separately.
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
-                      <div className="w-2 h-2 bg-secondary rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-[#ffb829] rounded-full mt-2 flex-shrink-0" />
                       <p>
-                        <strong>Timeline:</strong> Project timeline begins after upfront payment and all required
+                        <strong className="text-white">Timeline:</strong> Project timeline begins after upfront payment and all required
                         materials are received.
                       </p>
                     </div>
@@ -582,18 +611,19 @@ export function ClientRequestForm() {
                 </Card>
 
                 {/* Accept Terms */}
-                <div className="glassmorphism bg-card/5 p-6 rounded-lg">
-                  <div className="flex items-start space-x-3">
+                <div className="bg-black/70 border border-white/20 p-6 rounded-xl">
+                  <div className="flex items-start space-x-3.5">
                     <Checkbox
                       id="acceptTerms"
                       checked={formData.acceptTerms}
                       onCheckedChange={(checked) => updateFormData("acceptTerms", checked)}
+                      className="mt-0.5"
                     />
                     <div className="flex-1">
-                      <Label htmlFor="acceptTerms" className="cursor-pointer">
+                      <Label htmlFor="acceptTerms" className="cursor-pointer text-white font-medium">
                         I agree to the payment terms and conditions outlined above *
                       </Label>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-[#9a9a9a] mt-1">
                         By checking this box, you acknowledge that you have read and agree to the project terms, payment
                         schedule, and revision policy.
                       </p>
@@ -606,14 +636,14 @@ export function ClientRequestForm() {
         </AnimatePresence>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between p-6 border-t border-border/30">
+        <div className="flex items-center justify-between p-6 border-t border-white/10 bg-black/40">
           <Button
             variant="outline"
             onClick={prevStep}
             disabled={currentStep === 1}
-            className="glassmorphism bg-transparent"
+            className="border-white/25 text-white hover:bg-white/10 hover:border-white/50 disabled:opacity-40 disabled:hover:bg-transparent rounded-full px-5"
           >
-            <ChevronLeft className="h-4 w-4 mr-2" />
+            <ChevronLeft className="h-4 w-4 mr-1.5" />
             Previous
           </Button>
 
@@ -621,7 +651,13 @@ export function ClientRequestForm() {
             {Array.from({ length: totalSteps }, (_, i) => (
               <div
                 key={i}
-                className={`w-2 h-2 rounded-full transition-colors ${i + 1 <= currentStep ? "bg-primary" : "bg-muted"}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i + 1 === currentStep
+                    ? "w-6 bg-[#ffb829]"
+                    : i + 1 < currentStep
+                    ? "w-2 bg-[#8052ff]"
+                    : "w-2 bg-white/20"
+                }`}
               />
             ))}
           </div>
@@ -630,7 +666,7 @@ export function ClientRequestForm() {
             <Button
               onClick={handleSubmit}
               disabled={!isStepValid() || isSubmitting}
-              className="glow hover:glow-amber transition-all duration-300"
+              className="bg-[#8052ff] hover:bg-[#6b3fe6] text-white font-semibold rounded-full px-6 shadow-[0_0_20px_rgba(128,82,255,0.4)] disabled:opacity-50"
             >
               {isSubmitting ? (
                 <>
@@ -648,10 +684,10 @@ export function ClientRequestForm() {
             <Button
               onClick={nextStep}
               disabled={!isStepValid()}
-              className="glow hover:glow-amber transition-all duration-300"
+              className="bg-[#8052ff] hover:bg-[#6b3fe6] text-white font-semibold rounded-full px-6 shadow-[0_0_15px_rgba(128,82,255,0.3)] disabled:opacity-50"
             >
               Next
-              <ChevronRight className="h-4 w-4 ml-2" />
+              <ChevronRight className="h-4 w-4 ml-1.5" />
             </Button>
           )}
         </div>

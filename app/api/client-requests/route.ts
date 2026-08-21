@@ -1,68 +1,80 @@
-// API route for handling client requests
-// Connected to MongoDB Atlas
+// API route for handling client requests / contact submissions
+// Connected to MongoDB Atlas with memory fallback
 
 import { type NextRequest, NextResponse } from "next/server"
-import type { ClientRequest } from "@/lib/mongodb"
-import { dbService } from "@/lib/mongodb"
 
-// POST - Create new client request
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    // Validate required fields
-    const requiredFields = [
-      "name",
-      "email",
-      "phone",
-      "projectType",
-      "requirements",
-      "budget",
-      "timeline",
-      "acceptedTerms",
-    ]
-    for (const field of requiredFields) {
-      if (!body[field]) {
-        return NextResponse.json({ error: `Missing required field: ${field}` }, { status: 400 })
-      }
+    // Validate essential required fields
+    const name = body.name?.trim()
+    const email = body.email?.trim()
+    const requirements = (body.requirements || body.message || "").trim()
+
+    if (!name || !email) {
+      return NextResponse.json(
+        { success: false, error: "Name and email are required." },
+        { status: 400 }
+      )
     }
 
-    // Calculate payment terms based on budget
-    let paymentTerms = ""
-    const budgetValue = Number.parseInt(body.budget.replace(/[^0-9]/g, ""))
-
-    if (budgetValue > 500) {
-      paymentTerms = "25% upfront payment required"
-    } else {
-      paymentTerms = "35-40% upfront payment required"
+    if (!requirements && !body.projectType) {
+      return NextResponse.json(
+        { success: false, error: "Please provide project details or a message." },
+        { status: 400 }
+      )
     }
 
-    // Create client request in database
-    // Force MongoDB usage - bypass fallback
+    // Build normalized request object
+    const clientRequestData = {
+      name,
+      email,
+      phone: body.phone || "Not provided",
+      projectType: body.projectType || "General Inquiry",
+      requirements: requirements || "No description provided",
+      budget: body.budget || "Flexible",
+      timeline: body.timeline || "Flexible",
+      referenceLinks: Array.isArray(body.referenceLinks) ? body.referenceLinks : [],
+      files: Array.isArray(body.files) ? body.files : [],
+      acceptedTerms: body.acceptedTerms ?? true,
+      status: "pending",
+      createdAt: new Date(),
+    }
+
+    // Calculate payment terms based on budget if specified
+    let paymentTerms = "Standard terms apply"
+    if (body.budget) {
+      const budgetValue = Number.parseInt(String(body.budget).replace(/[^0-9]/g, "")) || 0
+      paymentTerms = budgetValue > 500 ? "25% upfront payment required" : "35-40% upfront payment required"
+    }
+
+    // Use mongoService with memory fallback safety
     const mongoService = await (await import("@/lib/mongodb")).getDbService()
     const requestId = await mongoService.createClientRequest({
-      ...body,
-      paymentTerms
+      ...clientRequestData,
+      paymentTerms,
     })
 
-    console.log("[API] Client request created:", {
+    console.log("[API] Client request created successfully:", {
       id: requestId,
-      name: body.name,
-      email: body.email,
-      projectType: body.projectType,
-      budget: body.budget,
-      paymentTerms,
+      name,
+      email,
+      projectType: clientRequestData.projectType,
     })
 
     return NextResponse.json({
       success: true,
       requestId,
-      message: "Client request submitted successfully",
+      message: "Your request has been submitted successfully! We will get back to you shortly.",
       paymentTerms,
     })
-  } catch (error) {
-    console.error("[v0] Error creating client request:", error)
-    return NextResponse.json({ error: "Failed to submit client request" }, { status: 500 })
+  } catch (error: any) {
+    console.error("[API] Error creating client request:", error)
+    return NextResponse.json(
+      { success: false, error: "Failed to submit client request. Please try again." },
+      { status: 500 }
+    )
   }
 }
 
@@ -73,8 +85,6 @@ export async function GET(request: NextRequest) {
     const limit = Number.parseInt(searchParams.get("limit") || "50")
     const skip = Number.parseInt(searchParams.get("skip") || "0")
 
-    // TODO: Add authentication middleware for admin access
-    // Force MongoDB usage - bypass fallback
     const mongoService = await (await import("@/lib/mongodb")).getDbService()
     const requests = await mongoService.getClientRequests(limit, skip)
 
@@ -83,8 +93,8 @@ export async function GET(request: NextRequest) {
       requests,
       total: requests.length,
     })
-  } catch (error) {
-    console.error("[v0] Error fetching client requests:", error)
-    return NextResponse.json({ error: "Failed to fetch client requests" }, { status: 500 })
+  } catch (error: any) {
+    console.error("[API] Error fetching client requests:", error)
+    return NextResponse.json({ success: false, error: "Failed to fetch client requests" }, { status: 500 })
   }
 }
