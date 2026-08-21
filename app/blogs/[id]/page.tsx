@@ -11,6 +11,9 @@ async function getBlogDirect(id: string) {
   return blogs.find((b: any) => (b._id || b.id) === id) || null
 }
 
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 export default async function BlogDetail({ params }: { params: { id: string } }) {
   const blog = await getBlogDirect(params.id)
   if (!blog) return notFound()
@@ -20,7 +23,9 @@ export default async function BlogDetail({ params }: { params: { id: string } })
       <h1 className="mb-2 text-3xl font-bold">{blog.title}</h1>
       {blog.excerpt && <p className="mb-6 text-muted-foreground">{blog.excerpt}</p>}
       <article className="prose prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: blog.content || '' }} />
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {blog.content || ''}
+        </ReactMarkdown>
       </article>
     </main>
   )

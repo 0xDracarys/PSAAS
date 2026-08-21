@@ -3396,13 +3396,30 @@ function BlogForm({ blog, onSave, onCancel }: { blog?: any, onSave: (data: any) 
     excerpt: blog?.excerpt || '',
     content: blog?.content || '',
     featuredImage: blog?.featuredImage || '',
-    tags: blog?.tags?.join(', ') || '',
+    tags: Array.isArray(blog?.tags) ? blog.tags.join(', ') : (blog?.tags || ''),
     status: blog?.status || 'draft',
     metaTitle: blog?.metaTitle || '',
     metaDescription: blog?.metaDescription || '',
     keywords: blog?.keywords || ''
   });
   const [showImageHelper, setShowImageHelper] = useState(false);
+
+  useEffect(() => {
+    if (blog) {
+      setFormData({
+        title: blog.title || '',
+        slug: blog.slug || '',
+        excerpt: blog.excerpt || '',
+        content: blog.content || '',
+        featuredImage: blog.featuredImage || '',
+        tags: Array.isArray(blog.tags) ? blog.tags.join(', ') : (blog.tags || ''),
+        status: blog.status || 'draft',
+        metaTitle: blog.metaTitle || '',
+        metaDescription: blog.metaDescription || '',
+        keywords: blog.keywords || ''
+      });
+    }
+  }, [blog]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
