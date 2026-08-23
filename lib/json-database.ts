@@ -292,6 +292,17 @@ export class JsonDatabaseService {
     return await bcrypt.compare(password, user.passwordHash)
   }
 
+  async updateAdminPassword(email: string, passwordHash: string): Promise<boolean> {
+    const data = this.loadData()
+    // Depending on what is considered the identifier, email is used in the route.ts, but user might be searched by email or username.
+    const userIndex = data.adminUsers.findIndex((u: DatabaseAdminUser) => u.email === email || u.username === email)
+    if (userIndex === -1) return false
+
+    data.adminUsers[userIndex].passwordHash = passwordHash
+    this.saveData(data)
+    return true
+  }
+
   // Themes CRUD
   async createTheme(theme: any): Promise<string> {
     const data = this.loadData()

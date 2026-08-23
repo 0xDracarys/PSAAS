@@ -117,6 +117,31 @@ export const dbService = {
     return await jsonDatabaseService.verifyAdminPassword(username, password)
   },
 
+  async updateAdminPassword(email: string, passwordHash: string) {
+    await initialize()
+    
+    if (IS_PRODUCTION && mongoAvailable) {
+      try {
+        const { db } = await connectToDatabase()
+        const result = await db.collection('admin_users').updateOne(
+          { email },
+          { 
+            $set: {
+              passwordHash,
+              updatedAt: new Date().toISOString()
+            }
+          }
+        )
+        console.log('[DB] Password updated in MongoDB')
+        if (result.modifiedCount > 0) return true
+      } catch (error) {
+        console.error('[DB] MongoDB write failed:', error)
+      }
+    }
+    
+    return await jsonDatabaseService.updateAdminPassword(email, passwordHash)
+  },
+
   async getProjects(activeOnly = false) {
     await initialize()
     return await jsonDatabaseService.getProjects(activeOnly)

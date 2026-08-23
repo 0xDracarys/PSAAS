@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { connectToDatabase } from '@/lib/mongodb'
+import { dbService } from '@/lib/database-service'
 import bcrypt from 'bcryptjs'
 
 export async function POST(request: Request) {
@@ -29,22 +29,23 @@ export async function POST(request: Request) {
       )
     }
 
-    // Connect to database
-    const { db } = await connectToDatabase()
-    const collection = db.collection('admin_users')
-
-    // Find admin user
-    const admin = await collection.findOne({ email })
-
+    // Verify current password. dbService.verifyAdminPassword uses username or email
+    // However, json db verifyAdminPassword requires the exact username. 
+    // We will get the admin user by email/username first.
+    let isValidPassword = false;
+    
+    // Fallback checking since we've refactored dbService to support fallback
+    // We'll try to get user by the identifier (email/username)
+    const admin = await dbService.getAdminUserByUsername(email);
+    
     if (!admin) {
-      return NextResponse.json(
-        { error: 'Admin user not found' },
-        { status: 404 }
-      )
+       return NextResponse.json(
+         { error: 'Admin user not found' },
+         { status: 404 }
+       )
     }
-
-    // Verify current password
-    const isValidPassword = await bcrypt.compare(currentPassword, admin.passwordHash)
+    
+    isValidPassword = await bcrypt.compare(currentPassword, admin.passwordHash);
 
     if (!isValidPassword) {
       return NextResponse.json(
@@ -57,18 +58,10 @@ export async function POST(request: Request) {
     const salt = await bcrypt.genSalt(12)
     const newPasswordHash = await bcrypt.hash(newPassword, salt)
 
-    // Update password in database
-    const result = await collection.updateOne(
-      { email },
-      {
-        $set: {
-          passwordHash: newPasswordHash,
-          updatedAt: new Date().toISOString(),
-        },
-      }
-    )
+    // Update password via dbService
+    const success = await dbService.updateAdminPassword(email, newPasswordHash)
 
-    if (result.modifiedCount === 0) {
+    if (!success) {
       return NextResponse.json(
         { error: 'Failed to update password' },
         { status: 500 }
