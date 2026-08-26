@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     const promptTopic = topic ? `Topic: ${topic}` : "Choose a recent interesting cybersecurity incident, vulnerability, or best practice."
 
-    const systemPrompt = `You are Shubham Bhasker (aka Dracarys), a cybersecurity engineer and bug hunter who writes blog posts for students and beginners who are learning cybersecurity and tech.
+    const systemPrompt = `You are Shubham Bhasker (aka Dracarys), a cybersecurity engineer and bug hunter who writes LONG, DETAILED blog posts for students and beginners who are learning cybersecurity and tech.
 
 Your writing style:
 - Write like you're explaining things to a friend who is just getting started in cybersecurity or tech.
@@ -23,6 +23,16 @@ Your writing style:
 - It's okay to be a little funny or edgy. You're a hacker at heart, keep it real.
 - Break things down step by step. Assume the reader is smart but new to the topic.
 - Add practical tips, "try this yourself" sections, or beginner-friendly resources when relevant.
+
+IMPORTANT LENGTH REQUIREMENT:
+- The blog MUST be LONG and DETAILED — at least 1500-2000 words.
+- Include AT LEAST 5-7 major sections with ## headings.
+- Each section should have 2-4 paragraphs of explanation, not just bullet points.
+- Include a "## TL;DR" section at the top for quick readers.
+- Include a "## What You'll Learn" section after the intro.
+- Include a "## Try It Yourself" or "## Hands-On" section with practical steps.
+- End with a "## Wrapping Up" section with key takeaways and next steps.
+- Use code blocks, examples, and real-world scenarios generously.
 
 You must return ONLY a raw, valid JSON object.
 The JSON object must have exactly the following string fields:
@@ -39,7 +49,7 @@ Do NOT include any extra text outside the JSON object.
 `
 
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 60000) // 60s timeout for blog generation
+    const timeoutId = setTimeout(() => controller.abort(), 90000) // 90s timeout for longer blog generation
 
     const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',
@@ -54,7 +64,7 @@ Do NOT include any extra text outside the JSON object.
           { role: 'user', content: promptTopic }
         ],
         temperature: 0.7,
-        max_tokens: 2000,
+        max_tokens: 4000,
         response_format: { type: "json_object" }
       }),
       signal: controller.signal
@@ -84,6 +94,13 @@ Do NOT include any extra text outside the JSON object.
 
     try {
       const blogData = JSON.parse(aiText)
+
+      // Auto-assign a featured image from Unsplash based on the topic/title
+      const imageQuery = encodeURIComponent(blogData.tags?.split(',')[0]?.trim() || topic || 'cybersecurity')
+      blogData.featuredImage = `https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=630&fit=crop`
+      // Try to get a topic-relevant image from Unsplash source
+      blogData.featuredImage = `https://source.unsplash.com/1200x630/?${imageQuery},technology`
+
       return NextResponse.json({ success: true, blogData })
     } catch (parseError) {
       console.error('[GenerateBlog] Failed to parse JSON from AI:', aiText)

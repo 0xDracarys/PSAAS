@@ -29,19 +29,30 @@ export default async function BlogsPage() {
             <Link
               key={b._id || b.id}
               href={`/blogs/${b._id || b.id}`}
-              className="block rounded-lg border border-border/50 bg-card/30 p-5 hover:border-primary/60 hover:bg-card/50 transition-colors"
+              className="block rounded-lg border border-border/50 bg-card/30 hover:border-primary/60 hover:bg-card/50 transition-colors overflow-hidden"
             >
-              <h2 className="text-xl md:text-2xl font-serif font-semibold leading-snug">{b.title}</h2>
-              {b.excerpt && (
-                <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground">
-                  {b.excerpt}
-                </p>
+              {b.featuredImage && (
+                <div className="w-full h-48 overflow-hidden">
+                  <img
+                    src={b.featuredImage}
+                    alt={b.title || 'Blog cover'}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               )}
-              <div className="mt-3 text-xs md:text-sm text-muted-foreground">
-                {b.createdAt && <time>{new Date(b.createdAt).toLocaleDateString()}</time>}
-                {Array.isArray(b.tags) && b.tags.length > 0 && (
-                  <span className="ml-3">{b.tags.slice(0, 3).join(' • ')}</span>
+              <div className="p-5">
+                <h2 className="text-xl md:text-2xl font-serif font-semibold leading-snug">{b.title}</h2>
+                {b.excerpt && (
+                  <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground">
+                    {b.excerpt}
+                  </p>
                 )}
+                <div className="mt-3 text-xs md:text-sm text-muted-foreground">
+                  {b.createdAt && <time>{new Date(b.createdAt).toLocaleDateString()}</time>}
+                  {Array.isArray(b.tags) && b.tags.length > 0 && (
+                    <span className="ml-3">{b.tags.slice(0, 3).join(' • ')}</span>
+                  )}
+                </div>
               </div>
             </Link>
           ))}
