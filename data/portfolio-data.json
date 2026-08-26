@@ -1026,7 +1026,7 @@
       "_id": "admin_1",
       "username": "admin",
       "email": "shubhambhasker@gmail.com",
-      "passwordHash": "$2b$10$LE5y8mU.c.zrEvhJw7kbc.3BFmysTBBlvIlFBWym/UsQZRVVMO9r6",
+      "passwordHash": "$2b$12$K.LQ2COEkkrd83VpZsy8Tedt7dligYorb81PNg/poJx0YePcVdxrq",
       "role": "admin",
       "createdAt": "2025-09-06T19:58:13.691Z",
       "lastLogin": "2026-08-21T10:00:18.566Z"

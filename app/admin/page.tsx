@@ -1162,7 +1162,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
             <h3 className="text-lg font-medium">Security Settings</h3>
             <div className="border rounded-lg p-6">
               <h4 className="text-md font-medium mb-4">Change Password</h4>
-              <PasswordChangeForm adminEmail="admin@portfolio.com" />
+              <PasswordChangeForm adminEmail="shubhambhasker@gmail.com" />
             </div>
           </div>
         );
@@ -1490,7 +1490,7 @@ function WebsiteSettingsTab({ debouncedFetch }: { debouncedFetch: (url: string, 
           <Lock className="w-5 h-5 text-primary" />
           Security & Password Management
         </h3>
-        <PasswordChangeForm adminEmail="admin@portfolio.com" />
+        <PasswordChangeForm adminEmail="shubhambhasker@gmail.com" />
       </Card>
     </div>
   )

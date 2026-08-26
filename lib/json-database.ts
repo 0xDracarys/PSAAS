@@ -282,7 +282,7 @@ export class JsonDatabaseService {
 
   async getAdminUserByUsername(username: string): Promise<DatabaseAdminUser | null> {
     const data = this.loadData()
-    return data.adminUsers.find((u: DatabaseAdminUser) => u.username === username) || null
+    return data.adminUsers.find((u: DatabaseAdminUser) => u.username === username || u.email === username) || null
   }
 
   async verifyAdminPassword(username: string, password: string): Promise<boolean> {
