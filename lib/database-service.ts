@@ -109,11 +109,34 @@ export const dbService = {
 
   async getAdminUserByUsername(username: string) {
     await initialize()
+    if (IS_PRODUCTION && mongoAvailable) {
+      try {
+        const { db } = await connectToDatabase()
+        const user = await db.collection('admin_users').findOne({ 
+          $or: [{ username: username }, { email: username }] 
+        })
+        if (user) return {
+          id: user._id?.toString() || user.id,
+          username: user.username,
+          email: user.email,
+          passwordHash: user.passwordHash,
+          role: user.role
+        }
+      } catch (error) {
+        console.error('[DB] MongoDB read failed:', error)
+      }
+    }
     return await jsonDatabaseService.getAdminUserByUsername(username)
   },
 
   async verifyAdminPassword(username: string, password: string) {
     await initialize()
+    if (IS_PRODUCTION && mongoAvailable) {
+      const user = await this.getAdminUserByUsername(username)
+      if (!user) return false
+      const bcrypt = (await import('bcryptjs')).default
+      return await bcrypt.compare(password, user.passwordHash)
+    }
     return await jsonDatabaseService.verifyAdminPassword(username, password)
   },
 
