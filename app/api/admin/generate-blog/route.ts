@@ -34,22 +34,32 @@ IMPORTANT LENGTH REQUIREMENT:
 - End with a "## Wrapping Up" section with key takeaways and next steps.
 - Use code blocks, examples, and real-world scenarios generously.
 
-You must return ONLY a raw, valid JSON object.
-The JSON object must have exactly the following string fields:
-- "title": A catchy, student-friendly title (not too formal).
-- "slug": A URL-friendly version of the title (e.g., what-is-sql-injection).
-- "excerpt": A short, 2-3 sentence summary written casually — hook the reader in.
-- "content": The full blog post in rich Markdown. Use # and ## headings, bullet lists, bold text, code blocks (if applicable), and emojis sparingly to keep it fun and scannable. CRITICAL: The entire value must be a valid JSON string, so you MUST escape all newlines as \\n and double quotes as \\". Do not use actual line breaks in the string.
-- "tags": A comma-separated string of 3-5 relevant tags (e.g., "cybersecurity, beginner, explained").
-- "metaTitle": An SEO optimized title (max 60 characters).
-- "metaDescription": An SEO optimized description (max 160 characters).
-- "keywords": A comma-separated string of SEO keywords.
+You must return the blog post in Markdown format with YAML frontmatter.
+The frontmatter MUST contain exactly these fields:
+title: A catchy, student-friendly title
+slug: A URL-friendly version of the title
+excerpt: A short, 2-3 sentence summary
+tags: A comma-separated string of 3-5 tags
+metaTitle: SEO title
+metaDescription: SEO description
+keywords: SEO keywords
 
-Do NOT include any extra text outside the JSON object.
+Example format:
+---
+title: "Understanding SQL Injection"
+slug: "understanding-sql-injection"
+excerpt: "Learn how hackers use SQL injection to steal data."
+tags: "cybersecurity, beginner, web-security"
+metaTitle: "SQL Injection Explained"
+metaDescription: "A beginner-friendly guide to SQL injection."
+keywords: "sql injection, cybersecurity, hacking"
+---
+## TL;DR
+(Your markdown content starts here...)
 `
 
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 90000) // 90s timeout for longer blog generation
+    const timeoutId = setTimeout(() => controller.abort(), 300000) // 5m timeout for longer blog generation
 
     const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',
@@ -58,14 +68,13 @@ Do NOT include any extra text outside the JSON object.
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'nvidia/llama-3.1-nemotron-70b-instruct',
+        model: 'meta/llama-3.2-11b-vision-instruct',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: promptTopic }
         ],
         temperature: 0.7,
-        max_tokens: 4000,
-        response_format: { type: "json_object" }
+        max_tokens: 4000
       }),
       signal: controller.signal
     })
@@ -80,37 +89,48 @@ Do NOT include any extra text outside the JSON object.
     const data = await response.json()
     let aiText = data.choices?.[0]?.message?.content?.trim() || ''
 
-    // Clean up potential markdown wrapper (```json ... ```)
-    if (aiText.startsWith('```json')) {
-      aiText = aiText.substring(7)
-    }
-    if (aiText.startsWith('```')) {
-      aiText = aiText.substring(3)
-    }
-    if (aiText.endsWith('```')) {
-      aiText = aiText.substring(0, aiText.length - 3)
-    }
-    aiText = aiText.trim()
-
     try {
-      const blogData = JSON.parse(aiText)
+      // Simple YAML/JSON-ish parser for the required fields directly from the text
+      const getField = (key: string) => {
+        // Matches `key: "value"`, `key: value`, `"key": "value"`
+        const regex = new RegExp(`(?:^|\\n)\\s*"?${key}"?:\\s*"?([^"\\n]+)"?`, 'i')
+        const m = aiText.match(regex)
+        return m ? m[1].trim() : ''
+      }
 
-      // Auto-assign a featured image from Unsplash based on the topic/title
-      const imageQuery = encodeURIComponent(blogData.tags?.split(',')[0]?.trim() || topic || 'cybersecurity')
-      blogData.featuredImage = `https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=630&fit=crop`
-      // Try to get a topic-relevant image from Unsplash source
-      blogData.featuredImage = `https://source.unsplash.com/1200x630/?${imageQuery},technology`
+      // The actual blog content usually starts with the first heading
+      let contentStart = aiText.indexOf('##')
+      if (contentStart === -1) contentStart = aiText.indexOf('#')
+      
+      const markdownContent = contentStart !== -1 ? aiText.substring(contentStart).trim() : aiText.trim()
+
+      const blogData = {
+        title: getField('title') || 'Generated Blog',
+        slug: (getField('slug') || 'generated-blog').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''),
+        excerpt: getField('excerpt') || 'A new blog post.',
+        tags: getField('tags'),
+        metaTitle: getField('metaTitle'),
+        metaDescription: getField('metaDescription'),
+        keywords: getField('keywords'),
+        content: markdownContent,
+        featuredImage: ''
+      }
+
+      // Auto-assign a featured image using a free dynamic AI image generator
+      // source.unsplash.com is deprecated, so we use Pollinations AI for high-quality thematic images without watermarks
+      const imageQuery = encodeURIComponent(`${blogData.tags?.split(',')[0]?.trim() || topic || 'cybersecurity'} technology concept clean high quality no text`)
+      blogData.featuredImage = `https://image.pollinations.ai/prompt/${imageQuery}?width=1200&height=630&nologo=true`
 
       return NextResponse.json({ success: true, blogData })
-    } catch (parseError) {
-      console.error('[GenerateBlog] Failed to parse JSON from AI:', aiText)
-      return NextResponse.json({ error: 'AI returned invalid JSON format' }, { status: 500 })
+    } catch (parseError: any) {
+      console.error('[GenerateBlog] Failed to parse JSON from AI:', aiText, parseError)
+      return NextResponse.json({ error: 'AI returned invalid JSON format', details: aiText, parseError: parseError.message }, { status: 500 })
     }
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('[GenerateBlog] Error:', error)
     return NextResponse.json(
-      { error: 'Internal server error during blog generation' },
+      { error: 'Internal server error during blog generation', details: error.message },
       { status: 500 }
     )
   }

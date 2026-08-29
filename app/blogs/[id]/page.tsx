@@ -8,7 +8,40 @@ async function getBlogDirect(id: string) {
   const { getDbService } = await import("@/lib/mongodb")
   const db = await getDbService()
   const blogs = await db.getBlogs(100, 0)
-  return blogs.find((b: any) => (b._id?.toString() || b.id?.toString()) === id) || null
+  return blogs.find((b: any) => 
+    (b._id?.toString() || b.id?.toString()) === id || 
+    b.slug === id ||
+    encodeURIComponent(b.slug || '') === encodeURIComponent(id)
+  ) || null
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const blog = await getBlogDirect(params.id)
+  if (!blog) {
+    return { title: 'Blog Not Found' }
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dracarys.space'
+  const blogUrl = `${siteUrl}/blogs/${params.id}`
+
+  return {
+    title: blog.metaTitle || blog.title,
+    description: blog.metaDescription || blog.excerpt,
+    keywords: blog.keywords,
+    openGraph: {
+      title: blog.title,
+      description: blog.excerpt,
+      url: blogUrl,
+      type: 'article',
+      images: blog.featuredImage ? [{ url: blog.featuredImage }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.excerpt,
+      images: blog.featuredImage ? [blog.featuredImage] : [],
+    }
+  }
 }
 
 import ReactMarkdown from 'react-markdown'

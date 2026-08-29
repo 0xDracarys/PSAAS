@@ -2808,6 +2808,8 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [editingBlog, setEditingBlog] = useState<any>(null)
   const [isGeneratingAi, setIsGeneratingAi] = useState(false)
+  const [aiStatus, setAiStatus] = useState('')
+  const [aiProgress, setAiProgress] = useState(0)
   const [draftAiBlog, setDraftAiBlog] = useState<any>(null)
 
   useEffect(() => {
@@ -2833,12 +2835,35 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
     if (topic === null) return // User cancelled
 
     setIsGeneratingAi(true)
+    setAiStatus('Initializing AI models...')
+    setAiProgress(5)
+    
+    // Setup a simulated progress interval to give user feedback
+    const progressInterval = setInterval(() => {
+      setAiProgress(prev => {
+        if (prev < 40) return prev + 15
+        if (prev < 80) return prev + 5
+        if (prev < 95) return prev + 1
+        return prev
+      })
+      setAiStatus(prev => {
+        if (prev === 'Initializing AI models...') return 'Researching topic...'
+        if (prev === 'Researching topic...') return 'Drafting blog content...'
+        if (prev === 'Drafting blog content...') return 'Writing markdown and tags...'
+        return prev
+      })
+    }, 5000)
+
     try {
       const response = await fetch('/api/admin/generate-blog', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: topic.trim() })
       })
+      
+      clearInterval(progressInterval)
+      setAiProgress(100)
+      setAiStatus('Finalizing...')
       
       const data = await response.json()
       
@@ -2849,10 +2874,14 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
         alert(data.error || 'Failed to generate AI blog')
       }
     } catch (error) {
+      clearInterval(progressInterval)
       console.error('Error generating AI blog:', error)
       alert('Error communicating with AI service')
     } finally {
+      clearInterval(progressInterval)
       setIsGeneratingAi(false)
+      setAiStatus('')
+      setAiProgress(0)
     }
   }
 
@@ -2936,14 +2965,29 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
             onClick={handleGenerateAiBlog} 
             disabled={isGeneratingAi}
             variant="secondary"
-            className="glow hover:glow-amber transition-all duration-300"
+            className="glow hover:glow-amber transition-all duration-300 relative overflow-hidden group"
           >
-            {isGeneratingAi ? (
-              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            {/* Progress bar background */}
+            {isGeneratingAi && (
+              <div 
+                className="absolute left-0 top-0 bottom-0 bg-amber-500/20 transition-all duration-500" 
+                style={{ width: `${aiProgress}%` }}
+              />
             )}
-            AI Generate Blog
+            
+            <div className="relative flex items-center z-10">
+              {isGeneratingAi ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                  {aiStatus || 'Generating...'} {aiProgress}%
+                </>
+              ) : (
+                <>
+                  <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  AI Generate Blog
+                </>
+              )}
+            </div>
           </Button>
           <Button onClick={() => setShowCreateForm(true)}>
             <Plus className="h-4 w-4 mr-2" />
