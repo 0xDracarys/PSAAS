@@ -67,13 +67,13 @@ keywords: "sql injection, cybersecurity, hacking"
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'meta/llama-3.2-11b-vision-instruct',
+        model: 'meta/llama-3.1-8b-instruct',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: promptTopic }
         ],
         temperature: 0.7,
-        max_tokens: 4000
+        max_tokens: 1500
       }),
       signal: controller.signal
     })
