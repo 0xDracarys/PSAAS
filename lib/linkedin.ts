@@ -13,7 +13,26 @@
  *  5. Paste the token into LINKEDIN_ACCESS_TOKEN in .env
  */
 
+import { getDbService } from './mongodb'
+
 const LINKEDIN_API_BASE = 'https://api.linkedin.com/v2'
+
+/**
+ * Gets the LinkedIn access token. Prioritizes the token stored in the database
+ * (via the admin dashboard) and falls back to process.env.
+ */
+async function getAccessToken(): Promise<string | undefined> {
+  try {
+    const mongoService = await getDbService()
+    const settings = await mongoService.getWebsiteSettings()
+    if (settings?.integrations?.linkedInAccessToken) {
+      return settings.integrations.linkedInAccessToken
+    }
+  } catch (error) {
+    console.error('[LinkedIn] Failed to fetch token from DB:', error)
+  }
+  return process.env.LINKEDIN_ACCESS_TOKEN
+}
 
 export interface LinkedInPostData {
   title: string
@@ -60,7 +79,7 @@ async function getLinkedInUserId(accessToken: string): Promise<string> {
  *   - Relevant hashtags from the blog's tags
  */
 export async function shareToLinkedIn(postData: LinkedInPostData): Promise<LinkedInPostResult> {
-  const accessToken = process.env.LINKEDIN_ACCESS_TOKEN
+  const accessToken = await getAccessToken()
 
   if (!accessToken) {
     return {
@@ -166,7 +185,7 @@ export async function checkLinkedInConnection(): Promise<{
   userName?: string
   error?: string
 }> {
-  const accessToken = process.env.LINKEDIN_ACCESS_TOKEN
+  const accessToken = await getAccessToken()
 
   if (!accessToken || accessToken === 'your-linkedin-access-token-here') {
     return {

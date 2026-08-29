@@ -84,6 +84,9 @@ export interface MemoryWebsiteSettings {
     description: string
     color: string
   }>
+  integrations?: {
+    linkedInAccessToken?: string
+  }
   musicTracks: Array<{
     title: string
     description: string
