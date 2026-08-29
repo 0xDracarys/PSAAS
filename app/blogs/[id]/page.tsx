@@ -8,7 +8,7 @@ async function getBlogDirect(id: string) {
   const { getDbService } = await import("@/lib/mongodb")
   const db = await getDbService()
   const blogs = await db.getBlogs(100, 0)
-  return blogs.find((b: any) => (b._id || b.id) === id) || null
+  return blogs.find((b: any) => (b._id?.toString() || b.id?.toString()) === id) || null
 }
 
 import ReactMarkdown from 'react-markdown'
