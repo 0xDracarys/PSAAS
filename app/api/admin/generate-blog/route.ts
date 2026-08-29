@@ -58,7 +58,7 @@ Do NOT include any extra text outside the JSON object.
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'meta/llama-3.1-8b-instruct',
+        model: 'nvidia/llama-3.1-nemotron-70b-instruct',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: promptTopic }

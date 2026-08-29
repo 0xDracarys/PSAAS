@@ -294,7 +294,7 @@ Tone & Style:
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'meta/llama-3.1-8b-instruct',
+          model: 'nvidia/llama-3.1-nemotron-70b-instruct',
           messages: messagesPayload,
           temperature: 0.5,
           max_tokens: 300
