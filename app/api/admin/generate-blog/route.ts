@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// Vercel Serverless Function timeout configuration
+// Hobby plans max out at 60s, Pro at 300s. We set to 60s for maximum compatibility.
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const { topic } = await request.json()
@@ -25,14 +29,9 @@ Your writing style:
 - Add practical tips, "try this yourself" sections, or beginner-friendly resources when relevant.
 
 IMPORTANT LENGTH REQUIREMENT:
-- The blog MUST be LONG and DETAILED — at least 1500-2000 words.
-- Include AT LEAST 5-7 major sections with ## headings.
-- Each section should have 2-4 paragraphs of explanation, not just bullet points.
-- Include a "## TL;DR" section at the top for quick readers.
-- Include a "## What You'll Learn" section after the intro.
-- Include a "## Try It Yourself" or "## Hands-On" section with practical steps.
-- End with a "## Wrapping Up" section with key takeaways and next steps.
-- Use code blocks, examples, and real-world scenarios generously.
+- Keep the blog CONCISE and to the point. Under 500-700 words total.
+- This ensures fast generation for serverless functions.
+- Include a "## TL;DR" section at the top.
 
 You must return the blog post in Markdown format with YAML frontmatter.
 The frontmatter MUST contain exactly these fields:
@@ -59,7 +58,7 @@ keywords: "sql injection, cybersecurity, hacking"
 `
 
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 300000) // 5m timeout for longer blog generation
+    const timeoutId = setTimeout(() => controller.abort(), 55000) // 55s timeout (must be < 60s for Vercel Hobby)
 
     const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',
