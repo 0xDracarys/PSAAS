@@ -14,6 +14,7 @@ async function getBlogDirect(id: string) {
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { BlogDetailClient } from './blog-detail-client'
+import { BlogComments } from '@/components/blog-comments'
 
 export default async function BlogDetail({ params }: { params: { id: string } }) {
   const blog = await getBlogDirect(params.id)
@@ -21,6 +22,15 @@ export default async function BlogDetail({ params }: { params: { id: string } })
 
   const blogId = (blog._id || blog.id)?.toString()
   const blogUrl = `https://dracarys.space/blogs/${blogId}`
+
+  // Increment view count server-side (fire and forget)
+  try {
+    const { getDbService } = await import("@/lib/mongodb")
+    const db = await getDbService()
+    await db.incrementBlogViews(blogId)
+  } catch (e) {
+    // Non-critical, don't block render
+  }
 
   return (
     <>
@@ -68,6 +78,7 @@ export default async function BlogDetail({ params }: { params: { id: string } })
             {blog.content || ''}
           </ReactMarkdown>
         </article>
+        <BlogComments blogId={blogId} />
       </main>
     </>
   )

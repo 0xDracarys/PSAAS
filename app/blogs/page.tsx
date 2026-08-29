@@ -20,8 +20,10 @@ export default async function BlogsPage() {
     id: (b._id || b.id)?.toString(),
     title: b.title,
     excerpt: b.excerpt,
+    content: b.content ? b.content.substring(0, 2000) : '', // Truncated for search only
     featuredImage: b.featuredImage,
     tags: b.tags,
+    views: b.views || 0,
     createdAt: b.createdAt ? new Date(b.createdAt).toISOString() : null,
   }))
 

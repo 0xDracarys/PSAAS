@@ -707,11 +707,23 @@ export class DatabaseService {
       return await memoryDbService.incrementBlogViews(id) as any
     }
     const collection: Collection<any> = this.db!.collection("blogs")
-    const result = await collection.updateOne(
-      { _id: id },
-      { $inc: { views: 1 } }
-    )
-    return result.modifiedCount > 0
+    // Try ObjectId first, then fall back to string
+    let result = null
+    try {
+      result = await collection.updateOne(
+        { _id: new ObjectId(id) },
+        { $inc: { views: 1 } }
+      )
+    } catch {
+      // id is not a valid ObjectId string, try as plain string
+    }
+    if (!result || result.modifiedCount === 0) {
+      result = await collection.updateOne(
+        { _id: id as any },
+        { $inc: { views: 1 } }
+      )
+    }
+    return (result?.modifiedCount ?? 0) > 0
   }
 }
 
