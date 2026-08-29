@@ -356,18 +356,18 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
     experience: [
       {
         id: "exp_1",
-        title: "Customer Success Manager",
+        title: "Billing Specialist",
         company: "CYBERCARE - NORDVPN",
         duration: "14/10/2024 – 15/01/2026",
-        description: "Managing Tier 2 technical escalations at NordVPN, specializing in complex networking protocols and API-driven troubleshooting.",
+        description: "Billing Specialist managing payment operations, KYC/AML compliance workflows, and Tier 2 financial escalations at NordVPN's customer care division.",
         achievements: [
-          "Integration & Troubleshooting: Rapidly progressed to Tier 2 escalations, resolving complex connectivity and system configuration issues.",
-          "Protocol Expertise: Mastered technical implementation and troubleshooting of VPN protocols (NordLynx, OpenVPN) and communication protocols including TCP/IP.",
-          "Log Analysis & Diagnosis: Analyze system logs to identify root causes for connectivity failures in highly restricted regions.",
-          "API & Tooling: Use manual connection setups and custom configurations to bypass network restrictions, mirroring API-level diagnostic workflows.",
-          "Process Improvement: Actively use Jira to document software bugs and provide technical feedback for developer-led remediation.",
-          "Utilized Zendesk to manage and streamline customer support operations, ensuring a 95% SLA adherence for ticket resolution.",
-          "Worked extensively with payment platforms like Adyen, Stripe, and Paddle to locate transactions, resolve discrepancies, and optimize payment processes for better customer satisfaction."
+          "KYC & Identity Verification: Conducted thorough Know Your Customer (KYC) checks to verify customer identities and ensure compliance with global regulatory requirements.",
+          "AML Compliance: Applied Anti-Money Laundering (AML) procedures to flag and investigate suspicious transactions, escalating high-risk accounts to the compliance team for review.",
+          "Payment Operations: Worked extensively with payment platforms including Adyen, Stripe, and Paddle to locate transactions, resolve billing discrepancies, issue refunds, and manage chargebacks.",
+          "Billing Escalations: Handled Tier 2 billing escalations from frontline agents — resolving complex subscription, invoicing, and payment failures that required deep platform-level investigation.",
+          "Fraud Detection: Identified patterns indicative of fraudulent activity and payment abuse, coordinating with the risk team to prevent financial losses.",
+          "SLA Adherence: Utilized Zendesk to manage and streamline customer billing operations, maintaining 95%+ SLA adherence for ticket resolution across billing queues.",
+          "Regulatory Reporting: Prepared and maintained accurate financial and compliance records for audit readiness, supporting internal and external regulatory reviews."
         ]
       },
       {
@@ -391,7 +391,7 @@ const sampleWebsiteSettings: MemoryWebsiteSettings[] = [
       { name: "Web Application Security", level: 85 },
       { name: "Full-Stack Development (React, Node.js)", level: 80 },
       { name: "Bug Hunting & Vulnerability Assessment", level: 80 },
-      { name: "Customer Success Management", level: 85 },
+      { name: "Billing & Compliance (KYC/AML)", level: 85 },
       { name: "Network Security & SIEM/SOAR", level: 75 },
       { name: "Python & Bash Scripting", level: 80 },
       { name: "Cloud Security (AWS/Azure)", level: 70 },

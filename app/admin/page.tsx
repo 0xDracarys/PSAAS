@@ -48,6 +48,7 @@ import {
 import { PasswordChangeForm } from "@/components/password-change-form"
 import ShaderBackgroundSettings from "@/components/shader-background-settings"
 import ProfessionalJourneySettings from "@/components/professional-journey-settings"
+import { LinkedInShareButton } from "@/components/linkedin-share-button"
 
 // Types for API data
 interface Project {
@@ -2932,7 +2933,8 @@ function BlogManagementTab({ debouncedFetch }: { debouncedFetch: (url: string, d
                     <span>Views: {blog.views || 0}</span>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <LinkedInShareButton blog={blog} />
                   <Button
                     variant="ghost"
                     size="sm"
