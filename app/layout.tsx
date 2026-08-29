@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Suspense } from "react"
 import Link from "next/link"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ReadingListProvider } from "@/components/reading-list-provider"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -86,9 +87,11 @@ export default function RootLayout({
               </nav>
             </header>
 
-            <Suspense fallback={null}>
-              {children}
-            </Suspense>
+            <ReadingListProvider>
+              <Suspense fallback={null}>
+                {children}
+              </Suspense>
+            </ReadingListProvider>
           </div>
         </ThemeProvider>
       </body>

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { BlogsPageClient } from "./blogs-page-client"
 
 // Force dynamic rendering - don't try to fetch data at build time
 export const dynamic = 'force-dynamic'
@@ -14,52 +15,19 @@ async function getBlogsDirect() {
 export default async function BlogsPage() {
   const blogs = await getBlogsDirect()
 
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-12">
-      <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight">Blog</h1>
-        <p className="mt-2 text-sm md:text-base text-muted-foreground">Insights, notes, and updates.</p>
-      </header>
+  // Serialize blog data for client components
+  const serializedBlogs = blogs.map((b: any) => ({
+    id: (b._id || b.id)?.toString(),
+    title: b.title,
+    excerpt: b.excerpt,
+    featuredImage: b.featuredImage,
+    tags: b.tags,
+    createdAt: b.createdAt ? new Date(b.createdAt).toISOString() : null,
+  }))
 
-      {blogs.length === 0 ? (
-        <p className="text-sm text-muted-foreground">No posts yet.</p>
-      ) : (
-        <div className="space-y-5">
-          {blogs.map((b: any) => (
-            <Link
-              key={b._id || b.id}
-              href={`/blogs/${b._id || b.id}`}
-              className="block rounded-lg border border-border/50 bg-card/30 hover:border-primary/60 hover:bg-card/50 transition-colors overflow-hidden"
-            >
-              {b.featuredImage && (
-                <div className="w-full h-48 overflow-hidden">
-                  <img
-                    src={b.featuredImage}
-                    alt={b.title || 'Blog cover'}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="p-5">
-                <h2 className="text-xl md:text-2xl font-serif font-semibold leading-snug">{b.title}</h2>
-                {b.excerpt && (
-                  <p className="mt-2 text-sm md:text-base leading-relaxed text-muted-foreground">
-                    {b.excerpt}
-                  </p>
-                )}
-                <div className="mt-3 text-xs md:text-sm text-muted-foreground">
-                  {b.createdAt && <time>{new Date(b.createdAt).toLocaleDateString()}</time>}
-                  {Array.isArray(b.tags) && b.tags.length > 0 && (
-                    <span className="ml-3">{b.tags.slice(0, 3).join(' • ')}</span>
-                  )}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+  return (
+    <main className="mx-auto max-w-4xl px-4 py-12">
+      <BlogsPageClient blogs={serializedBlogs} />
     </main>
   )
 }
-
-
