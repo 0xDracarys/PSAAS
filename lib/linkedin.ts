@@ -104,7 +104,8 @@ export async function shareToLinkedIn(postData: LinkedInPostData): Promise<Linke
         : '#WebDevelopment #Tech #Cybersecurity'
 
     // Step 3: Compose the post text
-    const postText = `🚀 New blog post just dropped!\n\n📖 ${postData.title}\n\n${postData.excerpt}\n\nRead the full post on my website 👇\n${postData.blogUrl}\n\n${hashtags}`
+    const cleanExcerpt = postData.excerpt.replace(/[\r\n]+/g, ' ').trim()
+    const postText = `🚀 Just published a new article: "${postData.title}"\n\n💡 ${cleanExcerpt}\n\nKey takeaways:\n✅ In-depth analysis & insights\n✅ Practical applications\n✅ Latest trends discussed\n\nRead the full post on my website 👇\n🔗 ${postData.blogUrl}\n\n${hashtags}`
 
     // Step 4: Create UGC Post via LinkedIn API
     const ugcPost = {
